@@ -1,0 +1,15 @@
+Manifest-Version: 1.0
+Bundle-Localization: plugin
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-SymbolicName: org.eclipse.xtend.typesystem.xsd
+Require-Bundle: org.eclipse.xsd;visibility:=reexport,org.eclipse.xtend
+ ,org.eclipse.xtend.util.stdlib,org.eclipse.xtend.typesystem.emf;visib
+ ility:=reexport,org.eclipse.emf.mwe.utils,org.eclipse.emf.ecore.xmi,o
+ rg.eclipse.xpand
+Bundle-Version: 1.2.0.v201206110941
+Export-Package: org.eclipse.xtend.typesystem.xsd,org.eclipse.xtend.typ
+ esystem.xsd.builder,org.eclipse.xtend.typesystem.xsd.lib,org.eclipse.
+ xtend.typesystem.xsd.type,org.eclipse.xtend.typesystem.xsd.util
+Ant-Version: Apache Ant 1.8.2
+Bundle-Vendor: %providerName
+Bundle-Name: %pluginName

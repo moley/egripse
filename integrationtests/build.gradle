@@ -1,0 +1,6 @@
+dependencies {
+    compile project (":eclipsebase")
+    compile project (":eclipseplugin")
+    compile project (":eclipsefeature")
+    compile project (":eclipsemwe")
+}

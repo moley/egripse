@@ -1,0 +1,157 @@
+2013-10-14 08:22:21,043 INFO [main] o.g.c.p.BuildScriptProcessor Evaluating project ':org.eclipse.egripse.plugin' using build file '/Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build.gradle'.
+2013-10-14 08:22:21,060 INFO [main] o.g.p.e.EclipsePluginPlugin Applying plugin class org.gradle.plugins.eclipseplugin.EclipsePluginPlugin in project org.eclipse.egripse.plugin
+2013-10-14 08:22:21,086 INFO [main] o.g.p.e.EclipsePluginPlugin Configure projectlayout for project org.eclipse.egripse.plugin
+2013-10-14 08:22:21,106 INFO [main] o.g.p.e.EclipsePluginPlugin  - sourcesets : [/Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/src, /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/src-gen]
+2013-10-14 08:22:21,107 INFO [main] o.g.BuildLogger All projects evaluated.
+2013-10-14 08:22:21,159 INFO [main] o.g.e.TaskNameResolvingBuildConfigurationAction Selected primary tasks 'clean', 'build'
+2013-10-14 08:22:21,161 INFO [main] o.g.BuildLogger Tasks to be executed: [task ':clean', task ':org.eclipse.egripse.feature:clean', task ':org.eclipse.egripse.plugin:clean', task ':compileJava', task ':processResources', task ':classes', task ':jar', task ':assemble', task ':compileTestJava', task ':processTestResources', task ':testClasses', task ':test', task ':check', task ':build', task ':org.eclipse.egripse.feature:configureBuild', task ':org.eclipse.egripse.feature:compileJava', task ':org.eclipse.egripse.feature:processResources', task ':org.eclipse.egripse.feature:classes', task ':org.eclipse.egripse.feature:jar', task ':org.eclipse.egripse.feature:assemble', task ':org.eclipse.egripse.feature:compileTestJava', task ':org.eclipse.egripse.feature:processTestResources', task ':org.eclipse.egripse.feature:testClasses', task ':org.eclipse.egripse.feature:test', task ':org.eclipse.egripse.feature:check', task ':org.eclipse.egripse.feature:build', task ':org.eclipse.egripse.plugin:configureBuild', task ':org.eclipse.egripse.plugin:compileJava', task ':org.eclipse.egripse.plugin:copyFromBuildProperties', task ':org.eclipse.egripse.plugin:processResources', task ':org.eclipse.egripse.plugin:classes', task ':org.eclipse.egripse.plugin:jar', task ':org.eclipse.egripse.plugin:assemble', task ':org.eclipse.egripse.plugin:compileTestJava', task ':org.eclipse.egripse.plugin:processTestResources', task ':org.eclipse.egripse.plugin:testClasses', task ':org.eclipse.egripse.plugin:test', task ':org.eclipse.egripse.plugin:check', task ':org.eclipse.egripse.plugin:build']
+2013-10-14 08:22:21,170 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :clean (Thread[main,5,main]) started.
+2013-10-14 08:22:21,171 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':clean' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+2013-10-14 08:22:21,173 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :clean (Thread[main,5,main]) completed. Took 0.003 secs.
+2013-10-14 08:22:21,173 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:clean (Thread[main,5,main]) started.
+2013-10-14 08:22:21,173 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.feature:clean' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+2013-10-14 08:22:21,175 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:clean (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,175 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:clean (Thread[main,5,main]) started.
+2013-10-14 08:22:21,175 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:clean' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+2013-10-14 08:22:21,179 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:clean (Thread[main,5,main]) completed. Took 0.004 secs.
+2013-10-14 08:22:21,179 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :compileJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,180 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':compileJava' as it has no source files.
+2013-10-14 08:22:21,181 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :compileJava (Thread[main,5,main]) completed. Took 0.002 secs.
+2013-10-14 08:22:21,181 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :processResources (Thread[main,5,main]) started.
+2013-10-14 08:22:21,181 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':processResources' as it has no source files.
+2013-10-14 08:22:21,182 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :processResources (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,182 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :classes (Thread[main,5,main]) started.
+2013-10-14 08:22:21,182 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':classes' as it has no actions.
+2013-10-14 08:22:21,183 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :classes (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,183 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :jar (Thread[main,5,main]) started.
+2013-10-14 08:22:21,223 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':jar' (up-to-date check took 0.035 secs) due to:
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/build/libs/flat.jar has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/build/libs/flat.jar has been removed.
+2013-10-14 08:22:21,261 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :jar (Thread[main,5,main]) completed. Took 0.078 secs.
+2013-10-14 08:22:21,262 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :assemble (Thread[main,5,main]) started.
+2013-10-14 08:22:21,262 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':assemble' as it has no actions.
+2013-10-14 08:22:21,262 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :assemble (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,262 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :compileTestJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,263 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':compileTestJava' as it has no source files.
+2013-10-14 08:22:21,263 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :compileTestJava (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,263 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :processTestResources (Thread[main,5,main]) started.
+2013-10-14 08:22:21,264 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':processTestResources' as it has no source files.
+2013-10-14 08:22:21,264 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :processTestResources (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,264 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :testClasses (Thread[main,5,main]) started.
+2013-10-14 08:22:21,264 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':testClasses' as it has no actions.
+2013-10-14 08:22:21,265 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :testClasses (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,265 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :test (Thread[main,5,main]) started.
+2013-10-14 08:22:21,267 INFO [main] o.g.a.i.f.c.DirectoryFileTree file or directory '/Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/build/classes/test', not found
+2013-10-14 08:22:21,267 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':test' as it has no source files.
+2013-10-14 08:22:21,267 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :test (Thread[main,5,main]) completed. Took 0.002 secs.
+2013-10-14 08:22:21,267 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :check (Thread[main,5,main]) started.
+2013-10-14 08:22:21,267 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':check' as it has no actions.
+2013-10-14 08:22:21,267 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :check (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,267 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :build (Thread[main,5,main]) started.
+2013-10-14 08:22:21,268 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':build' as it has no actions.
+2013-10-14 08:22:21,268 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :build (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,268 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:configureBuild (Thread[main,5,main]) started.
+2013-10-14 08:22:21,268 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.feature:configureBuild' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+2013-10-14 08:22:21,271 INFO [main] o.g.p.e.c.ProjectVersionConfigurator Set current version 1.0.0.201310140822 in plugin org.eclipse.egripse.feature
+2013-10-14 08:22:21,271 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:configureBuild (Thread[main,5,main]) completed. Took 0.003 secs.
+2013-10-14 08:22:21,271 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:compileJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,272 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.feature:compileJava' as it has no source files.
+2013-10-14 08:22:21,272 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:compileJava (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,272 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:processResources (Thread[main,5,main]) started.
+2013-10-14 08:22:21,273 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.feature:processResources' as it has no source files.
+2013-10-14 08:22:21,273 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:processResources (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,273 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:classes (Thread[main,5,main]) started.
+2013-10-14 08:22:21,273 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.feature:classes' as it has no actions.
+2013-10-14 08:22:21,274 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:classes (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,274 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:jar (Thread[main,5,main]) started.
+2013-10-14 08:22:21,282 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.feature:jar' (up-to-date check took 0.006 secs) due to:
+  No history is available.
+2013-10-14 08:22:21,290 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:jar (Thread[main,5,main]) completed. Took 0.016 secs.
+2013-10-14 08:22:21,290 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:assemble (Thread[main,5,main]) started.
+2013-10-14 08:22:21,290 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.feature:assemble' as it has no actions.
+2013-10-14 08:22:21,290 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:assemble (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,290 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:compileTestJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,291 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.feature:compileTestJava' as it has no source files.
+2013-10-14 08:22:21,291 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:compileTestJava (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,291 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:processTestResources (Thread[main,5,main]) started.
+2013-10-14 08:22:21,292 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.feature:processTestResources' as it has no source files.
+2013-10-14 08:22:21,293 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:processTestResources (Thread[main,5,main]) completed. Took 0.002 secs.
+2013-10-14 08:22:21,293 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:testClasses (Thread[main,5,main]) started.
+2013-10-14 08:22:21,293 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.feature:testClasses' as it has no actions.
+2013-10-14 08:22:21,293 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:testClasses (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,294 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:test (Thread[main,5,main]) started.
+2013-10-14 08:22:21,296 INFO [main] o.g.a.i.f.c.DirectoryFileTree file or directory '/Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.feature/build/classes/test', not found
+2013-10-14 08:22:21,296 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.feature:test' as it has no source files.
+2013-10-14 08:22:21,297 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:test (Thread[main,5,main]) completed. Took 0.003 secs.
+2013-10-14 08:22:21,297 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:check (Thread[main,5,main]) started.
+2013-10-14 08:22:21,297 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.feature:check' as it has no actions.
+2013-10-14 08:22:21,297 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:check (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,298 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:build (Thread[main,5,main]) started.
+2013-10-14 08:22:21,298 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.feature:build' as it has no actions.
+2013-10-14 08:22:21,298 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.feature:build (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,298 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:configureBuild (Thread[main,5,main]) started.
+2013-10-14 08:22:21,299 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:configureBuild' (up-to-date check took 0.0 secs) due to:
+  Task has not declared any outputs.
+2013-10-14 08:22:21,306 INFO [main] o.g.p.e.ConfigurePluginProjectTask Attributes = [Manifest-Version]
+2013-10-14 08:22:21,308 INFO [main] o.g.p.e.ConfigurePluginProjectTask Version: 1.0.0.201310140822
+2013-10-14 08:22:21,320 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:configureBuild (Thread[main,5,main]) completed. Took 0.021 secs.
+2013-10-14 08:22:21,320 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:compileJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,358 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:compileJava' (up-to-date check took 0.03 secs) due to:
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/classes/main has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/dependency-cache has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/classes/main/org/eclipse/egripse/plugin/SomeService.class has been removed.
+2013-10-14 08:22:21,380 INFO [main] o.g.a.i.t.c.j.Jdk6JavaCompiler Compiling with JDK Java compiler API.
+2013-10-14 08:22:21,822 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:compileJava (Thread[main,5,main]) completed. Took 0.502 secs.
+2013-10-14 08:22:21,823 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:copyFromBuildProperties (Thread[main,5,main]) started.
+2013-10-14 08:22:21,830 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:copyFromBuildProperties' (up-to-date check took 0.004 secs) due to:
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/resources/main has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/resources/main/META-INF/MANIFEST.MF has been removed.
+2013-10-14 08:22:21,844 INFO [main] o.g.p.e.m.Dependency Create new dependency 2043900937: org.eclipse.ui
+2013-10-14 08:22:21,844 INFO [main] o.g.p.e.m.Dependency Create new dependency 694630747: org.eclipse.core.runtime
+2013-10-14 08:22:21,852 INFO [main] o.g.p.e.c.BuildPropertiesConfigurator Set version of /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/resources/main/META-INF/MANIFEST.MF to 1.0.0.201310140822
+2013-10-14 08:22:21,856 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:copyFromBuildProperties (Thread[main,5,main]) completed. Took 0.033 secs.
+2013-10-14 08:22:21,857 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:processResources (Thread[main,5,main]) started.
+2013-10-14 08:22:21,857 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.plugin:processResources' as it has no source files.
+2013-10-14 08:22:21,858 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:processResources (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:21,858 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:classes (Thread[main,5,main]) started.
+2013-10-14 08:22:21,858 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.plugin:classes' as it has no actions.
+2013-10-14 08:22:21,858 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:classes (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,858 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:jar (Thread[main,5,main]) started.
+2013-10-14 08:22:21,871 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:jar' (up-to-date check took 0.01 secs) due to:
+  No history is available.
+2013-10-14 08:22:21,890 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:jar (Thread[main,5,main]) completed. Took 0.032 secs.
+2013-10-14 08:22:21,890 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:assemble (Thread[main,5,main]) started.
+2013-10-14 08:22:21,890 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.plugin:assemble' as it has no actions.
+2013-10-14 08:22:21,891 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:assemble (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:21,891 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:compileTestJava (Thread[main,5,main]) started.
+2013-10-14 08:22:21,936 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:compileTestJava' (up-to-date check took 0.04 secs) due to:
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/classes/test has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/dependency-cache has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/classes/test/org/eclipse/egripse/plugin/Activator.class has been removed.
+2013-10-14 08:22:21,947 INFO [main] o.g.a.i.t.c.j.Jdk6JavaCompiler Compiling with JDK Java compiler API.
+2013-10-14 08:22:22,043 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:compileTestJava (Thread[main,5,main]) completed. Took 0.152 secs.
+2013-10-14 08:22:22,044 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:processTestResources (Thread[main,5,main]) started.
+2013-10-14 08:22:22,044 INFO [main] o.g.a.i.t.e.SkipEmptySourceFilesTaskExecuter Skipping task ':org.eclipse.egripse.plugin:processTestResources' as it has no source files.
+2013-10-14 08:22:22,044 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:processTestResources (Thread[main,5,main]) completed. Took 0.0 secs.
+2013-10-14 08:22:22,044 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:testClasses (Thread[main,5,main]) started.
+2013-10-14 08:22:22,045 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.plugin:testClasses' as it has no actions.
+2013-10-14 08:22:22,045 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:testClasses (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:22,045 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:test (Thread[main,5,main]) started.
+2013-10-14 08:22:22,095 INFO [main] o.g.a.i.t.e.SkipUpToDateTaskExecuter Executing task ':org.eclipse.egripse.plugin:test' (up-to-date check took 0.034 secs) due to:
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/reports/tests has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/test-results has changed.
+  Output file /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat/org.eclipse.egripse.plugin/build/test-results/binary/test has changed.
+2013-10-14 08:22:22,251 INFO [main] o.g.a.i.t.t.j.r.Binary2JUnitXmlReportGenerator Finished generating test XML results (0.0 secs)
+2013-10-14 08:22:22,252 INFO [main] o.g.a.i.t.t.j.r.DefaultTestReport Generating HTML test report...
+2013-10-14 08:22:22,264 INFO [main] o.g.a.i.t.t.j.r.DefaultTestReport Finished generating test html results (0.012 secs)
+2013-10-14 08:22:22,284 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:test (Thread[main,5,main]) completed. Took 0.239 secs.
+2013-10-14 08:22:22,284 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:check (Thread[main,5,main]) started.
+2013-10-14 08:22:22,285 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.plugin:check' as it has no actions.
+2013-10-14 08:22:22,285 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:check (Thread[main,5,main]) completed. Took 0.001 secs.
+2013-10-14 08:22:22,285 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:build (Thread[main,5,main]) started.
+2013-10-14 08:22:22,285 INFO [main] o.g.a.i.t.e.SkipTaskWithNoActionsExecuter Skipping task ':org.eclipse.egripse.plugin:build' as it has no actions.
+2013-10-14 08:22:22,285 INFO [main] o.g.e.t.AbstractTaskPlanExecutor :org.eclipse.egripse.plugin:build (Thread[main,5,main]) completed. Took 0.0 secs.

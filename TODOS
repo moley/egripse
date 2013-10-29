@@ -1,0 +1,18 @@
+TODO 
+- Synchronize deps: ausgepackte Jars wieder in ein jarfile verwandeln
+- Abhängigkeitsauflösung über Import package 
+- Abhängigkeitsauflösung mit Versionen
+- Erstellen von Featur-jars
+- MWE-GMF-Module funktionieren noch nicht
+- Targetplatformhandling
+-> PRODUKTIVSETZUNG
+- Eclipse-Tests
+- Testabdeckung, Sonar
+- Sourcedir aus build.properties lesen
+
+DONE
+- xmi files werden automatisch ins build/resources/main kopiert und distributiert
+- bin.includes aus build.properties lesen und in jarfiles beruecksichtigen
+- Version aus Metainf auslesen
+- Namen des Jarfiles anpassen
+- Erstellen und Mergen der Updatesite

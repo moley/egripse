@@ -1,0 +1,15 @@
+
+    repositories {
+        maven {
+            url "http://nexus.intra.vsa.de:8081/nexus/content/groups/public/"
+            //url "http://fornax.itemis.de/nexus/content/repositories/eclipse-maven/"
+        }
+
+    }
+
+    dependencies {
+       compile 'org.eclipse.emf:org.eclipse.emf.mwe.core:1.1.0'
+       compile project(':eclipseplugin')
+       compile project(':eclipsebase')
+    }
+

@@ -1,0 +1,28 @@
+!SESSION 2013-10-12 21:31:04.432 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.modeling.product -product org.eclipse.epp.package.modeling.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.modeling.product -data /Users/OleyMa/vcs/build/eclipse_gradleplugins_2/testprojects/flat -product org.eclipse.epp.package.modeling.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.493
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|ads-root.de|*.ads-root.de|vsa.de|*.vsa.de by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.499
+!MESSAGE System property http.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.499
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.499
+!MESSAGE System property https.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.500
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.501
+!MESSAGE System property https.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.501
+!MESSAGE System property https.proxyPort is not set but should be 8080.

@@ -1,0 +1,128 @@
+buildscript {
+    repositories {
+        mavenCentral () 
+    }
+}
+
+subprojects {
+
+    version=0.24
+    group = 'org.eclipse.gradle'
+
+    apply {
+        plugin 'java'
+        plugin 'groovy'
+        plugin 'eclipse'
+        plugin 'idea'
+    }
+    repositories {
+        mavenCentral () 
+        maven {
+           url 'http://nexus.intra.vsa.de:8081/nexus/content/repositories/fornax'
+        }
+    }
+
+    dependencies {
+      compile localGroovy()
+      compile gradleApi()
+    }
+
+    uploadArchives {
+        repositories {
+            ivy {
+                credentials {
+                    username "deployment"
+                    password "deployment123"
+                }
+                url "http://nexus.intra.vsa.de:8081/nexus/content/repositories/gradleplugins"
+            }
+        }
+    }
+
+    // Tests in package integration are only called in task integrationtest and tests in
+    // package reallife are called in task reallifetest
+    test {
+        exclude "**/integration/**"
+        exclude "**/reallife/**"
+    }
+
+    task integrationtest(type: Test) {
+        include "**/integration/**"
+        jvmArgs "-XX:MaxPermSize=128m"
+    }
+
+    task reallifetest(type: Test) {
+        include "**/reallife/**"
+    }
+
+    gradle.taskGraph.whenReady { taskGraph ->
+        tasks.withType(Test).each { Test test ->
+            test.ignoreFailures = true
+        }
+    }
+
+    dependencies {
+        compile gradleApi()
+        groovy localGroovy()
+    }
+}
+def testprojects = [];
+for (File f : projectDir.listFiles()) {
+    if (f.name.startsWith("testproject") && f.isDirectory()) {
+        testprojects.add(f.name)
+    }
+}
+
+//////////////////////////////////   IDE Handling   ///////////////////////////////////
+
+
+apply {
+    plugin "idea"
+}
+
+//Because the test projects can't be subprohects (because you can test them isolated anymore) we must
+//call the creation of the IDE files by hand
+
+def subs = [];
+project.subprojects.each {
+    subs.add(':' + it.name + ':jar');
+}
+
+
+def testIdeaTasks = []
+testprojects.each {
+    String testDir = it;
+
+    def newTaskIdea = tasks.add(name: "idea" + testDir, type: GradleBuild, dependsOn: [subs]) {
+        dir = testDir
+        tasks = ['cleanIdea', 'ideaModule']
+    }
+    testIdeaTasks.add(newTaskIdea)
+}
+
+tasks.ideaProject.dependsOn(testIdeaTasks)
+tasks.ideaProject.dependsOn("cleanIdeaProject");
+
+idea {
+    project {
+        ipr {
+            withXml {
+                //We have to put in the testprojects by hand, because we can't them inject otherwise
+                Node node = it.asNode()
+                node.children().each {
+                    if (it.attribute("name") == "ProjectModuleManager") {
+                        for (String s : testprojects) {
+                            String filepath = '$PROJECT_DIR$/' + s + "/" + s + ".iml"
+                            it.children()[0].appendNode("module", [fileurl: 'file://' + filepath, filepath: filepath])
+                        }
+
+                    }
+                }
+                //Attaches the CVS support to the projecr
+                it.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = "CVS"
+            }
+        }
+    }
+
+}
+

@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+        id="vsa.marvin.modeling.feature"
+        label="Marvin - Neue Modellierung"
+        version="1.0.0.qualifier"
+        provider-name="VSA GmbH">
+
+    <description url="http://confluence.intra.vsa.de:8080/display/MAR/Allgemeines+zur+Modellierung">
+        For further information on risks and side effects contact your plugin dealer.
+    </description>
+
+    <copyright url="http://www.example.com/copyright">
+        [Enter Copyright Description here.]
+    </copyright>
+
+    <license url="http://www.example.com/license">
+        [Enter License Description here.]
+    </license>
+
+    <requires>
+        <import plugin="org.eclipse.xtext"/>
+        <import plugin="org.eclipse.xtext.util"/>
+        <import plugin="org.eclipse.emf.ecore"/>
+        <import plugin="org.eclipse.emf.common"/>
+        <import plugin="org.antlr.runtime"/>
+        <import plugin="org.eclipse.xtext.ui"/>
+        <import plugin="org.eclipse.ui.editors" version="3.5.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.ui.ide" version="3.5.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.ui"/>
+        <import plugin="org.eclipse.ui.workbench.texteditor" version="3.5.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.xtext.ui.shared"/>
+        <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+        <import plugin="com.ibm.icu"/>
+        <import plugin="org.eclipse.xtend.typesystem.xsd"/>
+        <import plugin="org.eclipse.xtext.common.types"/>
+        <import plugin="org.eclipse.xtext.builder"/>
+        <import plugin="org.eclipse.core.resources"/>
+        <import plugin="org.eclipse.equinox.common"/>
+        <import plugin="org.eclipse.core.jobs"/>
+        <import plugin="org.eclipse.core.runtime"/>
+        <import plugin="org.eclipse.ui.workbench"/>
+        <import plugin="org.eclipse.jdt.core"/>
+        <import plugin="org.eclipse.jdt.ui"/>
+        <import plugin="org.eclipse.xtext.common.types.ui"/>
+        <import plugin="org.eclipse.jdt.launching"/>
+        <import plugin="org.eclipse.draw2d"/>
+        <import plugin="org.eclipse.gef"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui"/>
+        <import plugin="org.eclipse.emf.edit"/>
+        <import plugin="org.eclipse.emf.edit.ui"/>
+        <import plugin="org.eclipse.emf.mwe.core"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.render"/>
+        <import plugin="org.eclipse.gmf.runtime.draw2d.ui.render.awt"/>
+        <import plugin="org.eclipse.gmf.runtime.draw2d.ui.render"/>
+        <import plugin="org.eclipse.emf" version="2.5.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.gmf.runtime.notation"/>
+        <import plugin="org.eclipse.emf.transaction"/>
+        <import plugin="org.eclipse.emf.common.ui"/>
+        <import plugin="org.eclipse.xtend.util.stdlib"/>
+        <import plugin="org.eclipse.xtend.shared.ui"/>
+        <import plugin="vsa.marvin.mod.common.dsl" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="vsa.marvin.mod.common.dsl.ui" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="vsa.marvin.mod.persist.dsl" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="vsa.marvin.mod.persist.dsl.ui" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.core.expressions"/>
+        <import plugin="org.eclipse.jface"/>
+        <import plugin="org.eclipse.ui.views"/>
+        <import plugin="org.eclipse.ui.navigator"/>
+        <import plugin="org.eclipse.ui.navigator.resources"/>
+        <import plugin="org.eclipse.emf.ecore.xmi"/>
+        <import plugin="org.eclipse.gmf.runtime.emf.core"/>
+        <import plugin="org.eclipse.gmf.runtime.emf.commands.core"/>
+        <import plugin="org.eclipse.gmf.runtime.emf.ui.properties"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.printing.render"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.properties"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.providers.ide"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.ui.resources.editor.ide"/>
+        <import plugin="org.eclipse.gmf.runtime.draw2d.ui"/>
+        <import plugin="org.eclipse.emf.validation"/>
+        <import plugin="org.eclipse.search"/>
+        <import plugin="org.eclipse.core.commands"/>
+        <import plugin="org.eclipse.ui.editors" version="3.4.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.ui.ide" version="3.4.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.emf.edit" version="2.5.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.emf.edit.ui" version="2.5.0" match="greaterOrEqual"/>
+        <import plugin="vsa.marvin.mod.workflow.dsl" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="vsa.marvin.mod.workflow.dsl.ui" version="1.0.0" match="greaterOrEqual"/>
+        <import plugin="org.eclipse.gmf.runtime.diagram.core"/>
+        <import plugin="org.eclipse.xtext.ecore"/>
+    </requires>
+
+    <plugin
+            id="org.eclipse.xtext.xtextdoc"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="org.eclipse.xtext.xtextdoc.ui"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.common.dsl"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.common.dsl.ui"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.common.gmf"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.frontend"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.frontend.ui"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.persist.dsl"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.persist.dsl.ui"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.persist.gmf"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.persist.gmf.diagram"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.persist.gmf.diagram.custom"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.diagram"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.diagram.custom"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.dsl"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.dsl.ui"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.gmf"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+    <plugin
+            id="vsa.marvin.mod.workflow.part.diagram"
+            download-size="0"
+            install-size="0"
+            version="0.0.0"
+            unpack="false"/>
+
+</feature>

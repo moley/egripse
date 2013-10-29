@@ -1,0 +1,34 @@
+allprojects { 
+  buildscript {
+    repositories {
+        mavenCentral()
+    }
+  }
+}
+
+subprojects {
+  apply { plugin 'eclipse' } 
+}
+
+buildscript {
+    dependencies {
+        classpath fileTree (dir: '../../eclipseplugin/build/libs/', includes: ['*.jar'])
+        classpath fileTree (dir: '../../eclipsefeature/build/libs/', includes: ['*.jar'])
+        classpath fileTree (dir: '../../eclipsebase/build/libs/', includes: ['*.jar'])
+        classpath fileTree (dir: '../../eclipsemwe/build/libs/', includes: ['*.jar'])
+    }
+}
+
+apply {
+  plugin 'java' //TODO remove after dependend task of updatesite is refactored
+  plugin 'eclipsebase'
+}
+
+eclipsebase {  
+ targetplatform 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_201307031350.zip'
+ updatesite {
+    host 'repository.intra.vsa.de'
+    path 'vsaeclipse/kepler/updatesites/updateSiteTools'
+    categoriesXml 'vsa.vsaeclipse.tools.feature/category.xml'
+ }
+}
