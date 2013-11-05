@@ -12,6 +12,7 @@ import groovy.util.logging.Slf4j
 @Slf4j
 class PluginResolver {
 
+
     public boolean resolvePlugin (Eclipse eclipse,
                                   String prefix,
                                   final Set<EclipsePlugin> resolvedPlugins,

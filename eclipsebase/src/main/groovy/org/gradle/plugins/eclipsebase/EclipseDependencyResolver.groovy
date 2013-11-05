@@ -103,9 +103,9 @@ class EclipseDependencyResolver {
         FileCollection config = project.sourceSets.main.compileClasspath
         if (config.isEmpty())
             log.warn("Compileclasspath of project " + project.name + " is empty")
-        for (Object next: config.getFiles()) {
+        /**for (Object next: config.getFiles()) {
             log.info ("Classpathentry in " + project.name + ": " + next)
-        }
+        }  **/
 
         log.info ("Finished adding resolved bundles in project ${project}")
 
