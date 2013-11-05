@@ -1,0 +1,10 @@
+*.class
+*.jar
+build/
+.gradle/
+*build.log
+*.iml
+*.ipr
+*.iws
+*.bin
+testprojects/flat/.gradle/
