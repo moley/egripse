@@ -59,7 +59,7 @@ class EclipseMweTask extends JavaExec { //extends DefaultTask {
     @TaskAction
     public void exec () {
 
-        classpath = createMweClasspath(project)
+        setClasspath(createMweClasspath(project))
 
         if (! isMweNecessary(basedir))
             throw new StopExecutionException("MWE is not necessary for project " + project.name)
