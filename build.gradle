@@ -7,9 +7,10 @@ buildscript {
 subprojects {
 
     version=0.24
-    group = 'org.eclipse.gradle'
+    group = 'org.egripse'
 
     apply {
+        plugin 'maven'
         plugin 'java'
         plugin 'groovy'
         plugin 'eclipse'
@@ -18,7 +19,7 @@ subprojects {
     repositories {
         mavenCentral () 
         maven {
-           url 'http://nexus.intra.vsa.de:8081/nexus/content/repositories/fornax'
+           url 'http://www.fornax-platform.org/m2/repository'
         }
     }
 
@@ -27,16 +28,13 @@ subprojects {
       compile gradleApi()
     }
 
-    uploadArchives {
-        repositories {
-            ivy {
-                credentials {
-                    username "deployment"
-                    password "deployment123"
-                }
-                url "http://nexus.intra.vsa.de:8081/nexus/content/repositories/gradleplugins"
-            }
-        }
+    task sourcesJar(type: Jar, dependsOn: classes) {
+      classifier = 'sources'
+      from sourceSets.main.allSource
+    }
+ 
+    artifacts {
+      archives sourcesJar
     }
 
     // Tests in package integration are only called in task integrationtest and tests in
