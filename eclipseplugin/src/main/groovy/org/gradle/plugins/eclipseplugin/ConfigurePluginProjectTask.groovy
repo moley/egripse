@@ -3,10 +3,13 @@ package org.gradle.plugins.eclipseplugin
 import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
+import org.gradle.api.internal.tasks.DefaultSourceSet
 import org.gradle.api.java.archives.Manifest
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.testing.Test
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
+import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
+import org.gradle.testing.jacoco.tasks.JacocoReport
 
 /**
  * Created with IntelliJ IDEA.
@@ -24,10 +27,13 @@ class ConfigurePluginProjectTask extends DefaultTask{
     public void configure () {
 
         EclipseBaseDsl eclipseBaseDsl = project.rootProject.eclipsebase
+        EclipsePluginDsl eclipsePluginDsl = project.eclipseplugin
 
         configureManifest(project) //Called after version is set
 
         configureTests(project, eclipseBaseDsl)
+        configureJacoco(project, eclipsePluginDsl )
+
 
     }
 
@@ -59,5 +65,24 @@ class ConfigurePluginProjectTask extends DefaultTask{
         File manifestFile = project.file("build/resources/main/META-INF/MANIFEST.MF")
         if (manifestFile.exists())
           project.jar.manifest.from (manifestFile)
+    }
+
+
+
+    public void configureJacoco (Project project, EclipsePluginDsl pluginDsl) {
+
+        if ((pluginDsl.testprojectFor) != null) {
+            log.info("Configure jacoco to project " + project.name)
+            Project sourceproject = project.rootProject.project(pluginDsl.testprojectFor)
+            log.info("Found sourceproject " + sourceproject.name + " for testproject " + project.name)
+            DefaultSourceSet mainSourceset = sourceproject.sourceSets.main
+
+            project.tasks.withType(JacocoReport.class).each {
+               log.info("Configure jacoco task " + it.name + "with data from project " + sourceproject.name)
+               it.sourceDirectories = mainSourceset.java
+               it.classDirectories = mainSourceset.output
+            }
+
+        }
     }
 }

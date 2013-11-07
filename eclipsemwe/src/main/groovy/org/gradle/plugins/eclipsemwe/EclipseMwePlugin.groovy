@@ -24,7 +24,6 @@ class EclipseMwePlugin implements Plugin<Project>  {
 
     @Override
     void apply(Project project) {
-        println ("Applying plugin ${getClass()} in project ${project.name}")
         log.info("Applying plugin ${getClass()} in project ${project.name}")
 
         project.plugins.apply(EclipsePluginPlugin)
@@ -39,7 +38,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
 
         String compileJavaTaskName = project.sourceSets.main.compileJavaTaskName
         project.tasks.getByName(compileJavaTaskName).dependsOn(mweTask)
-        println ("mwetask " + mweTask.name + " dependend in " + compileJavaTaskName)
+        log.info ("mwetask " + mweTask.name + " dependend in " + compileJavaTaskName)
 
         //Add msi files TODO make nicer
         Copy task = project.tasks.findByName("processResources")

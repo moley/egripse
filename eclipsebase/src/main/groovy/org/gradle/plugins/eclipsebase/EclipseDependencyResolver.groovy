@@ -78,6 +78,9 @@ class EclipseDependencyResolver {
                 log.info("Adding dependency in project ${projectName} to project " + pathToBundle)
 
                 project.dependencies.add("compile", project.dependencies.project(path: pathToBundle))
+                Project depProject = project.rootProject.project(nextPlugin.bundleID)
+                log.info("Lookup project " + depProject.name)
+                project.dependencies.add("compile", project.files(depProject.sourceSets.test.output)) //test sources of dependend projects
 
             } else {
 
