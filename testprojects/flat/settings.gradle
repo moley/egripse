@@ -1,1 +1,1 @@
-include "org.eclipse.egripse.plugin", "org.eclipse.egripse.feature"
+include "org.eclipse.egripse.plugin", "org.eclipse.egripse.headless", "org.eclipse.egripse.feature"

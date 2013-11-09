@@ -38,6 +38,13 @@ class GradleLauncherResult {
         this.finished = finished
     }
 
+    public String asSplittedString () {
+        String complete = ""
+        output.each { complete += it + "\n"}
+
+        return complete
+    }
+
 
 
 

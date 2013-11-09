@@ -30,9 +30,6 @@ class EclipseBuildUtils {
             collection += project.files(it)
         }
 
-        if (log.isLoggable(Level.FINEST))
-          collection.each {log.finest("Complete Classpath of target " + getClass().name + ": " + it)}
-
 
         return collection
     }

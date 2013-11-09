@@ -92,7 +92,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
         }
 
 
-        log.info(" - sourcedirs main : " + project.sourceSets.main.java.srcDirs)
-        log.info(" - sourcedirs test : " + project.sourceSets.test.java.srcDirs)
+        //log.info(" - sourcedirs main : " + project.sourceSets.main.java.srcDirs)
+        //log.info(" - sourcedirs test : " + project.sourceSets.test.java.srcDirs)
     }
 }

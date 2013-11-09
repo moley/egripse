@@ -23,7 +23,7 @@ class GradleLauncher {
      */
     public void checkOutputForOK (final GradleLauncherResult result) {
         println result.output
-        Assert.assertTrue (result.output.contains("BUILD SUCCESSFUL"))
+        Assert.assertTrue (result.asSplittedString(), result.output.contains("BUILD SUCCESSFUL"))
     }
 
     /**

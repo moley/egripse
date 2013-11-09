@@ -21,7 +21,7 @@ class FlatProjectTest {
 
         GradleLauncherParam param = new GradleLauncherParam()
         param.path = testprojectFlat
-        param.tasks = "clean build"
+        param.tasks = "clean build --offline"
 
         GradleLauncherResult result = launcher.callGradleBuild(param)
         launcher.checkOutputForOK(result)
