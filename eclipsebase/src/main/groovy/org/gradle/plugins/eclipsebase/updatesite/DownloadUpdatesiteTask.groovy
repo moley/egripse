@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.tasks.TaskAction
+import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
@@ -20,10 +21,12 @@ class DownloadUpdatesiteTask extends DefaultTask{
     @TaskAction
     public void download () {
 
-        Eclipse eclipse = project.eclipsebase
+        Eclipse eclipse = project.eclipsemodel
+        EclipseBaseDsl basedsl = project.eclipsebase
+
         File localUpdatesite = eclipse.localUpdatesitePath
 
-        UpdatesiteDsl updatesite = eclipse.updatesite
+        UpdatesiteDsl updatesite = basedsl.updatesite
         if (updatesite == null) {
             log.warn("No updatesite defined, skipping upload updatesite")
             return

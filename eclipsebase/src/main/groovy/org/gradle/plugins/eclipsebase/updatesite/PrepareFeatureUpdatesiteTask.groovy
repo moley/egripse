@@ -4,6 +4,7 @@ import groovy.util.logging.Log
 import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipseFeature
 import org.gradle.plugins.eclipsebase.model.EclipsePlugin
@@ -21,14 +22,15 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
     @TaskAction
     public exec () {
 
-        Eclipse eclipse = project.eclipsebase
+        Eclipse eclipse = project.eclipsemodel
+        EclipseBaseDsl basedsl = project.eclipsebase
 
         File updateSiteSource = project.file ("build/newUpdatesiteContent")
         File updateSiteFeaturesPath = new File (updateSiteSource, "features")
         File updateSitePluginsPath = new File (updateSiteSource, "plugins")
 
         //copy Features
-        for (EclipseFeature feature : eclipse.workspace.getEclipseFeatures()) {
+        for (EclipseFeature feature : eclipse.workspace.eclipseFeatures) {
             String fromString = new File (feature.featurepath, "build/libs")
             log.info("Copy from " + fromString)
             project.copy {
@@ -39,7 +41,7 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
             }
         }
 
-        for (EclipsePlugin plugin : eclipse.workspace.getPlugins()) {
+        for (EclipsePlugin plugin : eclipse.workspace.plugins) {
             String fromString = new File (plugin.originPath, "build/libs")
             log.info("Copy from " + fromString)
             project.copy {

@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.tasks.TaskAction
+import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
@@ -20,8 +21,9 @@ class UploadUpdatesiteTask extends DefaultTask {
 
     @TaskAction
     public void upload () {
-        Eclipse eclipse = project.eclipsebase
-        UpdatesiteDsl updatesite = eclipse.updatesite
+        Eclipse eclipse = project.eclipsemodel
+        EclipseBaseDsl basedsl = project.eclipsebase
+        UpdatesiteDsl updatesite = basedsl.updatesite
 
         if (updatesite == null) {
             log.warn("No updatesite defined. Skip uploading updatesite")

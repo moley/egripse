@@ -3,6 +3,7 @@ package org.gradle.plugins.eclipsebase.updatesite
 import groovy.util.logging.Slf4j
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
+import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
 /**
@@ -19,8 +20,7 @@ class MergeUpdatesiteTask extends JavaExec{
     @TaskAction
     public void exec () {
 
-        Eclipse eclipse = project.eclipsebase
-        eclipse.againstEclipse
+        Eclipse eclipse = project.eclipsemodel
 
         File updatesitePath = project.file("build/updatesite")
 

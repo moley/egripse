@@ -3,6 +3,7 @@ package org.gradle.plugins.eclipsebase.updatesite
 import groovy.util.logging.Slf4j
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
+import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
@@ -19,9 +20,10 @@ class CreateCategoriesUpdatesiteTask extends JavaExec {
     @TaskAction
     public void exec () {
 
-        Eclipse eclipse = project.eclipsebase
-        eclipse.againstEclipse
-        UpdatesiteDsl updatesite = eclipse.updatesite
+        Eclipse eclipse = project.eclipsemodel
+        EclipseBaseDsl basedsl = project.eclipsebase
+
+        UpdatesiteDsl updatesite = basedsl.updatesite
 
         if (updatesite.categoriesXml == null) {
             log.warn("No category.xml file configured to be used. Skip creating categories")
