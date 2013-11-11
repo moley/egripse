@@ -16,6 +16,7 @@ buildscript {
         classpath fileTree (dir: '../../eclipsefeature/build/libs/', includes: ['*.jar'])
         classpath fileTree (dir: '../../eclipsebase/build/libs/', includes: ['*.jar'])
         classpath fileTree (dir: '../../eclipsemwe/build/libs/', includes: ['*.jar'])
+        classpath fileTree (dir: '../../eclipseheadless/build/libs/', includes: ['*.jar'])
     }
 }
 

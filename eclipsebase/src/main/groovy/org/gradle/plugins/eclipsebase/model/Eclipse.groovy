@@ -31,6 +31,8 @@ class Eclipse {
 
     Collection <DefaultPluginContainer> pluginContainers
 
+    File explodedTargetplatform
+
     public Eclipse(final Project project) {
         this.project = project
     }
@@ -71,6 +73,10 @@ class Eclipse {
         return this.pluginContainers
     }
 
+    public File getExplodedTargetplatformPath () {
+        return explodedTargetplatform
+    }
+
     public Targetplatform getTargetplatformModel () {
         final String targetplatform = eclipseDsl.targetplatform
 
@@ -102,7 +108,7 @@ class Eclipse {
         String targetplatformName = targetplatformtokens[targetplatformtokens.length - 1]
 
         File downloadedTargetplatform = new File(cacheDirectory, targetplatformName)
-        File explodedTargetplatform = new File(cacheDirectory, targetplatformName + "_exploded")
+        explodedTargetplatform = new File(cacheDirectory, targetplatformName + "_exploded")
 
         if (!explodedTargetplatform.exists()) {
             if (!downloadedTargetplatform.exists()) {
