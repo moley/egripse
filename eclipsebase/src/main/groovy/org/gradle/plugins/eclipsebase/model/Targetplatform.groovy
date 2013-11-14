@@ -32,7 +32,7 @@ class Targetplatform extends DefaultPluginContainer {
     }
 
     public FileCollection getUpdatesiteProgramsClasspath () {
-        return project.fileTree (getPluginsPath()) {
+        return project.fileTree (pluginsPath) {
             include 'org.eclipse.equinox.launcher_*.jar'
         }
     }

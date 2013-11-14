@@ -53,13 +53,13 @@ class MetaInf {
 
     public void setVersion (final String version) {
         this.version = version
-        println ("setVersion " + version)
+        log.info ("set version " + version + " in file " + file.absolutePath)
         manifest.mainAttributes.putValue("Bundle-Version", version)
     }
 
     public void save () {
         if (file.name.equals("MANIFEST.MF")) {
-            log.debug("Writing $file")
+          log.info("Writing $file")
           FileOutputStream fos = new FileOutputStream(file)
           manifest.write(fos)
         }

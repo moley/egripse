@@ -53,6 +53,24 @@ class Workspace extends DefaultPluginContainer{
 
     }
 
+    public String getProjectPartVersion (final File path ) {
+        EclipsePlugin plugin = findPluginByPath(path)
+        if (plugin != null)
+            return plugin.metainf.version
+        else {
+            EclipseFeature feature = findFeatureByPath(path)
+            return feature.featureXml.version
+        }
+    }
+
+    public EclipseProjectPart findProjectPart (final File path) {
+        EclipsePlugin plugin = findPluginByPath(path)
+        if (plugin != null)
+            return plugin
+        else
+            return findFeatureByPath(path)
+    }
+
     public void addEclipsePlugin(File path) {
         if (eclipsePlugins == null)
             eclipsePlugins = new ArrayList<EclipsePlugin>()

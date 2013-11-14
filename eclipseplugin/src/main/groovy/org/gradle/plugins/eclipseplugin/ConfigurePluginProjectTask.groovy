@@ -7,7 +7,11 @@ import org.gradle.api.internal.tasks.DefaultSourceSet
 import org.gradle.api.java.archives.Manifest
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.testing.Test
+import org.gradle.plugins.eclipsebase.config.BuildPropertiesConfigurator
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
+import org.gradle.plugins.eclipsebase.model.Eclipse
+import org.gradle.plugins.eclipsebase.model.EclipsePlugin
+import org.gradle.plugins.eclipsebase.model.MetaInf
 import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 import org.gradle.testing.jacoco.tasks.JacocoReport
 
@@ -23,9 +27,10 @@ class ConfigurePluginProjectTask extends DefaultTask{
 
 
 
+
+
     @TaskAction
     public void configure () {
-
         EclipseBaseDsl eclipseBaseDsl = project.rootProject.eclipsebase
         EclipsePluginDsl eclipsePluginDsl = project.eclipseplugin
 
@@ -33,8 +38,6 @@ class ConfigurePluginProjectTask extends DefaultTask{
 
         configureTests(project, eclipseBaseDsl)
         configureJacoco(project, eclipsePluginDsl )
-
-
     }
 
     private void configureTests (final Project project, final EclipseBaseDsl eclipse) {

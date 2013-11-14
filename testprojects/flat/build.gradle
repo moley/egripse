@@ -30,6 +30,6 @@ eclipsebase {
  updatesite {
     host 'repository.intra.vsa.de'
     path 'vsaeclipse/kepler/updatesites/updateSiteTools'
-    categoriesXml 'vsa.vsaeclipse.tools.feature/category.xml'
+    categoriesXml 'category.xml'
  }
 }

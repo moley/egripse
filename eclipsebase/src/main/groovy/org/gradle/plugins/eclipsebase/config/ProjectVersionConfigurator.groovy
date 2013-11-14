@@ -22,11 +22,11 @@ class ProjectVersionConfigurator {
         currentBuildDate = new Date (System.currentTimeMillis())
     }
 
-    public void setVersion (final Project project, final String version, final String bundleID) {
+    public void setVersion (final Project project, final String version) {
         //set version from metainf / feature.xml
         DateFormatter formatter = new DateFormatter(new SimpleDateFormat("yyyyMMddHHmm"))
         String currentDateAsString = formatter.valueToString(currentBuildDate)
-        project.version = version.replace("qualifier", currentDateAsString)
-        log.info ("Set current version " + project.version + " in plugin " + bundleID)
+        project.version = version.replace("qualifier", "v" + currentDateAsString)
+        log.info ("Set current version " + project.version + " in project " + project)
     }
 }

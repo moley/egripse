@@ -1,6 +1,5 @@
 package org.gradle.plugins.eclipsebase.updatesite
 
-import groovy.util.logging.Log
 import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -23,7 +22,6 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
     public exec () {
 
         Eclipse eclipse = project.eclipsemodel
-        EclipseBaseDsl basedsl = project.eclipsebase
 
         File updateSiteSource = project.file ("build/newUpdatesiteContent")
         File updateSiteFeaturesPath = new File (updateSiteSource, "features")
@@ -31,8 +29,8 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
 
         //copy Features
         for (EclipseFeature feature : eclipse.workspace.eclipseFeatures) {
-            String fromString = new File (feature.featurepath, "build/libs")
-            log.info("Copy from " + fromString)
+            String fromString = new File (feature.featurepath, "build/libs").absolutePath
+            log.info("Copy from feature path " + fromString + " to " + updateSiteFeaturesPath.absolutePath)
             project.copy {
                 into updateSiteFeaturesPath.absolutePath
                 from (fromString) {
@@ -42,8 +40,8 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
         }
 
         for (EclipsePlugin plugin : eclipse.workspace.plugins) {
-            String fromString = new File (plugin.originPath, "build/libs")
-            log.info("Copy from " + fromString)
+            String fromString = new File (plugin.originPath, "build/libs").absolutePath
+            log.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
             project.copy {
                 into updateSitePluginsPath.absolutePath
                 from (fromString) {
@@ -51,6 +49,14 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
                 }
             }
         }
+
+        project.fileTree(updateSiteSource).each {
+            File newFileName = new File (it.parentFile, it.name.replace("-","_"))
+            log.info ("Rename " + it.absolutePath + " to " + newFileName.absolutePath)
+            it.renameTo(newFileName)
+        }
+
+
     }
 
 }

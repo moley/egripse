@@ -4,12 +4,11 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.internal.tasks.DefaultSourceSet
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.testing.Test
+import org.gradle.plugins.eclipsebase.config.LayoutConfigurator
+import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
 import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
-import org.gradle.testing.jacoco.tasks.JacocoReport
-import sun.rmi.server.Activation
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,7 +21,10 @@ import sun.rmi.server.Activation
 public class EclipsePluginPlugin implements Plugin<Project>  {
 
     public final static String TASKNAME_CONFIGURE_BUILD = "configureBuild"
+
     public final static String TASKNAME_MIRROR_DEPENDENCIES = "mirrorDependencies"
+
+    private LayoutConfigurator layoutconfigurator = new LayoutConfigurator()
 
 
     @Override
@@ -30,6 +32,17 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
         log.info ("Applying plugin ${getClass()} in project ${project.name}")
 
         project.plugins.apply(JavaPlugin) //We need for compile configuration
+
+        /**Eclipse eclipseModel = project.rootProject.extensions.eclipsemodel
+        EclipsePlugin currentEclipseplugin = eclipseModel.workspace.findPluginByPath(nextSubProject.projectDir)
+        if (currentEclipseplugin != null) {
+            MetaInf metaInf = currentEclipseplugin.metainf
+            if (metaInf == null)
+              log.warn("Project " + project.name + " has no META-INF/MANIFEST.MF file")
+        }  **/
+
+        SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type:SynchronizeBuildMetadata, name:SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
+        project.tasks.processResources.dependsOn syncBuildproperties
 
         EclipsePluginDsl plugindsl = project.extensions.create("eclipseplugin", EclipsePluginDsl, project)
 
@@ -43,6 +56,8 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
           MirrorDependenciesTask mirrorDepsTask = project.tasks.create(type:MirrorDependenciesTask, name:TASKNAME_MIRROR_DEPENDENCIES)
           project.tasks.classes.dependsOn(mirrorDepsTask)
         }
+
+
 
         project.afterEvaluate { //because we need configuration at eclipseplugin to know what to do, must be configured before created compile tasks
           configureProjectLayout(project, plugindsl)
@@ -72,10 +87,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                 main {
                     java {
                         srcDirs = ["src", "src-gen"]
-
                     }
-                    //compileClasspath = project.sourceSets.main.compileClasspath + project.sourceSets.srcgen.output
-                    resources { srcDirs = ["resources"] }
                 }
             }
         }
@@ -84,12 +96,16 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
             log.info("Configure projectlayout for project ${project.name} as testproject")
             project.sourceSets {
                 test {
-                    java { srcDirs = ["src", "src-gen"] }
-                    resources { srcDirs = ["test/resources"] }
+                    java {
+                        srcDirs = ["src", "src-gen"]
+                    }
                 }
             }
 
         }
+
+        layoutconfigurator.configure(project)
+
 
 
         //log.info(" - sourcedirs main : " + project.sourceSets.main.java.srcDirs)

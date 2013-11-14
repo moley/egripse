@@ -25,4 +25,9 @@ class EclipseFeature extends EclipseProjectPart  {
         featureXml = new FeatureXml(featureXmlFile)
 
     }
+
+    @Override
+    String getVersion() {
+        return featureXml != null ? featureXml.version : null
+    }
 }

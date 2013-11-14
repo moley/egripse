@@ -17,19 +17,14 @@ import org.gradle.plugins.eclipsebase.model.FeatureXml
  */
 class ConfigureFeatureProjectTask extends DefaultTask{
 
-    private ProjectVersionConfigurator projectVersionConfigurator = new ProjectVersionConfigurator()
-
-    private BuildPropertiesConfigurator buildPropertiesConfigurator = new BuildPropertiesConfigurator()
-
     @TaskAction
     public void configure () {
 
-        Eclipse eclipseModel = project.rootProject.eclipsemodel
-        EclipseFeature eclipseFeature = eclipseModel.workspace.findFeatureByPath(project.projectDir)
-        FeatureXml featureXml = eclipseFeature.featureXml
 
-        buildPropertiesConfigurator.synchronizeResourcesFromBuildProperties(project, eclipseFeature.buildProperties)
-        projectVersionConfigurator.setVersion(project, featureXml.version, featureXml.featureID)
+        //currently empty
+
+
+
 
     }
 }

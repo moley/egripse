@@ -17,21 +17,36 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
 @Slf4j
 class CreateCategoriesUpdatesiteTask extends JavaExec {
 
+    /**
+     * gets categoriesxml and throws error if not configured
+     * or not found
+     * @return categories xml file that is ensured to exist
+     */
+    public File findCategoriesXml () {
+        EclipseBaseDsl basedsl = project.eclipsebase
+        UpdatesiteDsl updatesite = basedsl.updatesite
+        if (updatesite.categoriesXml == null) {
+            log.warn("No category.xml file configured to be used. Skip creating categories")
+            return null
+        }
+
+        File categoryDefinition = project.file (updatesite.categoriesXml)
+        if (!categoryDefinition.exists())
+            throw new IllegalStateException("Configured categoriesXml " + updatesite.categoriesXml + " not found (Looking for " + categoryDefinition.absolutePath + ")")
+
+        return categoryDefinition
+
+    }
+
     @TaskAction
     public void exec () {
 
         Eclipse eclipse = project.eclipsemodel
-        EclipseBaseDsl basedsl = project.eclipsebase
-
-        UpdatesiteDsl updatesite = basedsl.updatesite
-
-        if (updatesite.categoriesXml == null) {
-            log.warn("No category.xml file configured to be used. Skip creating categories")
-            return
-        }
 
         File updatesitePath = project.file("build/updatesite")
-        File categoryDefinition = project.file (updatesite.categoriesXml)
+        File categoryDefinition = findCategoriesXml()
+        if (categoryDefinition == null)
+            return
 
         log.info("Classpath " + getClass().getName())
         for (File next: eclipse.targetplatformModel.updatesiteProgramsClasspath) {

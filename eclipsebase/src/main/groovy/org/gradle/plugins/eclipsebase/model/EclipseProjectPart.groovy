@@ -7,7 +7,7 @@ package org.gradle.plugins.eclipsebase.model
  * Time: 08:10
  * To change this template use File | Settings | File Templates.
  */
-class EclipseProjectPart {
+abstract class EclipseProjectPart {
 
     BuildProperties buildProperties
 
@@ -17,5 +17,7 @@ class EclipseProjectPart {
           buildProperties = new BuildProperties(buildPropertiesFile)
         }
     }
+
+    public abstract String getVersion ()
 
 }

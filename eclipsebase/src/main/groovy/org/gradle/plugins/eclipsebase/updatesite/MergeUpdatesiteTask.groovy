@@ -1,6 +1,7 @@
 package org.gradle.plugins.eclipsebase.updatesite
 
 import groovy.util.logging.Slf4j
+import org.apache.commons.io.IOUtils
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
@@ -23,30 +24,37 @@ class MergeUpdatesiteTask extends JavaExec{
         Eclipse eclipse = project.eclipsemodel
 
         File updatesitePath = project.file("build/updatesite")
+        File updatesiteContentPath = project.file('build/newUpdatesiteContent')
 
         log.info("Classpath updatesitemerge")
         for (File next: eclipse.targetplatformModel.updatesiteProgramsClasspath) {
             log.info("- Entry " + next.absolutePath)
         }
 
-        workingDir 'build/newUpdatesiteContent'
+        workingDir updatesiteContentPath
         main 'org.eclipse.core.launcher.Main'
         classpath eclipse.targetplatformModel.updatesiteProgramsClasspath
         jvmArgs '-Xms40m'
         jvmArgs '-Xmx900m'
         jvmArgs '-XX:MaxPermSize=512m'
 
-        args '-application', 'org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher'
-        args '-metadataRepository', 'file:' + updatesitePath.absolutePath
-        args '-append'
-        args '-artifactRepository', 'file:'  + updatesitePath.absolutePath
-        args '-source build/newUpdatesiteContent'
-        args '-compress'
-        args '-publishArtifacts'
         args '-console'
         args '-consoleLog'
+        args '-application', 'org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher'
+        args '-metadataRepository', 'file:' + updatesitePath.absolutePath + '/'
+        args '-append'
+        args '-artifactRepository', 'file:'  + updatesitePath.absolutePath + '/'
+        args '-source ' + updatesiteContentPath.absolutePath
+        //args '-compress'
+        args '-publishArtifacts'
+
+        println ("Args: " + args)
         args (args)
+        setErrorOutput(new ByteArrayOutputStream())
+        setStandardOutput(new ByteArrayOutputStream())
 
         super.exec()
+        println ("ErrorOutput: " + errorOutput.toString())
+        println ("StandardOutput: " + standardOutput.toString())
     }
 }

@@ -42,12 +42,14 @@ abstract class DefaultPluginContainer implements PluginContainer {
 
     }
 
+
+
     public EclipsePlugin findPluginByPath(final File path) {
         for (EclipsePlugin plugin : getPlugins()) {
             if (plugin.originPath.equals(path))
                 return plugin
         }
-        return null
+        return
     }
 
     public String toString () {

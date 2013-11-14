@@ -4,15 +4,16 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.plugins.JavaBasePlugin
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.plugins.eclipsebase.config.BuildPropertiesConfigurator
 import org.gradle.plugins.eclipsebase.config.ProjectVersionConfigurator
+import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipsePlugin
+import org.gradle.plugins.eclipsebase.model.EclipseProjectPart
 import org.gradle.plugins.eclipsebase.model.MetaInf
 import org.gradle.plugins.eclipsebase.updatesite.*
 
@@ -32,7 +33,7 @@ class EclipseBasePlugin implements Plugin<Project> {
 
     private ProjectVersionConfigurator projectVersionConfigurator = new ProjectVersionConfigurator()
 
-    private BuildPropertiesConfigurator buildPropertiesConfigurator = new BuildPropertiesConfigurator()
+
 
     static {
         currentBuildDate = new Date(System.currentTimeMillis())
@@ -40,7 +41,7 @@ class EclipseBasePlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-        log.info ("Applying plugin " +getClass() + " in project " + project.name)
+        log.info("Applying plugin " + getClass() + " in project " + project.name)
 
         printMemory()
 
@@ -56,37 +57,23 @@ class EclipseBasePlugin implements Plugin<Project> {
             configureUpdatesiteTasks(project)
 
         //dependencies are resolved in afterEvaluate because we need infos from dsl objects
-        project.afterEvaluate{
-
-            for (Project nextSubProject: project.rootProject.subprojects) {
-
+        project.afterEvaluate {
+            for (Project nextSubProject : project.rootProject.subprojects) {
                 nextSubProject.plugins.apply(JavaPlugin)
 
-                EclipsePlugin currentEclipseplugin = eclipseModel.workspace.findPluginByPath(nextSubProject.projectDir)
-                if (currentEclipseplugin != null) {
-                  MetaInf metaInf = currentEclipseplugin.metainf
-                    if (metaInf == null)
-                        log.warn("Project " + nextSubProject.name + " has no META-INF/MANIFEST.MF file")
-
-                  //we have to set version before resolving dependencies
-                  if (currentEclipseplugin.buildProperties != null)
-                    buildPropertiesConfigurator.synchronizeResourcesFromBuildProperties(nextSubProject, currentEclipseplugin.buildProperties)
-                  else
-                    log.warn("Project " + nextSubProject.name + " has no build.properties file")
-
-                  projectVersionConfigurator.setVersion(nextSubProject, metaInf.version, metaInf.bundleID)
-                }
-
+                EclipseProjectPart projectpart = eclipseModel.workspace.findProjectPart(nextSubProject.projectDir)
+                projectVersionConfigurator.setVersion(nextSubProject, projectpart.version)
             }
 
             Project rootProject = project.rootProject
             dependencyResolver.resolve(rootProject)
-
         }
+
+
     }
 
 
-    public void configureUpdatesiteTasks (final Project project) {
+    public void configureUpdatesiteTasks(final Project project) {
         project.configurations {
             ftpAntTask
         }
@@ -104,18 +91,18 @@ class EclipseBasePlugin implements Plugin<Project> {
         //updatesite local Task
         MergeUpdatesiteTask mergeUpdatesiteLocalTask = project.tasks.create("updatesiteMergeLocal", MergeUpdatesiteTask)
         CreateCategoriesUpdatesiteTask createCategoriesUpdatesiteLocalTask = project.tasks.create("updatesiteCategoriesLocal", CreateCategoriesUpdatesiteTask)
-        DefaultTask prepareUpdatesiteLocalTask = project.tasks.create ("updatesitePrepareLocal", PrepareFeatureUpdatesiteTask)
+        DefaultTask prepareUpdatesiteLocalTask = project.tasks.create("updatesitePrepareLocal", PrepareFeatureUpdatesiteTask)
         DefaultTask updatesiteLocalTask = project.tasks.create("updatesiteLocal")
         mergeUpdatesiteLocalTask.dependsOn prepareUpdatesiteLocalTask
-        createCategoriesUpdatesiteLocalTask.dependsOn (mergeUpdatesiteLocalTask)
+        createCategoriesUpdatesiteLocalTask.dependsOn(mergeUpdatesiteLocalTask)
         updatesiteLocalTask.dependsOn createCategoriesUpdatesiteLocalTask
 
         //updatesite Task
-        DefaultTask downloadUpdatesiteTask = project.tasks.create("downloadUpdatesite", DownloadUpdatesiteTask)
+        DefaultTask downloadUpdatesiteTask = project.tasks.create("updatesiteDownload", DownloadUpdatesiteTask)
         CreateCategoriesUpdatesiteTask createCategoriesUpdatesiteTask = project.tasks.create("updatesiteCategories", CreateCategoriesUpdatesiteTask)
         UploadUpdatesiteTask uploadUpdatesiteTask = project.tasks.create("updatesiteUpload", UploadUpdatesiteTask)
         MergeUpdatesiteTask mergeUpdatesiteTask = project.tasks.create("updatesiteMerge", MergeUpdatesiteTask)
-        DefaultTask prepareUpdatesiteTask = project.tasks.create ("updatesitePrepare", PrepareFeatureUpdatesiteTask)
+        DefaultTask prepareUpdatesiteTask = project.tasks.create("updatesitePrepare", PrepareFeatureUpdatesiteTask)
         DefaultTask updatesiteTask = project.tasks.create("updatesite")
         prepareUpdatesiteTask.dependsOn jarTask
         mergeUpdatesiteTask.dependsOn downloadUpdatesiteTask
@@ -125,8 +112,8 @@ class EclipseBasePlugin implements Plugin<Project> {
         updatesiteTask.dependsOn uploadUpdatesiteTask
     }
 
-    public void printMemory () {
-        int mb = 1024*1024;
+    public void printMemory() {
+        int mb = 1024 * 1024;
 
         //Getting the runtime reference from system
         Runtime runtime = Runtime.getRuntime();

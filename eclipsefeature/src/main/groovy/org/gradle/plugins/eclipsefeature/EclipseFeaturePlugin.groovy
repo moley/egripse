@@ -5,6 +5,8 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
+import org.gradle.plugins.eclipsebase.config.LayoutConfigurator
+import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +18,7 @@ import org.gradle.api.plugins.JavaPlugin
 @Slf4j
 class EclipseFeaturePlugin implements Plugin<Project>  {
 
+    private LayoutConfigurator layoutconfigurator = new LayoutConfigurator()
 
 
     @Override
@@ -25,10 +28,16 @@ class EclipseFeaturePlugin implements Plugin<Project>  {
 
         project.plugins.apply(JavaPlugin) //We need for compile configuration
 
+        SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type:SynchronizeBuildMetadata, name:SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
+        project.tasks.processResources.dependsOn syncBuildproperties
+
         DefaultTask javaTask = project.tasks.findByName("compileJava")
 
         ConfigureFeatureProjectTask configureBuildTask = project.tasks.create(type:ConfigureFeatureProjectTask, name:"configureBuild")
         javaTask.dependsOn configureBuildTask
+
+
+        layoutconfigurator.configure(project)
 
     }
 }

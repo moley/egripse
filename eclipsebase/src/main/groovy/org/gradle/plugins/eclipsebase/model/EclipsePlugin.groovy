@@ -81,6 +81,11 @@ class EclipsePlugin extends EclipseProjectPart {
         }
     }
 
+    @Override
+    String getVersion() {
+        return metainf != null ? metainf.version : null
+    }
+
     public String toString () {
         return originPath.name
     }
