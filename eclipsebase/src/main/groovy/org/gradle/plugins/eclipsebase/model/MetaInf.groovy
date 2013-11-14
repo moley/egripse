@@ -58,7 +58,7 @@ class MetaInf {
     }
 
     public void save () {
-        save (file)
+        saveTo (file)
     }
 
     public void saveTo (File file) {
