@@ -15,20 +15,20 @@ import org.junit.Test
  */
 class MetaInfTest {
 
-    File failingFile = new File ("tmp/MANIFEST.MF")
+    File writtenFile = new File ("tmp/MANIFEST.MF")
 
     @Before
     public void before () {
-        if (failingFile.exists())
-            failingFile.delete()
-        if (!failingFile.parentFile.exists())
-          Assert.assertTrue (failingFile.parentFile.mkdirs())
+        if (writtenFile.exists())
+            writtenFile.delete()
+        if (!writtenFile.parentFile.exists())
+          Assert.assertTrue (writtenFile.parentFile.mkdirs())
     }
 
 
 
     @Test(expected = IllegalStateException)
-    public void failingFile () {
+    public void failingWrittenFile () {
 
         URL url = getClass().classLoader.getResource("MANIFESTError.MF")
         File file = new File (url.path).absoluteFile
@@ -39,11 +39,11 @@ class MetaInfTest {
         println ("File $file loaded")
         println (metaInf.toString())
 
-        metaInf.saveTo(failingFile)
+        metaInf.saveTo(writtenFile)
 
-        println ("File $failingFile saved")
+        println ("File $writtenFile saved")
 
-        String content = failingFile.text
+        String content = writtenFile.text
         println ("Content: " + content)
 
         Assert.assertFalse(content.trim().isEmpty())
@@ -67,6 +67,8 @@ class MetaInfTest {
         Assert.assertTrue ("castor.jar not read", bundleClasspath.contains("lib/castor/lib/castor.jar"))
         Assert.assertTrue ("xercesImpl.jar not read", bundleClasspath.contains("lib/xerces/lib/xercesImpl.jar"))
         Assert.assertTrue ("xml-apis.jar not read", bundleClasspath.contains("lib/xerces/lib/xml-apis.jar"))
+
+        metaInf.saveTo(writtenFile)
 
     }
 

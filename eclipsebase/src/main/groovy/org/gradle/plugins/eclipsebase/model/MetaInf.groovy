@@ -66,7 +66,7 @@ class MetaInf {
           log.info("Writing $file")
           FileOutputStream fos = new FileOutputStream(file)
 
-          if (manifest.entries.isEmpty())
+          if (! manifest.getMainAttributes().getValue("Manifest-Version"))
               throw new IllegalStateException("File " + file.absolutePath + " could not be written, check if a manifest-version is set")
 
           try {
