@@ -26,15 +26,10 @@ import org.gradle.testing.jacoco.tasks.JacocoReport
 class ConfigurePluginProjectTask extends DefaultTask{
 
 
-
-
-
     @TaskAction
     public void configure () {
         EclipseBaseDsl eclipseBaseDsl = project.rootProject.eclipsebase
         EclipsePluginDsl eclipsePluginDsl = project.eclipseplugin
-
-        configureManifest(project) //Called after version is set
 
         configureTests(project, eclipseBaseDsl)
         configureJacoco(project, eclipsePluginDsl )
@@ -56,21 +51,6 @@ class ConfigurePluginProjectTask extends DefaultTask{
         testTask.workingDir = project.projectDir //TODO make configurable
 
     }
-
-    private void configureManifest (final Project project) {
-        //Add infos from MANIFEST.MF to jarfile
-        Manifest manifest = project.manifest
-        manifest.from (project.file("META-INF/MANIFEST.MF"))
-        log.info("Attributes = " + manifest.attributes.keySet())
-        manifest.attributes.put("Bundle-Version", project.version.toString())
-        log.info("Version: " + manifest.attributes.get("Bundle-Version").toString())
-
-        File manifestFile = project.file("build/resources/main/META-INF/MANIFEST.MF")
-        if (manifestFile.exists())
-          project.jar.manifest.from (manifestFile)
-    }
-
-
 
     public void configureJacoco (Project project, EclipsePluginDsl pluginDsl) {
 

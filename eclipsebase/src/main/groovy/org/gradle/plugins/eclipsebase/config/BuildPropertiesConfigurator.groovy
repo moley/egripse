@@ -40,6 +40,8 @@ class BuildPropertiesConfigurator {
             MetaInf metainf = new MetaInf(manifestFile, bis)
             metainf.setVersion(project.version)
             metainf.save()
+
+            log.info("After saved: <" + manifestFile.text + ">")
             project.jar.manifest.from {manifestFile}
             log.info("Set version of manifest ${manifestFile.absolutePath} to " + project.version)
         }

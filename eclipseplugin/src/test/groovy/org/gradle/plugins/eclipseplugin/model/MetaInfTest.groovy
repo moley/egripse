@@ -3,6 +3,7 @@ package org.gradle.plugins.eclipseplugin.model
 import org.gradle.plugins.eclipsebase.model.Dependency
 import org.gradle.plugins.eclipsebase.model.MetaInf
 import org.junit.Assert
+import org.junit.Before
 import org.junit.Test
 
 /**
@@ -14,6 +15,40 @@ import org.junit.Test
  */
 class MetaInfTest {
 
+    File failingFile = new File ("tmp/MANIFEST.MF")
+
+    @Before
+    public void before () {
+        if (failingFile.exists())
+            failingFile.delete()
+        if (!failingFile.parentFile.exists())
+          Assert.assertTrue (failingFile.parentFile.mkdirs())
+    }
+
+
+
+    @Test(expected = IllegalStateException)
+    public void failingFile () {
+
+        URL url = getClass().classLoader.getResource("MANIFESTError.MF")
+        File file = new File (url.path).absoluteFile
+
+        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
+
+
+        println ("File $file loaded")
+        println (metaInf.toString())
+
+        metaInf.saveTo(failingFile)
+
+        println ("File $failingFile saved")
+
+        String content = failingFile.text
+        println ("Content: " + content)
+
+        Assert.assertFalse(content.trim().isEmpty())
+
+    }
 
     @Test
     public void bundleClasspath () {

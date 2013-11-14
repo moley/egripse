@@ -29,6 +29,18 @@ class FlatProjectTest {
         launcher.checkOutputForOK(result)
     }
 
+    private void checkUpdatesiteContent (final File rootpath)  {
+      File pluginsPath = new File (rootpath, "plugins")
+      Assert.assertTrue ("plugins path " + pluginsPath.absolutePath + " does not exist", pluginsPath.exists())
+      for (File next: pluginsPath.listFiles()) {
+        Assert.assertFalse("Found file " + next.absolutePath + " with qualifier in name", next.name.contains("qualifier"))
+        Assert.assertFalse("Found file " + next.absolutePath + " with test in name", next.name.contains("test"))
+      }
+
+      File featuresPath = new File (rootpath, "features")
+      Assert.assertTrue ("features path " + featuresPath.absolutePath + " does not exist", featuresPath.exists())
+    }
+
     @Test
     public void updatesite () {
 
@@ -43,20 +55,8 @@ class FlatProjectTest {
         GradleLauncherResult result = launcher.callGradleBuild(param)
         launcher.checkOutputForOK(result)
 
-        File newUpdatesiteContent = new File (param.path, "build/newUpdatesiteContent/plugins")
-        for (File next: newUpdatesiteContent.listFiles()) {
-            Assert.assertFalse("Found file " + next.absolutePath + " with qualifier in name", next.name.contains("qualifier"))
-        }
-
-        File pluginsPath = new File (param.path, "build/updatesite/plugins")
-        Assert.assertTrue ("plugins path " + pluginsPath.absolutePath + " does not exist", pluginsPath.exists())
-        for (File next: pluginsPath.listFiles()) {
-            Assert.assertFalse("Found file " + next.absolutePath + " with qualifier in name", next.name.contains("qualifier"))
-        }
-
-        File featuresPath = new File (param.path, "build/updatesite/features")
-        Assert.assertTrue ("features path " + featuresPath.absolutePath + " does not exist", featuresPath.exists())
-
+        checkUpdatesiteContent(new File (param.path, "build/newUpdatesiteContent"))
+        checkUpdatesiteContent(new File (param.path, "build/updatesite"))
     }
 
 

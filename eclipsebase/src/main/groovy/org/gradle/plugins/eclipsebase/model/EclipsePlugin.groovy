@@ -90,6 +90,10 @@ class EclipsePlugin extends EclipseProjectPart {
         return originPath.name
     }
 
+    public boolean isTestPlugin () {
+        return originPath.name.contains("test") //TODO make dependable from dsl
+    }
+
     public boolean equals (Object object) {
         if (object == null)
             return false

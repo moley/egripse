@@ -26,13 +26,13 @@ class MetaInf {
 
     private static final String NEWLINE = System.getProperty("line.separator")
     private final File file
-    private final InputStream inputStream
 
     public MetaInf (final File file, final InputStream metainfFile) {
         this.file = file
 
-
         manifest = new Manifest(metainfFile)
+
+        log.debug("Content of manifest " + manifest.entries.toString())
 
         createRequireBundle()
         createBundleId()
@@ -58,10 +58,23 @@ class MetaInf {
     }
 
     public void save () {
+        save (file)
+    }
+
+    public void saveTo (File file) {
         if (file.name.equals("MANIFEST.MF")) {
           log.info("Writing $file")
           FileOutputStream fos = new FileOutputStream(file)
-          manifest.write(fos)
+
+          if (manifest.entries.isEmpty())
+              throw new IllegalStateException("File " + file.absolutePath + " could not be written, check if a manifest-version is set")
+
+          try {
+            manifest.write(fos)
+              fos.close()
+          } catch (Exception e) {
+            log.error(e.toString(), e)
+          }
         }
         else
             throw new IllegalStateException("You try to write a MANIFEST.MF which is encapsualted in another file. That is not supported")

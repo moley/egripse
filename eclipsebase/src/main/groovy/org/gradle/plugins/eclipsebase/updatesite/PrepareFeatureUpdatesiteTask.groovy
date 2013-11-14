@@ -22,10 +22,20 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
     public exec () {
 
         Eclipse eclipse = project.eclipsemodel
+        EclipseBaseDsl basedsl = project.eclipsebase
 
         File updateSiteSource = project.file ("build/newUpdatesiteContent")
         File updateSiteFeaturesPath = new File (updateSiteSource, "features")
         File updateSitePluginsPath = new File (updateSiteSource, "plugins")
+
+        /**
+         * project.configurations.archives.artifacts.each {
+         File artifactFile = it.file
+         String nameWithUnderscore = artifactFile.name.replace("-", "_")
+         it.file = new File (artifactFile.parentFile, nameWithUnderscore)
+         log.info ("Artifact file in project " + project.name + " set to " + it.file.absolutePath)
+         }
+         */
 
         //copy Features
         for (EclipseFeature feature : eclipse.workspace.eclipseFeatures) {
@@ -40,13 +50,15 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
         }
 
         for (EclipsePlugin plugin : eclipse.workspace.plugins) {
-            String fromString = new File (plugin.originPath, "build/libs").absolutePath
-            log.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
-            project.copy {
+            if (! plugin.isTestPlugin()) {
+              String fromString = new File (plugin.originPath, "build/libs").absolutePath
+              log.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
+              project.copy {
                 into updateSitePluginsPath.absolutePath
                 from (fromString) {
                     include '*.jar'
                 }
+              }
             }
         }
 
