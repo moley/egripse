@@ -52,10 +52,16 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
         ConfigurePluginProjectTask configureBuildTask = project.tasks.create(type:ConfigurePluginProjectTask, name:TASKNAME_CONFIGURE_BUILD)
         javaTask.dependsOn configureBuildTask
 
-        if (plugindsl.mirrorDependencies) {
-          MirrorDependenciesTask mirrorDepsTask = project.tasks.create(type:MirrorDependenciesTask, name:TASKNAME_MIRROR_DEPENDENCIES)
-          project.tasks.classes.dependsOn(mirrorDepsTask)
+        project.afterEvaluate {
+          if (plugindsl.mirrorDependencies) {
+            log.info("Adding task ${TASKNAME_MIRROR_DEPENDENCIES}")
+            MirrorDependenciesTask mirrorDepsTask = project.tasks.create(type:MirrorDependenciesTask, name:TASKNAME_MIRROR_DEPENDENCIES)
+            project.tasks.classes.dependsOn(mirrorDepsTask)
+          }
+          else
+            log.info("No task ${TASKNAME_MIRROR_DEPENDENCIES} added")
         }
+
 
 
 

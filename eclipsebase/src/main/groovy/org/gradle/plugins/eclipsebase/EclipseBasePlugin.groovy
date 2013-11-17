@@ -59,10 +59,12 @@ class EclipseBasePlugin implements Plugin<Project> {
         //dependencies are resolved in afterEvaluate because we need infos from dsl objects
         project.afterEvaluate {
             for (Project nextSubProject : project.rootProject.subprojects) {
+                log.info("Set version in project " + nextSubProject.name)
                 nextSubProject.plugins.apply(JavaPlugin)
 
                 EclipseProjectPart projectpart = eclipseModel.workspace.findProjectPart(nextSubProject.projectDir)
-                projectVersionConfigurator.setVersion(nextSubProject, projectpart.version)
+                if (projectpart != null)
+                  projectVersionConfigurator.setVersion(nextSubProject, projectpart.version)
             }
 
             Project rootProject = project.rootProject

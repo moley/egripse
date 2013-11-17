@@ -49,7 +49,7 @@ class BuildPropertiesConfigurator {
             if (forceManifest)
                 throw new IllegalStateException("Project has no MANIFEST.MF file distributed")
             else
-                log.warn("Manifest file <" + manifestFile.absolutePath + "> not available")
+                log.info("Manifest file <" + manifestFile.absolutePath + "> not available")
         }
 
         File featureXmlFile = new File (mergedResourcesFolder, "feature.xml")
@@ -63,7 +63,7 @@ class BuildPropertiesConfigurator {
             if (forceFeatureXml)
                 throw new IllegalStateException("Project has no feature.xml file distributed")
             else
-              log.warn("Feature.xml file <" + featureXmlFile.absolutePath + "> not available")
+              log.info("Feature.xml file <" + featureXmlFile.absolutePath + "> not available")
         }
 
 

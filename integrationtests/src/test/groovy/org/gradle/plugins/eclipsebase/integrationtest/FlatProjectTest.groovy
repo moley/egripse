@@ -27,6 +27,13 @@ class FlatProjectTest {
 
         GradleLauncherResult result = launcher.callGradleBuild(param)
         launcher.checkOutputForOK(result)
+
+        File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
+
+        File buildDeps = new File (pluginProjectDir, "build/deps")
+        Assert.assertTrue ("buildDeps path not created", buildDeps.exists())
+        Assert.assertTrue ("not enough content in buildDeps path, expected at least 5 files", buildDeps.listFiles().length > 5)
+
     }
 
     private void checkUpdatesiteContent (final File rootpath)  {

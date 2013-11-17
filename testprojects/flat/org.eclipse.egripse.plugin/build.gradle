@@ -2,7 +2,17 @@ apply {
     plugin 'eclipseplugin'
 }
 
+repositories {
+  mavenCentral()
+} 
+
 //an additional maven dependency should be handled correctly
 dependencies {
    compile 'org.apache.ftpserver:ftpserver:1.0.6' 
-} 
+}
+
+
+eclipseplugin {
+    sourceproject ()
+    mirrorDependencies = true
+}
