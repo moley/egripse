@@ -1,5 +1,6 @@
 package org.gradle.plugins.eclipsebase.config
 
+import com.google.common.collect.Iterables
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -26,12 +27,20 @@ class BuildPropertiesConfigurator {
 
         File mergedResourcesFolder = project.file("build/mergedResources")
 
+        Set <String> allIncludes = new HashSet<String>()
+        if (buildproperties != null && buildproperties.binIncludes != null)
+            allIncludes.addAll(buildproperties.binIncludes)
+
+        if (project.file("META-INF/MANIFEST.MF").exists())
+          allIncludes.add("META-INF/MANIFEST.MF")
+
         project.copy {
-            into(mergedResourcesFolder)
-            from(project.projectDir) {
-                log.info("Included " + buildproperties.binIncludes)
-                include(buildproperties.binIncludes)
-            }
+          into(mergedResourcesFolder)
+          from(project.projectDir) {
+            log.info("Included " + allIncludes)
+            include(allIncludes)
+            exclude ("build")
+          }
         }
 
         File manifestFile = new File (mergedResourcesFolder, "META-INF/MANIFEST.MF")

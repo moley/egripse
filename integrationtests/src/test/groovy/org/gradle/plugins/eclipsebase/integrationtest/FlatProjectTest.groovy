@@ -15,6 +15,34 @@ class FlatProjectTest {
     private GradleLauncher launcher = new GradleLauncher()
 
     @Test
+    public void eclipse () {
+        File path = launcher.getProjectPath("testprojects")
+        File testprojectFlat = new File (path, "flat")
+
+        GradleLauncherParam param = new GradleLauncherParam()
+        param.path = testprojectFlat
+        param.withStacktrace = true
+        param.tasks = "eclipse"
+
+        GradleLauncherResult result = launcher.callGradleBuild(param)
+        launcher.checkOutputForOK(result)
+
+        File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
+        String dotProjectPlugin = new File (pluginProjectDir, ".project").text
+        Assert.assertTrue ("No manifest builder added", dotProjectPlugin.contains("<name>org.eclipse.pde.ManifestBuilder</name>"))
+        Assert.assertTrue ("No schema builder added", dotProjectPlugin.contains("<name>org.eclipse.pde.SchemaBuilder</name>"))
+        Assert.assertTrue ("No java builder added", dotProjectPlugin.contains("<name>org.eclipse.jdt.core.javabuilder</name>"))
+
+        Assert.assertTrue ("No PluginNature added", dotProjectPlugin.contains("<nature>org.eclipse.pde.PluginNature</nature>"))
+        Assert.assertTrue ("No JavaNature added", dotProjectPlugin.contains("<nature>org.eclipse.jdt.core.javanature</nature>"))
+
+        File featureProjectDir = new File (testprojectFlat, "org.eclipse.egripse.feature")
+        String dotProjectFeature = new File (featureProjectDir, ".project").text
+        Assert.assertTrue ("No FeatureBuilder added", dotProjectFeature.contains("<name>org.eclipse.pde.FeatureBuilder</name>"))
+        Assert.assertTrue ("No FeatureNature added", dotProjectFeature.contains("<nature>org.eclipse.pde.FeatureNature</nature>"))
+    }
+
+    @Test
     public void build () {
 
         File path = launcher.getProjectPath("testprojects")
@@ -23,7 +51,7 @@ class FlatProjectTest {
         GradleLauncherParam param = new GradleLauncherParam()
         param.path = testprojectFlat
         param.withStacktrace = true
-        param.tasks = "clean build --offline"
+        param.tasks = "clean build"
 
         GradleLauncherResult result = launcher.callGradleBuild(param)
         launcher.checkOutputForOK(result)
@@ -56,7 +84,7 @@ class FlatProjectTest {
 
         GradleLauncherParam param = new GradleLauncherParam()
         param.path = testprojectFlat
-        param.tasks = "clean build updatesiteLocal --offline"
+        param.tasks = "clean build updatesiteLocal"
         param.withStacktrace = true
 
         GradleLauncherResult result = launcher.callGradleBuild(param)

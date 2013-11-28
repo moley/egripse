@@ -16,7 +16,11 @@ class EclipsePluginPluginTest {
 
     @Test
     public void sourceProject () {
-        ProjectInternal project = ProjectBuilder.builder().build()
+
+        ProjectInternal rootproject = ProjectBuilder.builder().build()
+        rootproject.apply plugin: 'eclipsebase'
+
+        ProjectInternal project = ProjectBuilder.builder().withParent(rootproject).build()
         project.apply plugin: 'eclipseplugin'
         project.eclipseplugin { sourceproject() }
         project.evaluate()
@@ -37,6 +41,7 @@ class EclipsePluginPluginTest {
 
         final String OTHERPROJECT_NAME = "someOtherProject"
         ProjectInternal rootproject = ProjectBuilder.builder().build()
+        rootproject.apply plugin: 'eclipsebase'
         Project otherProject = ProjectBuilder.builder().withParent(rootproject).withName(OTHERPROJECT_NAME).build()
         otherProject.apply plugin: 'java'
         ProjectInternal project = ProjectBuilder.builder().withParent(rootproject).build()

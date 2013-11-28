@@ -3,7 +3,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.eclipse.emf:org.eclipse.emf.mwe.core:1.1.0'
+//  compile 'org.eclipse.emf:org.eclipse.emf.mwe.core:1.1.0'
   compile project(':eclipseplugin')
   compile project(':eclipsebase')
 }
