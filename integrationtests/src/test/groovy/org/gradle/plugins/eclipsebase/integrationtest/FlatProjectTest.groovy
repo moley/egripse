@@ -1,5 +1,7 @@
 package org.gradle.plugins.eclipsebase.integrationtest
 
+import org.apache.commons.io.FileUtils
+import org.junit.After
 import org.junit.Assert
 import org.junit.Test
 
@@ -14,13 +16,22 @@ class FlatProjectTest {
 
     private GradleLauncher launcher = new GradleLauncher()
 
+    File path = launcher.getProjectPath("testprojects")
+    File testprojectFlat = new File (path, "flat")
+
+    GradleLauncherParam param
+
+    @After
+    public void after () {
+        if (param.copyFrom != null && param.path.absolutePath.contains("tmp"))
+            FileUtils.deleteDirectory(param.path)
+
+    }
+
     @Test
     public void eclipse () {
-        File path = launcher.getProjectPath("testprojects")
-        File testprojectFlat = new File (path, "flat")
-
-        GradleLauncherParam param = new GradleLauncherParam()
-        param.path = testprojectFlat
+        param = new GradleLauncherParam()
+        param.copyFrom = testprojectFlat
         param.withStacktrace = true
         param.tasks = "eclipse"
 
@@ -43,12 +54,27 @@ class FlatProjectTest {
     }
 
     @Test
+    public void buildParentsFirst () {
+        param = new GradleLauncherParam()
+        param.copyFrom = testprojectFlat
+        param.withStacktrace = true
+        param.buildscriptFile = "withParentsFirst.gradle"
+        param.tasks = "clean build"
+
+        GradleLauncherResult result = launcher.callGradleBuild(param)
+        launcher.checkOutputForOK(result)
+
+        File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
+
+        File buildDeps = new File (pluginProjectDir, "build/deps")
+        Assert.assertTrue ("buildDeps path not created", buildDeps.exists())
+        Assert.assertTrue ("not enough content in buildDeps path, expected at least 5 files", buildDeps.listFiles().length > 5)
+
+    }
+
+    @Test
     public void build () {
-
-        File path = launcher.getProjectPath("testprojects")
-        File testprojectFlat = new File (path, "flat")
-
-        GradleLauncherParam param = new GradleLauncherParam()
+        param = new GradleLauncherParam()
         param.path = testprojectFlat
         param.withStacktrace = true
         param.tasks = "clean build"
@@ -78,11 +104,7 @@ class FlatProjectTest {
 
     @Test
     public void updatesite () {
-
-        File path = launcher.getProjectPath("testprojects")
-        File testprojectFlat = new File (path, "flat")
-
-        GradleLauncherParam param = new GradleLauncherParam()
+        param = new GradleLauncherParam()
         param.path = testprojectFlat
         param.tasks = "clean build updatesiteLocal"
         param.withStacktrace = true

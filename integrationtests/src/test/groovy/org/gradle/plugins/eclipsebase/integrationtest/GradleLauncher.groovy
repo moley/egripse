@@ -1,10 +1,9 @@
 package org.gradle.plugins.eclipsebase.integrationtest
 
+import com.google.common.io.Files
 import groovy.util.logging.Log4j
+import org.apache.commons.io.FileUtils
 import org.gradle.api.GradleException
-import org.gradle.plugins.eclipsebase.integrationtest.GradleLauncherDebugLevel
-import org.gradle.plugins.eclipsebase.integrationtest.GradleLauncherParam
-import org.gradle.plugins.eclipsebase.integrationtest.GradleLauncherResult
 import org.junit.Assert
 
 /**
@@ -52,6 +51,7 @@ class GradleLauncher {
                 break
             }
         }
+
 
         Assert.assertTrue ("No error with errorcode " + errorCode + " was found in output", errorline > 0)
 
@@ -101,6 +101,21 @@ class GradleLauncher {
         File pathAsPath = param.path
         String gradleHome = System.getenv("GRADLE_HOME")
         if (gradleHome == null) throw new IllegalStateException("Environment Variable GRADLE_HOME is not set")
+
+
+
+        if (param.copyFrom != null) {
+            File root = new File (getProjectPath("integrationtests").parentFile, "tmp")
+            pathAsPath = new File (root, Files.createTempDir().name)
+            println ("Using temporaer path " + pathAsPath.absolutePath)
+            FileUtils.copyDirectory(param.copyFrom, pathAsPath)
+            if (param.buildscriptFile != null) {
+              FileUtils.copyFile(new File (param.copyFrom, param.buildscriptFile), new File (pathAsPath, "build.gradle"))
+              param.buildscriptFile = param.DEFAULT_BUILDSCRIPT
+            }
+            param.path = pathAsPath
+        }
+
 
         File propFiles = new File(pathAsPath, "project.properties")
         if (!propFiles.exists())

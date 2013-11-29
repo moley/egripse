@@ -27,13 +27,15 @@ class EclipseFeaturePlugin implements Plugin<Project>  {
 
         log.info ("Applying plugin ${getClass()} in project ${project.name}")
 
+        project.plugins.apply(JavaPlugin) //We need for compile configuration
+
         SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type:SynchronizeBuildMetadata, name:SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
         project.tasks.processResources.dependsOn syncBuildproperties
 
-        DefaultTask buildTask = project.tasks.findByName("build")
+        DefaultTask javaTask = project.tasks.findByName("compileJava")
 
         ConfigureFeatureProjectTask configureBuildTask = project.tasks.create(type:ConfigureFeatureProjectTask, name:"configureBuild")
-        buildTask.dependsOn configureBuildTask
+        javaTask.dependsOn configureBuildTask
 
         configureProjectFiles(project)
 
@@ -44,8 +46,8 @@ class EclipseFeaturePlugin implements Plugin<Project>  {
     void configureProjectFiles (final Project project) {
         EclipseModel eclipsemodel = project.extensions.findByType(EclipseModel)
         eclipsemodel.project {
-            natures 'org.eclipse.pde.FeatureNature'
-            buildCommand 'org.eclipse.pde.FeatureBuilder'
+            natures = ['org.eclipse.pde.FeatureNature']
+            buildCommand = ['org.eclipse.pde.FeatureBuilder']
         }
     }
 }

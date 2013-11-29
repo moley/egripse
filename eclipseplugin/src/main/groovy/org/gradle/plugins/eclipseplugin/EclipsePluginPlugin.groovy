@@ -13,7 +13,6 @@ import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 import org.gradle.plugins.ide.eclipse.EclipsePlugin
 import org.gradle.plugins.ide.eclipse.model.Classpath
 import org.gradle.plugins.ide.eclipse.model.ClasspathEntry
-import org.gradle.plugins.ide.eclipse.model.Container
 import org.gradle.plugins.ide.eclipse.model.EclipseModel
 import org.gradle.plugins.ide.eclipse.model.Library
 
@@ -88,7 +87,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
             }
 
         project.afterEvaluate {
-        Eclipse eclipseModel = project.rootProject.eclipsemodel
+          Eclipse eclipseModel = project.rootProject.eclipsemodel
 
 
         Collection<ClasspathEntry> toRemove = new ArrayList<ClasspathEntry>()

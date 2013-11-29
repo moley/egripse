@@ -33,7 +33,12 @@ class GradleLauncherParam {
     /**
      * path were the gradle script is called
      */
-    File path = new File("")
+    File path
+
+    /**
+     * copies project from this
+     */
+    File copyFrom
 
     /**
      * tasks that are called, different tasks are divided by space
@@ -46,9 +51,16 @@ class GradleLauncherParam {
     Map properties
 
     /**
+     * default buildscript
+     */
+    public final String DEFAULT_BUILDSCRIPT = "build.gradle"
+
+    /**
      * buildscript filename
      */
-    String buildscriptFile = "build.gradle"
+    String buildscriptFile = DEFAULT_BUILDSCRIPT
+
+
 
     /**
      * {@inheritDoc}
@@ -63,7 +75,8 @@ class GradleLauncherParam {
                 "- Tasks          : ${tasks}\n" +
                 "- Properties     : ${properties}\n" +
                 "- Buildfile      : ${buildscriptFile}\n" +
-                "- Stacktrace     : ${withStacktrace}"
+                "- Stacktrace     : ${withStacktrace}\n" +
+                "- From           : ${copyFrom}\n"
     }
 
 

@@ -8,6 +8,7 @@ allprojects {
 
 subprojects {
   apply { plugin 'eclipse' } 
+  apply { plugin 'java' } 
 }
 
 buildscript {
@@ -24,6 +25,7 @@ apply {
   plugin 'java' //TODO remove after dependend task of updatesite is refactored
   plugin 'eclipsebase'
 }
+
 
 eclipsebase {  
  targetplatform 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_201307031350.zip'
