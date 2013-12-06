@@ -1,10 +1,8 @@
 package org.gradle.plugins.eclipsebase.updatesite
 
 import groovy.util.logging.Slf4j
-import org.apache.commons.io.IOUtils
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
-import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
 /**
@@ -20,7 +18,6 @@ class MergeUpdatesiteTask extends JavaExec{
 
     @TaskAction
     public void exec () {
-
         Eclipse eclipse = project.eclipsemodel
 
         File updatesitePath = project.file("build/updatesite")
@@ -39,7 +36,7 @@ class MergeUpdatesiteTask extends JavaExec{
         jvmArgs '-XX:MaxPermSize=512m'
 
         args '-console'
-        args '-consoleLog'
+        args '-consolelog'
         args '-application', 'org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher'
         args '-metadataRepository', 'file:' + updatesitePath.absolutePath + '/'
         args '-append'

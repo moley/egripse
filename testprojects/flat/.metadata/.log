@@ -26,3 +26,411 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.
 
 !ENTRY org.eclipse.core.net 1 0 2013-10-12 21:31:09.501
 !MESSAGE System property https.proxyPort is not set but should be 8080.
+!SESSION 2013-11-09 20:58:54.025 -----------------------------------------------
+eclipse.buildId=M20120208-0800
+java.version=1.6.0_41
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.876
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|ads-root.de|*.ads-root.de|vsa.de|*.vsa.de by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.881
+!MESSAGE System property http.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.881
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.881
+!MESSAGE System property https.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.881
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.882
+!MESSAGE System property https.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-11-09 20:59:35.882
+!MESSAGE System property https.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.271
+!MESSAGE SVN: 'SVN Decorator' operation finished with error
+!SUBENTRY 1 org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.272
+!MESSAGE SVN: 'SVN Decorator' operation finished with error: 0x00000000: Unable connect to 'org.eclipse.egripse.feature' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+!STACK 0
+org.eclipse.team.svn.core.operation.HiddenException: 0x00000000: Unable connect to 'org.eclipse.egripse.feature' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+	at org.eclipse.team.svn.core.SVNTeamProvider.breakThreadExecution(SVNTeamProvider.java:241)
+	at org.eclipse.team.svn.core.SVNTeamProvider.connectToProject(SVNTeamProvider.java:193)
+	at org.eclipse.team.svn.core.SVNTeamProvider.getRepositoryResource(SVNTeamProvider.java:85)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.loadLocalResourcesSubTreeSVNImpl(SVNRemoteStorage.java:778)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.loadLocalResourcesSubTree(SVNRemoteStorage.java:656)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:427)
+	at org.eclipse.team.svn.ui.decorator.SVNLightweightDecorator.decorateResource(SVNLightweightDecorator.java:221)
+	at org.eclipse.team.svn.ui.decorator.SVNLightweightDecorator.decorate(SVNLightweightDecorator.java:194)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:263)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:81)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:347)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:370)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:330)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.285
+!MESSAGE SVN: '0x00000000: Open Project' operation finished with error
+!SUBENTRY 1 org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.286
+!MESSAGE SVN: '0x00000000: Open Project' operation finished with error: 0x00000000: Unable connect to 'org.eclipse.egripse.feature' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+!STACK 0
+org.eclipse.team.svn.core.operation.UnreportableException: 0x00000000: Unable connect to 'org.eclipse.egripse.feature' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+	at org.eclipse.team.svn.core.SVNTeamProvider$1.runImpl(SVNTeamProvider.java:234)
+	at org.eclipse.team.svn.core.operation.AbstractActionOperation.run(AbstractActionOperation.java:81)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTask(ProgressMonitorUtility.java:104)
+	at org.eclipse.team.svn.core.operation.CompositeOperation.runImpl(CompositeOperation.java:95)
+	at org.eclipse.team.svn.core.operation.AbstractActionOperation.run(AbstractActionOperation.java:81)
+	at org.eclipse.team.svn.core.operation.LoggedOperation.run(LoggedOperation.java:39)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTask(ProgressMonitorUtility.java:104)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTaskExternal(ProgressMonitorUtility.java:90)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility$1$1.run(ProgressMonitorUtility.java:60)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility$1.run(ProgressMonitorUtility.java:58)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.295
+!MESSAGE SVN: 'SVN Decorator' operation finished with error
+!SUBENTRY 1 org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.295
+!MESSAGE SVN: 'SVN Decorator' operation finished with error: 0x00000000: Unable connect to 'org.eclipse.egripse.plugin' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+!STACK 0
+org.eclipse.team.svn.core.operation.HiddenException: 0x00000000: Unable connect to 'org.eclipse.egripse.plugin' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+	at org.eclipse.team.svn.core.SVNTeamProvider.breakThreadExecution(SVNTeamProvider.java:241)
+	at org.eclipse.team.svn.core.SVNTeamProvider.connectToProject(SVNTeamProvider.java:193)
+	at org.eclipse.team.svn.core.SVNTeamProvider.getRepositoryResource(SVNTeamProvider.java:85)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.loadLocalResourcesSubTreeSVNImpl(SVNRemoteStorage.java:778)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.loadLocalResourcesSubTree(SVNRemoteStorage.java:656)
+	at org.eclipse.team.svn.core.svnstorage.SVNRemoteStorage.asLocalResource(SVNRemoteStorage.java:427)
+	at org.eclipse.team.svn.ui.decorator.SVNLightweightDecorator.decorateResource(SVNLightweightDecorator.java:221)
+	at org.eclipse.team.svn.ui.decorator.SVNLightweightDecorator.decorate(SVNLightweightDecorator.java:194)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorDefinition.decorate(LightweightDecoratorDefinition.java:263)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager$LightweightRunnable.run(LightweightDecoratorManager.java:81)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.decorate(LightweightDecoratorManager.java:365)
+	at org.eclipse.ui.internal.decorators.LightweightDecoratorManager.getDecorations(LightweightDecoratorManager.java:347)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.ensureResultCached(DecorationScheduler.java:370)
+	at org.eclipse.ui.internal.decorators.DecorationScheduler$1.run(DecorationScheduler.java:330)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.309
+!MESSAGE SVN: '0x00000000: Open Project' operation finished with error
+!SUBENTRY 1 org.eclipse.team.svn.core.svnnature 4 0 2013-11-09 20:59:40.309
+!MESSAGE SVN: '0x00000000: Open Project' operation finished with error: 0x00000000: Unable connect to 'org.eclipse.egripse.plugin' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+!STACK 0
+org.eclipse.team.svn.core.operation.UnreportableException: 0x00000000: Unable connect to 'org.eclipse.egripse.plugin' project.
+Please check that SVN meta-information exists and its format is supported by the current SVN plug-in version.
+If so, it is possible that project working copy is relocated outside plug-in control.
+At the current moment project will be automatically disconnected from source control.
+	at org.eclipse.team.svn.core.SVNTeamProvider$1.runImpl(SVNTeamProvider.java:234)
+	at org.eclipse.team.svn.core.operation.AbstractActionOperation.run(AbstractActionOperation.java:81)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTask(ProgressMonitorUtility.java:104)
+	at org.eclipse.team.svn.core.operation.CompositeOperation.runImpl(CompositeOperation.java:95)
+	at org.eclipse.team.svn.core.operation.AbstractActionOperation.run(AbstractActionOperation.java:81)
+	at org.eclipse.team.svn.core.operation.LoggedOperation.run(LoggedOperation.java:39)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTask(ProgressMonitorUtility.java:104)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility.doTaskExternal(ProgressMonitorUtility.java:90)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility$1$1.run(ProgressMonitorUtility.java:60)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2344)
+	at org.eclipse.team.svn.core.utility.ProgressMonitorUtility$1.run(ProgressMonitorUtility.java:58)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.apache.log4j 4 0 2013-11-09 21:06:42.532
+!MESSAGE org.eclipse.xtext.builder.builderState.EMFBasedPersister  - Error while loading persistable builder state.
+
+!STACK 0
+com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Invalid byte 1 of 1-byte UTF-8 sequence.
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.invalidByte(UTF8Reader.java:684)
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.read(UTF8Reader.java:554)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.load(XMLEntityScanner.java:1742)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.arrangeCapacity(XMLEntityScanner.java:1619)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.skipString(XMLEntityScanner.java:1657)
+	at com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:193)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:772)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1205)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:522)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:395)
+	at org.eclipse.emf.ecore.xmi.impl.XMLLoadImpl.load(XMLLoadImpl.java:181)
+	at org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl.doLoad(XMLResourceImpl.java:242)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1511)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1290)
+	at org.eclipse.xtext.builder.builderState.EMFBasedPersister.load(EMFBasedPersister.java:64)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.load(AbstractBuilderState.java:55)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.ensureLoaded(AbstractBuilderState.java:62)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.getAllResourceDescriptions(AbstractBuilderState.java:84)
+	at org.eclipse.xtext.builder.impl.ToBeBuiltComputer.doRemoveProject(ToBeBuiltComputer.java:52)
+	at org.eclipse.xtext.builder.impl.ToBeBuiltComputer.removeProject(ToBeBuiltComputer.java:48)
+	at org.eclipse.xtext.builder.impl.javasupport.JdtToBeBuiltComputer.removeProject(JdtToBeBuiltComputer.java:68)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener.scheduleRemoveProjectJob(ProjectOpenedOrClosedListener.java:122)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener$1.visit(ProjectOpenedOrClosedListener.java:99)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:69)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:80)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:49)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener.resourceChanged(ProjectOpenedOrClosedListener.java:85)
+	at org.eclipse.xtext.ui.shared.internal.ComposedResourceChangeListener.resourceChanged(ComposedResourceChangeListener.java:29)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.core.JavaCore.setClasspathContainer(JavaCore.java:4952)
+	at org.eclipse.pde.internal.core.PluginModelManager$UpdateClasspathsJob.run(PluginModelManager.java:64)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+
+!ENTRY org.apache.log4j 4 0 2013-11-09 21:06:42.536
+!MESSAGE org.eclipse.xtext.builder.builderState.EMFBasedPersister  - Triggering a full build.
+
+
+!ENTRY org.eclipse.core.resources 4 2 2013-11-09 21:06:42.538
+!MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.core.resources".
+!STACK 0
+org.eclipse.emf.common.util.WrappedException: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Invalid byte 1 of 1-byte UTF-8 sequence.
+	at org.eclipse.xtext.builder.builderState.EMFBasedPersister.load(EMFBasedPersister.java:83)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.load(AbstractBuilderState.java:55)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.ensureLoaded(AbstractBuilderState.java:62)
+	at org.eclipse.xtext.builder.builderState.AbstractBuilderState.getAllResourceDescriptions(AbstractBuilderState.java:84)
+	at org.eclipse.xtext.builder.impl.ToBeBuiltComputer.doRemoveProject(ToBeBuiltComputer.java:52)
+	at org.eclipse.xtext.builder.impl.ToBeBuiltComputer.removeProject(ToBeBuiltComputer.java:48)
+	at org.eclipse.xtext.builder.impl.javasupport.JdtToBeBuiltComputer.removeProject(JdtToBeBuiltComputer.java:68)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener.scheduleRemoveProjectJob(ProjectOpenedOrClosedListener.java:122)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener$1.visit(ProjectOpenedOrClosedListener.java:99)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:69)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:80)
+	at org.eclipse.core.internal.events.ResourceDelta.accept(ResourceDelta.java:49)
+	at org.eclipse.xtext.builder.impl.ProjectOpenedOrClosedListener.resourceChanged(ProjectOpenedOrClosedListener.java:85)
+	at org.eclipse.xtext.ui.shared.internal.ComposedResourceChangeListener.resourceChanged(ComposedResourceChangeListener.java:29)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:395)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1530)
+	at org.eclipse.core.internal.resources.Workspace.run(Workspace.java:2353)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:793)
+	at org.eclipse.jdt.core.JavaCore.setClasspathContainer(JavaCore.java:4952)
+	at org.eclipse.pde.internal.core.PluginModelManager$UpdateClasspathsJob.run(PluginModelManager.java:64)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:54)
+Caused by: com.sun.org.apache.xerces.internal.impl.io.MalformedByteSequenceException: Invalid byte 1 of 1-byte UTF-8 sequence.
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.invalidByte(UTF8Reader.java:684)
+	at com.sun.org.apache.xerces.internal.impl.io.UTF8Reader.read(UTF8Reader.java:554)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.load(XMLEntityScanner.java:1742)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.arrangeCapacity(XMLEntityScanner.java:1619)
+	at com.sun.org.apache.xerces.internal.impl.XMLEntityScanner.skipString(XMLEntityScanner.java:1657)
+	at com.sun.org.apache.xerces.internal.impl.XMLVersionDetector.determineDocVersion(XMLVersionDetector.java:193)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:772)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:737)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:119)
+	at com.sun.org.apache.xerces.internal.parsers.AbstractSAXParser.parse(AbstractSAXParser.java:1205)
+	at com.sun.org.apache.xerces.internal.jaxp.SAXParserImpl$JAXPSAXParser.parse(SAXParserImpl.java:522)
+	at javax.xml.parsers.SAXParser.parse(SAXParser.java:395)
+	at org.eclipse.emf.ecore.xmi.impl.XMLLoadImpl.load(XMLLoadImpl.java:181)
+	at org.eclipse.emf.ecore.xmi.impl.XMLResourceImpl.doLoad(XMLResourceImpl.java:242)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1511)
+	at org.eclipse.emf.ecore.resource.impl.ResourceImpl.load(ResourceImpl.java:1290)
+	at org.eclipse.xtext.builder.builderState.EMFBasedPersister.load(EMFBasedPersister.java:64)
+	... 24 more
+!SESSION 2013-12-06 00:23:03.255 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.java.product -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -data /Users/OleyMa/vcs/egripse/testprojects/flat -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:23:09.554
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|ads-root.de|*.ads-root.de|vsa.de|*.vsa.de by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:23:09.561
+!MESSAGE System property http.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:23:09.561
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.ui 4 4 2013-12-06 00:23:11.514
+!MESSAGE Unable to find Action Set: com.google.gdt.eclipse.core.actionSet
+
+!ENTRY org.eclipse.core.filesystem 4 271 2013-12-06 00:23:22.692
+!MESSAGE File not found: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties.
+!STACK 0
+java.io.FileNotFoundException: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.openInputStream(LocalFile.java:368)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:797)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:289)
+	at org.eclipse.pde.internal.core.build.WorkspaceBuildModel.load(WorkspaceBuildModel.java:67)
+	at org.eclipse.pde.core.plugin.PluginRegistry.createBuildModel(PluginRegistry.java:414)
+	at org.eclipse.pde.internal.core.ClasspathUtilCore.getBuild(ClasspathUtilCore.java:194)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.computePluginEntries(RequiredPluginsClasspathContainer.java:149)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.getClasspathEntries(RequiredPluginsClasspathContainer.java:95)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2698)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2856)
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:1961)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.getRootInfos(DeltaProcessingState.java:304)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.initializeRoots(DeltaProcessingState.java:249)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:725)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:788)
+	at org.eclipse.jdt.internal.core.JavaModelManager$11.run(JavaModelManager.java:2797)
+	at org.eclipse.jdt.internal.core.JavaModelManager.initializeAllContainers(JavaModelManager.java:2811)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getClasspathContainer(JavaModelManager.java:1897)
+	at org.eclipse.jdt.core.JavaCore.getClasspathContainer(JavaCore.java:3221)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2692)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2856)
+	at org.eclipse.jdt.internal.core.ClasspathChange.generateDelta(ClasspathChange.java:220)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2052)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:470)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:396)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1531)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:45)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.core.filesystem 4 271 2013-12-06 00:23:22.705
+!MESSAGE File not found: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties.
+!STACK 0
+java.io.FileNotFoundException: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.openInputStream(LocalFile.java:368)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:797)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:289)
+	at org.eclipse.pde.internal.core.build.WorkspaceBuildModel.load(WorkspaceBuildModel.java:67)
+	at org.eclipse.pde.internal.core.build.BuildModel.getBuild(BuildModel.java:36)
+	at org.eclipse.pde.internal.core.ClasspathUtilCore.getBuild(ClasspathUtilCore.java:195)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.computePluginEntries(RequiredPluginsClasspathContainer.java:149)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.getClasspathEntries(RequiredPluginsClasspathContainer.java:95)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2698)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2856)
+	at org.eclipse.jdt.internal.core.JavaProject.getResolvedClasspath(JavaProject.java:1961)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.getRootInfos(DeltaProcessingState.java:304)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.initializeRoots(DeltaProcessingState.java:249)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.run(JavaModelOperation.java:725)
+	at org.eclipse.jdt.internal.core.JavaModelOperation.runOperation(JavaModelOperation.java:788)
+	at org.eclipse.jdt.internal.core.JavaModelManager$11.run(JavaModelManager.java:2797)
+	at org.eclipse.jdt.internal.core.JavaModelManager.initializeAllContainers(JavaModelManager.java:2811)
+	at org.eclipse.jdt.internal.core.JavaModelManager.getClasspathContainer(JavaModelManager.java:1897)
+	at org.eclipse.jdt.core.JavaCore.getClasspathContainer(JavaCore.java:3221)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2692)
+	at org.eclipse.jdt.internal.core.JavaProject.resolveClasspath(JavaProject.java:2856)
+	at org.eclipse.jdt.internal.core.ClasspathChange.generateDelta(ClasspathChange.java:220)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2052)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:470)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastPostChange(Workspace.java:396)
+	at org.eclipse.core.internal.resources.Workspace.endOperation(Workspace.java:1531)
+	at org.eclipse.core.internal.resources.InternalWorkspaceJob.run(InternalWorkspaceJob.java:45)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.core.filesystem 4 271 2013-12-06 00:23:23.779
+!MESSAGE File not found: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties.
+!STACK 0
+java.io.FileNotFoundException: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.openInputStream(LocalFile.java:368)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:797)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:289)
+	at org.eclipse.pde.internal.core.build.WorkspaceBuildModel.load(WorkspaceBuildModel.java:67)
+	at org.eclipse.pde.core.plugin.PluginRegistry.createBuildModel(PluginRegistry.java:414)
+	at org.eclipse.pde.internal.core.ClasspathUtilCore.getBuild(ClasspathUtilCore.java:194)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.computePluginEntries(RequiredPluginsClasspathContainer.java:149)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.getClasspathEntries(RequiredPluginsClasspathContainer.java:95)
+	at org.eclipse.jdt.internal.core.ClasspathEntry.validateClasspathEntry(ClasspathEntry.java:1959)
+	at org.eclipse.jdt.internal.core.ClasspathEntry.validateClasspathEntry(ClasspathEntry.java:1908)
+	at org.eclipse.jdt.internal.core.ClasspathValidation.validate(ClasspathValidation.java:72)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2130)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:470)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastBuildEvent(Workspace.java:382)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:139)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+
+!ENTRY org.eclipse.core.filesystem 4 271 2013-12-06 00:23:23.780
+!MESSAGE File not found: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties.
+!STACK 0
+java.io.FileNotFoundException: /Users/OleyMa/vcs/egripse/testprojects/flat/org.eclipse.egripse.headless/build.properties (No such file or directory)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:138)
+	at org.eclipse.core.internal.filesystem.local.LocalFile.openInputStream(LocalFile.java:368)
+	at org.eclipse.core.internal.localstore.FileSystemResourceManager.read(FileSystemResourceManager.java:797)
+	at org.eclipse.core.internal.resources.File.getContents(File.java:289)
+	at org.eclipse.pde.internal.core.build.WorkspaceBuildModel.load(WorkspaceBuildModel.java:67)
+	at org.eclipse.pde.internal.core.build.BuildModel.getBuild(BuildModel.java:36)
+	at org.eclipse.pde.internal.core.ClasspathUtilCore.getBuild(ClasspathUtilCore.java:195)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.computePluginEntries(RequiredPluginsClasspathContainer.java:149)
+	at org.eclipse.pde.internal.core.RequiredPluginsClasspathContainer.getClasspathEntries(RequiredPluginsClasspathContainer.java:95)
+	at org.eclipse.jdt.internal.core.ClasspathEntry.validateClasspathEntry(ClasspathEntry.java:1959)
+	at org.eclipse.jdt.internal.core.ClasspathEntry.validateClasspathEntry(ClasspathEntry.java:1908)
+	at org.eclipse.jdt.internal.core.ClasspathValidation.validate(ClasspathValidation.java:72)
+	at org.eclipse.jdt.internal.core.DeltaProcessor.resourceChanged(DeltaProcessor.java:2130)
+	at org.eclipse.jdt.internal.core.DeltaProcessingState.resourceChanged(DeltaProcessingState.java:470)
+	at org.eclipse.core.internal.events.NotificationManager$1.run(NotificationManager.java:291)
+	at org.eclipse.core.runtime.SafeRunner.run(SafeRunner.java:42)
+	at org.eclipse.core.internal.events.NotificationManager.notify(NotificationManager.java:285)
+	at org.eclipse.core.internal.events.NotificationManager.broadcastChanges(NotificationManager.java:149)
+	at org.eclipse.core.internal.resources.Workspace.broadcastBuildEvent(Workspace.java:382)
+	at org.eclipse.core.internal.events.AutoBuildJob.doBuild(AutoBuildJob.java:139)
+	at org.eclipse.core.internal.events.AutoBuildJob.run(AutoBuildJob.java:241)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2013-12-06 00:30:07.457 -----------------------------------------------
+eclipse.buildId=4.3.0.M20130911-1000
+java.version=1.7.0_25
+java.vendor=Oracle Corporation
+BootLoader constants: OS=macosx, ARCH=x86_64, WS=cocoa, NL=de_DE
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -product org.eclipse.epp.package.java.product -keyring /Users/OleyMa/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:30:16.236
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16|ads-root.de|*.ads-root.de|vsa.de|*.vsa.de by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:30:16.241
+!MESSAGE System property http.proxyHost is not set but should be proxy.vsa.de.
+
+!ENTRY org.eclipse.core.net 1 0 2013-12-06 00:30:16.242
+!MESSAGE System property http.proxyPort is not set but should be 8080.
+
+!ENTRY org.eclipse.ui 4 4 2013-12-06 00:30:17.353
+!MESSAGE Unable to find Action Set: com.google.gdt.eclipse.core.actionSet

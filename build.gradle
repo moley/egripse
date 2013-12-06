@@ -40,12 +40,11 @@ subprojects {
     // Tests in package integration are only called in task integrationtest and tests in
     // package reallife are called in task reallifetest
     test {
-        exclude "**/integration/**"
-        exclude "**/reallife/**"
+        exclude "**/integrationtest/**"
     }
 
     task integrationtest(type: Test) {
-        include "**/integration/**"
+        include "**/integrationtest/**"
         jvmArgs "-XX:MaxPermSize=128m"
     }
 

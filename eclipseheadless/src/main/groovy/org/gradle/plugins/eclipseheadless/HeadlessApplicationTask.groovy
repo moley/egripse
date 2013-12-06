@@ -2,7 +2,6 @@ package org.gradle.plugins.eclipseheadless
 
 import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
-import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.model.Eclipse
 
@@ -19,14 +18,31 @@ class HeadlessApplicationTask extends DefaultTask {
     /**
      * name of application
      */
-    String applicationname
+    protected String applicationname
 
     /**
-     * if set we copy the built plugin to temporar targetplatform
+     * name of workspace, defaults to taskname
      */
-    String feature
+    protected String workspacename
+
+    protected Collection<String> parameters = new ArrayList<String>()
 
 
+
+    public void workspacename (final String workspacename) {
+        log.info("set workspacename " + workspacename)
+        this.workspacename = workspacename
+    }
+
+    public void applicationname (final String name) {
+        log.info("Set applicationname " + name)
+        this.applicationname = name
+    }
+
+    public void parameter (final String nextParam) {
+        log.info("add parameter " + nextParam)
+        parameters.add(nextParam)
+    }
 
 
 
@@ -35,16 +51,24 @@ class HeadlessApplicationTask extends DefaultTask {
         println("Starting...")
         Eclipse eclipseModel = project.rootProject.extensions.eclipsemodel
 
-        File headlessRootPath = project.file("build/headless/" + name)
+        if (workspacename == null)
+            workspacename = name
+
+        File headlessRootPath = project.file("build/headless/" + workspacename)
         log.info("Executing application " + applicationname + " in path " + headlessRootPath.absolutePath)
 
         File copyFromPath = new File(eclipseModel.explodedTargetplatform, "eclipse")
 
-        println("Copying workspace...")
-        project.copy {
-         from (copyFromPath)
-         into(headlessRootPath)
+
+        if (! headlessRootPath.exists()) {
+          println ("Copying workspace to ${headlessRootPath.absolutePath}...")
+          project.copy {
+           from (copyFromPath)
+           into(headlessRootPath)
+          }
         }
+        else
+            log.info("Workspace ${headlessRootPath.absolutePath} exists, skip copying")
 
         File equinoxLauncherJar = new File(headlessRootPath, "plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar") //TODO search for
 
@@ -54,6 +78,38 @@ class HeadlessApplicationTask extends DefaultTask {
         ByteArrayOutputStream bos = new ByteArrayOutputStream()
         ByteArrayOutputStream eos = new ByteArrayOutputStream()
 
+        Collection<String> arguments = new ArrayList<String>()
+        arguments.add("java")
+        arguments.add('-jar')
+        arguments.add(equinoxLauncherJar.absolutePath)
+        arguments.add('-debug')
+
+
+
+        arguments.add('-consolelog')
+        arguments.add('-nosplash')
+        arguments.add('-application')
+        if (applicationname == null)
+            throw new IllegalStateException("You did not configure an applicationname for task " + name)
+        arguments.add(applicationname)
+
+        if (parameters != null)
+          arguments.addAll(parameters)
+
+
+        String operatingsystem = System.getProperty("os.name")
+        if (operatingsystem.contains("Mac")) {
+            arguments.add("-vmargs")
+            arguments.add("-XstartOnFirstThread")
+        }
+
+
+
+        println ("Arguments: " + arguments)
+
+
+
+
 
         try {
 
@@ -61,7 +117,7 @@ class HeadlessApplicationTask extends DefaultTask {
                 standardOutput = bos
                 errorOutput = eos
                 workingDir = headlessRootPath
-                commandLine 'java','-jar',equinoxLauncherJar.absolutePath, '-debug', '-consoleLog', '-console', 'nosplash', 'application', applicationname
+                commandLine = arguments
             }
         } catch (Exception e) {
 

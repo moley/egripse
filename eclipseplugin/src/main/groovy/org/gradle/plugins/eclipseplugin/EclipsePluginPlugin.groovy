@@ -9,6 +9,7 @@ import org.gradle.api.tasks.testing.Test
 import org.gradle.plugins.eclipsebase.config.LayoutConfigurator
 import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
 import org.gradle.plugins.eclipsebase.model.Eclipse
+import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
 import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 import org.gradle.plugins.ide.eclipse.EclipsePlugin
 import org.gradle.plugins.ide.eclipse.model.Classpath
@@ -86,9 +87,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                 buildCommand 'org.eclipse.pde.SchemaBuilder'
             }
 
-        project.afterEvaluate {
-          Eclipse eclipseModel = project.rootProject.eclipsemodel
-
+        Eclipse eclipseModel = EclipseBuildUtils.ensureModel(project)
 
         Collection<ClasspathEntry> toRemove = new ArrayList<ClasspathEntry>()
         eclipsemodel.classpath {
@@ -113,7 +112,6 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                 }
 
                 }
-        }
     }
 
 

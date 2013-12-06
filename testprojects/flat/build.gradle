@@ -13,11 +13,11 @@ subprojects {
 
 buildscript {
     dependencies {
-        classpath fileTree (dir: '../../eclipseplugin/build/libs/', includes: ['*.jar'])
-        classpath fileTree (dir: '../../eclipsefeature/build/libs/', includes: ['*.jar'])
-        classpath fileTree (dir: '../../eclipsebase/build/libs/', includes: ['*.jar'])
-        classpath fileTree (dir: '../../eclipsemwe/build/libs/', includes: ['*.jar'])
-        classpath fileTree (dir: '../../eclipseheadless/build/libs/', includes: ['*.jar'])
+        classpath fileTree (dir: '../../eclipseplugin/build/libs/', include: '*.jar', exclude: '*source*')
+        classpath fileTree (dir: '../../eclipsefeature/build/libs/', include: '*.jar', exclude: '*source*')
+        classpath fileTree (dir: '../../eclipsebase/build/libs/', include: '*.jar', exclude: '*source*')
+        classpath fileTree (dir: '../../eclipsemwe/build/libs/', include: '*.jar', exclude: '*source*')
+        classpath fileTree (dir: '../../eclipseheadless/build/libs/', include: '*.jar', exclude: '*source*')
     }
 }
 
@@ -35,3 +35,4 @@ eclipsebase {
     categoriesXml 'category.xml'
  }
 }
+

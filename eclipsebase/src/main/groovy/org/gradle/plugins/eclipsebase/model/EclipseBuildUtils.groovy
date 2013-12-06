@@ -4,8 +4,6 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
 
-import java.util.logging.Level
-
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -32,5 +30,21 @@ class EclipseBuildUtils {
 
 
         return collection
+    }
+
+    /**
+     * creates a eclipsemodel on the rootproject if not yet done
+     * or returns the cretaed eclipsemodel
+     * @param project  current project
+     * @return model
+     */
+    public static Eclipse ensureModel (final Project project) {
+        Project rootproject = project.rootProject
+        final String eclipsemodelName = "eclipsemodel"
+        Eclipse eclipsemodel = rootproject.extensions.findByName(eclipsemodelName)
+        if (eclipsemodel == null)
+          eclipsemodel = rootproject.extensions.create("eclipsemodel", Eclipse, project)
+
+        return eclipsemodel
     }
 }

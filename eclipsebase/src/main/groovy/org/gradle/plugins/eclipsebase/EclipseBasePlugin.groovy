@@ -6,15 +6,12 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.plugins.eclipsebase.config.BuildPropertiesConfigurator
 import org.gradle.plugins.eclipsebase.config.ProjectVersionConfigurator
-import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
-import org.gradle.plugins.eclipsebase.model.EclipsePlugin
+import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
 import org.gradle.plugins.eclipsebase.model.EclipseProjectPart
-import org.gradle.plugins.eclipsebase.model.MetaInf
 import org.gradle.plugins.eclipsebase.updatesite.*
 
 /**
@@ -49,7 +46,7 @@ class EclipseBasePlugin implements Plugin<Project> {
         UpdatesiteDsl updatesite = project.extensions.create("updatesite", UpdatesiteDsl, eclipseBaseDsl)
         eclipseBaseDsl.updatesite = updatesite
 
-        Eclipse eclipseModel = project.extensions.create("eclipsemodel", Eclipse, project)
+        Eclipse eclipseModel = EclipseBuildUtils.ensureModel(project)
 
         project.plugins.apply(JavaPlugin) //Because we need lifecycle task jar
 

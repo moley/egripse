@@ -46,8 +46,8 @@ class EclipseFeaturePlugin implements Plugin<Project>  {
     void configureProjectFiles (final Project project) {
         EclipseModel eclipsemodel = project.extensions.findByType(EclipseModel)
         eclipsemodel.project {
-            natures = ['org.eclipse.pde.FeatureNature']
-            buildCommand = ['org.eclipse.pde.FeatureBuilder']
+            natures 'org.eclipse.pde.FeatureNature'
+            buildCommand 'org.eclipse.pde.FeatureBuilder'
         }
     }
 }
