@@ -29,7 +29,7 @@ class EclipsePluginPluginTest {
         File srcGenDir = project.file("src-gen")
         DefaultSourceSet sourceSetMain = project.sourceSets.main
         Assert.assertTrue (sourceSetMain.allJava.srcDirs.contains(srcDir))
-        Assert.assertTrue (sourceSetMain.allJava.srcDirs.contains(srcGenDir))
+        Assert.assertFalse (sourceSetMain.allJava.srcDirs.contains(srcGenDir))
 
         DefaultSourceSet sourceSetTest = project.sourceSets.test
         Assert.assertFalse (sourceSetTest.allJava.srcDirs.contains(srcGenDir))
@@ -56,7 +56,7 @@ class EclipsePluginPluginTest {
         Assert.assertFalse (sourceSetMain.allJava.srcDirs.contains(srcGenDir))
 
         DefaultSourceSet sourceSetTest = project.sourceSets.test
-        Assert.assertTrue (sourceSetTest.allJava.srcDirs.contains(srcGenDir))
+        Assert.assertFalse (sourceSetTest.allJava.srcDirs.contains(srcGenDir))
         Assert.assertTrue (sourceSetTest.allJava.srcDirs.contains(srcDir))
 
     }

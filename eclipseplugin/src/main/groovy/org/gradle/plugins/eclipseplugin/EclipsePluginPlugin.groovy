@@ -5,6 +5,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.tasks.Delete
 import org.gradle.api.tasks.testing.Test
 import org.gradle.plugins.eclipsebase.config.LayoutConfigurator
 import org.gradle.plugins.eclipsebase.config.SynchronizeBuildMetadata
@@ -14,8 +15,10 @@ import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 import org.gradle.plugins.ide.eclipse.EclipsePlugin
 import org.gradle.plugins.ide.eclipse.model.Classpath
 import org.gradle.plugins.ide.eclipse.model.ClasspathEntry
+import org.gradle.plugins.ide.eclipse.model.Container
 import org.gradle.plugins.ide.eclipse.model.EclipseModel
 import org.gradle.plugins.ide.eclipse.model.Library
+import org.gradle.plugins.ide.eclipse.model.SourceFolder
 
 /**
  * Created with IntelliJ IDEA.
@@ -40,14 +43,6 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
 
         project.plugins.apply(JavaPlugin) //We need for compile configuration
         project.plugins.apply(EclipsePlugin)
-
-        /**Eclipse eclipseModel = project.rootProject.extensions.eclipsemodel
-        EclipsePlugin currentEclipseplugin = eclipseModel.workspace.findPluginByPath(nextSubProject.projectDir)
-        if (currentEclipseplugin != null) {
-            MetaInf metaInf = currentEclipseplugin.metainf
-            if (metaInf == null)
-              log.warn("Project " + project.name + " has no META-INF/MANIFEST.MF file")
-        }  **/
 
         SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type:SynchronizeBuildMetadata, name:SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
         project.tasks.processResources.dependsOn syncBuildproperties
@@ -76,9 +71,35 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
           configureProjectLayout(project, plugindsl)
           disableTestsBreakingTheBuild(project)
         }
+
+        configureDeletablePath (plugindsl, project)
+    }
+
+    void configureDeletablePath (final EclipsePluginDsl plugindsl, final Project project) {
+        if (! plugindsl.additionalCleanablePath.isEmpty()) {
+          log.info("Recoginzed additionCleanablepaths " + plugindsl.additionalCleanablePath)
+
+          Delete taskClean = project.tasks.findByName("clean")
+          taskClean.outputs.upToDateWhen {
+              for (String nextRemovable: plugindsl.additionalCleanablePath) {
+                  File nextFile = project.file(nextRemovable)
+                  if (nextFile.exists()) {
+                      log.info("Uptodatecheck set to false due to " + nextFile.absolutePath )
+                      return false
+                  }
+              }
+              return true
+         }
+          taskClean.doFirst{
+            for (String next: plugindsl.additionalCleanablePath) {
+                delete project.file(next)
+            }
+          }
+        }
     }
 
     void configureProjectFiles (final Project project) {
+        log.info("Configure projectfiles in project " + project.name)
 
         EclipseModel eclipsemodel = project.extensions.findByType(EclipseModel)
         eclipsemodel.project {
@@ -93,22 +114,47 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
         eclipsemodel.classpath {
                 file.whenMerged { Classpath classpath ->
 
+                    final String REQUIREDPLUGINS_KIND = 'org.eclipse.pde.core.requiredPlugins'
+
+                    boolean requiredPluginsContainerAvailable = false
+
                     classpath.entries.each {
                         ClasspathEntry classpathEntry ->
 
                             if (classpathEntry instanceof Library) {
+
                                Library lib = classpathEntry as Library
+                               log.info("Found library " + lib.toString())
                                if (lib.library.file.absolutePath.startsWith(eclipseModel.explodedTargetplatformPath.absolutePath)) {
                                    log.info("Remove library " + lib.library.file.absolutePath + " from classpath")
                                    toRemove.add(lib)
                                }
+                               if (lib.library.file.parentFile.parentFile.name == "build") //TODO check, why this is added library
+                                   toRemove.add(lib)
+
+                            }
+                            if (classpathEntry instanceof Container) {
+                                log.info("Found container " + classpathEntry.toString())
+                                Container container = classpathEntry
+                                if (container.kind.equals(REQUIREDPLUGINS_KIND))
+                                    requiredPluginsContainerAvailable = true
+                            }
+                            if (classpathEntry instanceof SourceFolder) {   //Check if this path must be added as sourcefolder
+                                SourceFolder sourcefolder = classpathEntry
+                                log.info("Found sourcefolder " + classpathEntry.toString())
+                                if (sourcefolder.dir.absolutePath.endsWith("build/mergedResources"))
+                                  toRemove.add(sourcefolder)
+                                if (! sourcefolder.dir.exists()) //TODO remove after fixed in gradleplugins
+                                    toRemove.add(sourcefolder)
                             }
                     }
 
-                    classpath.entries.removeAll(toRemove)
+                   classpath.entries.removeAll(toRemove)
 
-                   // Container container = new Container("org.eclipse.pde.core.requiredPlugins")
-                   // classpath.entries.add(container)
+                    if (! requiredPluginsContainerAvailable) {
+                      Container container = new Container("org.eclipse.pde.core.requiredPlugins")
+                      classpath.entries.add(container)
+                    }
                 }
 
                 }
@@ -130,12 +176,14 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
     public void configureProjectLayout (final Project project, final EclipsePluginDsl plugindsl) {
         log.info("Configure projectlayout for project ${project.name}")
 
+
+
         if (plugindsl.sourceproject) {
             log.info("Configure projectlayout for project ${project.name} as sourceproject")
             project.sourceSets {
                 main {
                     java {
-                        srcDirs = ["src", "src-gen"]
+                        srcDirs = plugindsl.additionalSourceDir
                     }
                 }
             }
@@ -146,7 +194,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
             project.sourceSets {
                 test {
                     java {
-                        srcDirs = ["src", "src-gen"]
+                        srcDirs = plugindsl.additionalSourceDir
                     }
                 }
             }

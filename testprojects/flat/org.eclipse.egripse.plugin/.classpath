@@ -3,61 +3,17 @@
 	<classpathentry kind="output" path="bin"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.workbench.addons.swt_1.0.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.emf.ecore.change_2.9.0.v20130528-0742.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.apache.batik.css_1.6.0.v201011041432.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.swt_3.102.0.v20130605-1539.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.swt.gtk.linux.x86_3.102.0.v20130605-1544.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.core.di_1.3.0.v20130514-1256.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.core.commands_0.10.2.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.ant.core_3.2.500.v20130402-1746.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.ui_3.105.0.v20130522-1122.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.jobs_3.5.300.v20130429-1813.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.filesystem_1.4.0.v20130514-1240.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.core.contexts_1.3.0.v20130514-1256.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.css.core_0.10.100.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.jface.databinding_1.6.200.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.widgets_1.0.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.runtime.compatibility.auth_3.2.300.v20120523-2004.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.emf.ecore.xmi_2.9.0.v20130528-0742.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.registry_3.5.300.v20130327-1442.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.services_1.0.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.core.services_1.1.0.v20130515-1343.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.workbench_1.0.0.v20130531-1444.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.commands_3.6.100.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.bidi_0.10.0.v20130327-1442.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.osgi.services_3.3.100.v20130513-1956.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.ds_1.4.100.v20130515-2026.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.workbench.renderers.swt_0.11.0.v20130603-1523.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.contenttype_3.4.200.v20130326-1255.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.w3c.dom.smil_1.0.0.v200806040011.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.app_1.3.100.v20130327-1442.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.workbench.swt_0.12.0.v20130517-0139.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.css.swt_0.11.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.databinding_1.4.1.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.bindings_0.10.100.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.apache.batik.util.gui_1.6.0.v201011041432.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.model.workbench_1.0.0.v20130605-1738.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.expressions_3.4.500.v20130515-1343.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.di_1.0.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.css.swt.theme_0.9.100.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.event_1.3.0.v20130327-1442.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.runtime_3.9.0.v20130326-1255.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.emf.common_2.9.0.v20130528-0742.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.w3c.css.sac_1.3.1.v200903091627.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.common_3.6.200.v20130402-1505.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.jface_3.9.0.v20130521-1714.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.core.di.extensions_0.11.100.v20130514-1256.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.ui.workbench_3.105.0.v20130529-1406.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.databinding.observable_1.4.1.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.osgi_3.9.0.v20130529-1710.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.apache.batik.util_1.6.0.v201011041432.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.emf.ecore_2.9.0.v20130528-0742.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.databinding.property_1.4.200.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.variables_3.2.700.v20130402-1741.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.help_3.6.0.v20130326-1254.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.equinox.preferences_3.5.100.v20130422-1538.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.e4.ui.workbench3_0.12.0.v20130515-1857.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.w3c.dom.svg_1.1.0.v201011041433.jar" exported="true"/>
-	<classpathentry kind="lib" path="/Users/OleyMa/.egripse/targetplatform_201307031350.zip_exploded/eclipse/plugins/org.eclipse.core.resources_3.8.100.v20130521-2026.jar" exported="true"/>
+	<classpathentry kind="src" path="build/mergedResources"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftplet-api/1.0.6/ad25edc3122f781b4d14f5d32cd23afc17b489e/ftplet-api-1.0.6-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftplet-api/1.0.6/26e5401d312ddce82027a200941a48272700443a/ftplet-api-1.0.6.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/46a386136c901748e6a3af67ebde6c22bc6b4524/slf4j-api-1.6.1-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/6f3b8a24bf970f17289b234284c94f43eb42f0e4/slf4j-api-1.6.1.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.mina/mina-core/2.0.4/bc32c829531f408a084f5090cf058208cd945c1/mina-core-2.0.4-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.mina/mina-core/2.0.4/7fdb2aabfa2c942c2853158864abdebf27dc1003/mina-core-2.0.4.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftpserver-core/1.0.6/91ea589164a677c225f73150cd31b9e6ebd88548/ftpserver-core-1.0.6-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftpserver-core/1.0.6/2ad1570cd6c0d7ea7ca4d3c26a205e02452f5d7d/ftpserver-core-1.0.6.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.14/6510b674f5e119177c13badf3ec5f77995ebdc05/log4j-1.2.14-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/log4j/log4j/1.2.14/3b254c872b95141751f414e353a25c2ac261b51/log4j-1.2.14.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.5.2/84194246f2271de9bffda29d3b91bd00bbca771d/slf4j-log4j12-1.5.2-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-log4j12/1.5.2/f7dd2d714d5abb161b4141660ce0d3a7a3e3dd22/slf4j-log4j12-1.5.2.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/4a4b6d692e17846a9f3da036438a7ac491d3c814/aopalliance-1.0-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/aopalliance/aopalliance/1.0/235ba8b489512805ac13a8f9ea77a1ca5ebe3e8/aopalliance-1.0.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/2.5.5/50c8ba4c15e7598119d60df38b05ae7eb4655b99/spring-core-2.5.5-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-core/2.5.5/1b3b0fad8e30ebb9560a81989f5b5bfb28915109/spring-core-2.5.5.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/2.5.5/b67abfb70136797c32d8d872c21d85d31d148a84/spring-beans-2.5.5-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/2.5.5/6dc365922794e122bd2fbe102bc42de60fe8a744/spring-beans-2.5.5.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/2.5.5/94a10f064accd56fa548fb60ac185664977745bf/spring-context-2.5.5-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/2.5.5/e3676c2f4c662bae8dce52d38777f858b09c718c/spring-context-2.5.5.jar" exported="true"/>
+	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.5.2/6d8c41dd310651cfb61c23436256b195f517b3f9/jcl-over-slf4j-1.5.2-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.5.2/c3025e4c7d45a8972655faeb7f8c1789166d8cf/jcl-over-slf4j-1.5.2.jar" exported="true"/>
 </classpath>

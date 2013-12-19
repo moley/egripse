@@ -17,8 +17,15 @@ class EclipsePluginDsl {
 
     private Project project
 
+    Set <String> additionalCleanablePath = new HashSet<String>()
+
+    Set<String> additionalSourceDir = new HashSet<String> ()
+
+
     public EclipsePluginDsl (final Project project) {
         this.project = project
+        additionalCleanablePath.add("build")
+        additionalSourceDir.add("src")
     }
 
     /**
@@ -32,6 +39,22 @@ class EclipsePluginDsl {
             throw new NullPointerException("Param forProject must not be null");
         this.testprojectFor = forProject
         checkType()
+    }
+
+    /**
+     * adds a path to be removed when calling clean
+     * @param cleanablePath
+     */
+    public void additionalCleanablePath (String cleanablePath) {
+        additionalCleanablePath.add(cleanablePath)
+    }
+
+    /**
+     * adds a path to be added as sourcepath (e.g. src-gen)
+     * @param sourcepath added sourcepath
+     */
+    public void additionalSourceDir (String sourcepath) {
+        additionalSourceDir.add(sourcepath)
     }
 
     /**

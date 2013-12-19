@@ -1,7 +1,10 @@
 package org.gradle.plugins.eclipsemwe
 
+import com.sun.xml.internal.messaging.saaj.util.ByteOutputStream
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
+import org.gradle.api.artifacts.Dependency
+import org.gradle.api.artifacts.ProjectDependency
 import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.StopExecutionException
@@ -87,6 +90,8 @@ class EclipseMweTask extends JavaExec { //extends DefaultTask {
         args.add(mweFile.absolutePath)
         setArgs(args)
 
+
+
         setMaxHeapSize("512M")
         super.exec()
 
@@ -138,8 +143,10 @@ class EclipseMweTask extends JavaExec { //extends DefaultTask {
 
 
 
-    private FileCollection createMweClasspath(final Project project) {
-        log.info("Building mweclasspath in project " + project.name)
+    private FileCollection createMweClasspath(final Project currentProject) {
+        log.info("Building mweclasspath in project " + currentProject.name)
+
+
 
         //TODO lay generator/xtext and this whole stuff onto the buildscript classpath
         final List<String> okPattern = new ArrayList<String>()
@@ -178,42 +185,54 @@ class EclipseMweTask extends JavaExec { //extends DefaultTask {
         okPattern.add("javax.inject_")
         okPattern.add("vsa.marvin.mod.build")
 
-        FileCollection collection = project.sourceSets.main.compileClasspath.filter { File file ->
+        FileCollection collection = currentProject.sourceSets.main.compileClasspath.filter { File file ->
             checkPattern(okPattern, file)
         }
 
-        collection += project.files (project.sourceSets.main.java.srcDirs)
-        collection += project.buildscript.configurations.classpath
+        collection += currentProject.files (currentProject.sourceSets.main.java.srcDirs)
+        collection += currentProject.buildscript.configurations.classpath
 
-        Project rootproject = project.rootProject
-
-        for (Project next: rootproject.subprojects) {
-            log.info("Configure additional paths in " + next.projectDir.absolutePath)
-            File projectPath = next.projectDir
-            addToCollectionIfExists(project, collection, new File (projectPath, "build/classes/main"))
-            addToCollectionIfExists(project, collection, new File (projectPath, "src"))
-            addToCollectionIfExists(project, collection, new File (projectPath, "src-gen"))
+        addProjectPaths(currentProject, currentProject, collection)
+        for (Dependency next: currentProject.configurations.getByName("compile").dependencies.findAll()) {
+            if (next instanceof ProjectDependency) {
+                addProjectPaths(currentProject, next.dependencyProject, collection)
+            }
         }
 
-        log.info ("Check MweClasspath in project " + project.name)
+        log.info ("Check MweClasspath in project " + currentProject.name)
 
-        collection.each {log.info ("Next classpathentry in project " + project.name + ": " + it)}
+        collection.each {log.info ("Next classpathentry in project " + currentProject.name + ": " + it)}
 
 
         return collection
 
     }
 
-    private void addToCollectionIfExists (final Project project, FileCollection collection, final File file) {
+    private void addProjectPaths (final Project currentProject, final Project dependendProject, FileCollection collection) {
+        log.info("Configure next dependent project: " + dependendProject + " in project " + currentProject.name)
+        addToCollectionIfExists(dependendProject, collection, "build/classes/main")
+        addToCollectionIfExists(dependendProject, collection, "src")
+        addToCollectionIfExists(dependendProject, collection, "src-gen")
+    }
 
-        if (file.exists()) {
-            log.info("Add file " + file.absolutePath + " to classpath")
-            FileCollection added = project.files(file)
+    /**
+     * adds file to collection be aware of project paths
+     * @param project           project
+     * @param collection        collection to add
+     * @param file              file to be added
+     */
+    private void addToCollectionIfExists (final Project project, FileCollection collection, final String file) {
+        FileCollection added = project.files(file)
+        for (File nextFile: added.getFiles() ) {
+          if (nextFile.exists()) {
+            log.info("Add file " + nextFile.absolutePath + " to classpath of project" + project.name)
+
             if (added != null)
               collection.add(added)
+          }
+          else
+            log.info("Ignore file " + nextFile.absolutePath + " due to not existing (configuring project " + project.name + ")")
         }
-        else
-            log.info("Ignore file " + file.absolutePath + " due to not existing")
     }
 
 }

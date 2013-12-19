@@ -9,6 +9,7 @@ import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Delete
 import org.gradle.plugins.eclipseplugin.EclipsePluginPlugin
+import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 
 
 
@@ -56,10 +57,8 @@ class EclipseMwePlugin implements Plugin<Project>  {
         copyMweAdditions.includeEmptyDirs = false
         task.dependsOn(copyMweAdditions)
 
-        Delete taskClean = project.tasks.findByName("clean")
-        taskClean.doFirst{
-            println ("Deleteing " + project.file('src-gen   '))
-            delete project.file('src-gen')
+        project.eclipseplugin {
+            additionalCleanablePath('src-gen')
         }
 
     }
