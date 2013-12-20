@@ -51,7 +51,7 @@ class EclipseBasePlugin implements Plugin<Project> {
         project.plugins.apply(JavaPlugin) //Because we need lifecycle task jar
 
         if (eclipseBaseDsl.updatesite != null)
-            configureUpdatesiteTasks(project)
+            configureUpdatesiteTasks(project.rootProject)
 
         //dependencies are resolved in afterEvaluate because we need infos from dsl objects
         project.afterEvaluate {

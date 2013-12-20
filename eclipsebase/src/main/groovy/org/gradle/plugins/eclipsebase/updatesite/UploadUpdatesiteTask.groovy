@@ -32,7 +32,7 @@ class UploadUpdatesiteTask extends DefaultTask {
 
         File localUpdatesite = eclipse.localUpdatesitePath
 
-        log.info("Uploading updatesite to ${localUpdatesite.absolutePath}")
+        println ("Uploading updatesite from ${localUpdatesite.absolutePath} to ${updatesite.path} on host ${updatesite.host}")
         ConfigurationContainer configurationContainer = project.configurations
         project.ant {
             taskdef(name: 'ftp', classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP',classpath: configurationContainer.ftpAntTask.asPath)
@@ -42,7 +42,7 @@ class UploadUpdatesiteTask extends DefaultTask {
             }
 
             ftp(action: "put", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd) {
-                fileset(dir: localUpdatesite.absolutePath)
+                fileset(dir: localUpdatesite.absolutePath, includes : '**/**')
             }
         }
 

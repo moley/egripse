@@ -39,7 +39,10 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
 
         //copy Features
         for (EclipseFeature feature : eclipse.workspace.eclipseFeatures) {
-            String fromString = new File (feature.featurepath, "build/libs").absolutePath
+            File featurePath = new File (feature.featurepath, "build/libs")
+            if (featurePath.exists() && featurePath.listFiles() != null && featurePath.listFiles().length > 1)
+                throw new IllegalStateException("Only one feature jar is allowed to be added to updatesiteContent. Please do a clean build for feature " + featurePath.absolutePath)
+            String fromString = featurePath.absolutePath
             log.info("Copy from feature path " + fromString + " to " + updateSiteFeaturesPath.absolutePath)
             project.copy {
                 into updateSiteFeaturesPath.absolutePath
@@ -51,6 +54,9 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
 
         for (EclipsePlugin plugin : eclipse.workspace.plugins) {
             if (! plugin.isTestPlugin()) {
+              File pluginPath = new File (plugin.originPath, "build/libs")
+              if (pluginPath.exists() && pluginPath.listFiles() != null && pluginPath.listFiles().length > 1)
+                    throw new IllegalStateException("Only one plugin jar is allowed to be added to updatesiteContent. Please do a clean build for project " + pluginPath.absolutePath)
               String fromString = new File (plugin.originPath, "build/libs").absolutePath
               log.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
               project.copy {
