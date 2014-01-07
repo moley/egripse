@@ -24,18 +24,9 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
         Eclipse eclipse = project.eclipsemodel
         EclipseBaseDsl basedsl = project.eclipsebase
 
-        File updateSiteSource = project.file ("build/newUpdatesiteContent")
+        File updateSiteSource = eclipse.localUpdatesiteContentPath
         File updateSiteFeaturesPath = new File (updateSiteSource, "features")
         File updateSitePluginsPath = new File (updateSiteSource, "plugins")
-
-        /**
-         * project.configurations.archives.artifacts.each {
-         File artifactFile = it.file
-         String nameWithUnderscore = artifactFile.name.replace("-", "_")
-         it.file = new File (artifactFile.parentFile, nameWithUnderscore)
-         log.info ("Artifact file in project " + project.name + " set to " + it.file.absolutePath)
-         }
-         */
 
         //copy Features
         for (EclipseFeature feature : eclipse.workspace.eclipseFeatures) {

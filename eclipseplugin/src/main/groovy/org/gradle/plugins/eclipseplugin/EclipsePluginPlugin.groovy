@@ -13,12 +13,7 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
 import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
 import org.gradle.plugins.ide.eclipse.EclipsePlugin
-import org.gradle.plugins.ide.eclipse.model.Classpath
-import org.gradle.plugins.ide.eclipse.model.ClasspathEntry
-import org.gradle.plugins.ide.eclipse.model.Container
-import org.gradle.plugins.ide.eclipse.model.EclipseModel
-import org.gradle.plugins.ide.eclipse.model.Library
-import org.gradle.plugins.ide.eclipse.model.SourceFolder
+import org.gradle.plugins.ide.eclipse.model.*
 
 /**
  * Created with IntelliJ IDEA.
@@ -142,9 +137,12 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                             if (classpathEntry instanceof SourceFolder) {   //Check if this path must be added as sourcefolder
                                 SourceFolder sourcefolder = classpathEntry
                                 log.info("Found sourcefolder " + classpathEntry.toString())
-                                if (sourcefolder.dir.absolutePath.endsWith("build/mergedResources"))
+
+                                File absolute = sourcefolder.dir != null ? sourcefolder.dir : new File (sourcefolder.path)
+
+                                if (absolute.absolutePath.endsWith("build/mergedResources"))
                                   toRemove.add(sourcefolder)
-                                if (! sourcefolder.dir.exists()) //TODO remove after fixed in gradleplugins
+                                if (! absolute.exists()) //TODO remove after fixed in gradleplugins
                                     toRemove.add(sourcefolder)
                             }
                     }

@@ -33,6 +33,7 @@ class DownloadUpdatesiteTask extends DefaultTask{
         }
 
         println ("Downloading updatesite from host ${updatesite.host} to ${localUpdatesite.absolutePath}")
+
         ConfigurationContainer configurationContainer = project.configurations
         project.ant {
             taskdef(name: 'ftp', classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP', classpath: configurationContainer.ftpAntTask.asPath)

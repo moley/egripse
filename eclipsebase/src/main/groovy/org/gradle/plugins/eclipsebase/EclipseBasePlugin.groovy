@@ -73,6 +73,7 @@ class EclipseBasePlugin implements Plugin<Project> {
 
 
     public void configureUpdatesiteTasks(final Project project) {
+        log.info("Configure updatesite tasks for project " + project.name)
         project.configurations {
             ftpAntTask
         }

@@ -45,7 +45,11 @@ class Eclipse {
     }
 
     public File getLocalUpdatesitePath () {
-        return project.file("build/updatesite")
+        return project.rootProject.file("build/updatesite")
+    }
+
+    public File getLocalUpdatesiteContentPath () {
+        return project.rootProject.file('build/newUpdatesiteContent')
     }
 
 

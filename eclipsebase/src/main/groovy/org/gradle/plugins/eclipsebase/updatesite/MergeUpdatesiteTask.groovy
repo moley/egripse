@@ -20,13 +20,15 @@ class MergeUpdatesiteTask extends JavaExec{
     public void exec () {
         Eclipse eclipse = project.eclipsemodel
 
-        File updatesitePath = project.file("build/updatesite")
-        File updatesiteContentPath = project.file('build/newUpdatesiteContent')
+        File updatesitePath = eclipse.localUpdatesitePath
+        File updatesiteContentPath = eclipse.localUpdatesiteContentPath
 
         log.info("Classpath updatesitemerge")
         for (File next: eclipse.targetplatformModel.updatesiteProgramsClasspath) {
             log.info("- Entry " + next.absolutePath)
         }
+
+        println ("Merge udpatesite content from " + updatesiteContentPath.absolutePath + " to updatesite " + updatesitePath.absolutePath)
 
         workingDir updatesiteContentPath
         main 'org.eclipse.core.launcher.Main'
