@@ -131,8 +131,12 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                             if (classpathEntry instanceof Container) {
                                 log.info("Found container " + classpathEntry.toString())
                                 Container container = classpathEntry
-                                if (container.kind.equals(REQUIREDPLUGINS_KIND))
+                                if (container.path.equals(REQUIREDPLUGINS_KIND)) {
                                     requiredPluginsContainerAvailable = true
+                                    log.info("Found requiredplugins container")
+                                }
+                                else
+                                    log.info("Container is not requiredplugins container")
                             }
                             if (classpathEntry instanceof SourceFolder) {   //Check if this path must be added as sourcefolder
                                 SourceFolder sourcefolder = classpathEntry
