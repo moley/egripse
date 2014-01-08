@@ -142,7 +142,7 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
                                 SourceFolder sourcefolder = classpathEntry
                                 log.info("Found sourcefolder " + classpathEntry.toString())
 
-                                File absolute = sourcefolder.dir != null ? sourcefolder.dir : new File (sourcefolder.path)
+                                File absolute = sourcefolder.dir != null ? sourcefolder.dir : project.file(sourcefolder.path)
 
                                 if (absolute.absolutePath.endsWith("build/mergedResources"))
                                   toRemove.add(sourcefolder)

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="output" path="bin"/>
-	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER" exported="true"/>
-	<classpathentry kind="src" path="build/mergedResources"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftplet-api/1.0.6/ad25edc3122f781b4d14f5d32cd23afc17b489e/ftplet-api-1.0.6-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.apache.ftpserver/ftplet-api/1.0.6/26e5401d312ddce82027a200941a48272700443a/ftplet-api-1.0.6.jar" exported="true"/>
 	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/46a386136c901748e6a3af67ebde6c22bc6b4524/slf4j-api-1.6.1-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.6.1/6f3b8a24bf970f17289b234284c94f43eb42f0e4/slf4j-api-1.6.1.jar" exported="true"/>
@@ -16,4 +14,5 @@
 	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/2.5.5/b67abfb70136797c32d8d872c21d85d31d148a84/spring-beans-2.5.5-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-beans/2.5.5/6dc365922794e122bd2fbe102bc42de60fe8a744/spring-beans-2.5.5.jar" exported="true"/>
 	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/2.5.5/94a10f064accd56fa548fb60ac185664977745bf/spring-context-2.5.5-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.springframework/spring-context/2.5.5/e3676c2f4c662bae8dce52d38777f858b09c718c/spring-context-2.5.5.jar" exported="true"/>
 	<classpathentry sourcepath="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.5.2/6d8c41dd310651cfb61c23436256b195f517b3f9/jcl-over-slf4j-1.5.2-sources.jar" kind="lib" path="/Users/OleyMa/.gradle/caches/modules-2/files-2.1/org.slf4j/jcl-over-slf4j/1.5.2/c3025e4c7d45a8972655faeb7f8c1789166d8cf/jcl-over-slf4j-1.5.2.jar" exported="true"/>
+	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 </classpath>
