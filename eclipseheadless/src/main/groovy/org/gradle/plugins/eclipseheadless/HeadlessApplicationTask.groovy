@@ -86,7 +86,7 @@ class HeadlessApplicationTask extends DefaultTask {
 
 
 
-        arguments.add('-consolelog')
+        arguments.add('-console')
         arguments.add('-nosplash')
         arguments.add('-application')
         if (applicationname == null)
