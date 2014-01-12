@@ -1,17 +1,10 @@
 package org.gradle.plugins.eclipsemwe
 
 import groovy.util.logging.Slf4j
-import org.gradle.api.DefaultTask
-import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
 import org.gradle.api.tasks.Copy
-import org.gradle.api.tasks.Delete
 import org.gradle.plugins.eclipseplugin.EclipsePluginPlugin
-import org.gradle.plugins.eclipseplugin.model.EclipsePluginDsl
-
-
 
 /**
  * Created with IntelliJ IDEA.
@@ -50,7 +43,6 @@ class EclipseMwePlugin implements Plugin<Project>  {
         copyMweAdditions.include("**/*.g")
         copyMweAdditions.include("**/*.tokens")
         copyMweAdditions.include("**/*.xtext")
-        copyMweAdditions.include("**/*.xmi")
         copyMweAdditions.include("**/*.ecore")
         copyMweAdditions.include("**/*.ext")
         copyMweAdditions.include("**/*.xsd")
@@ -60,6 +52,9 @@ class EclipseMwePlugin implements Plugin<Project>  {
         project.eclipseplugin {
             additionalCleanablePath('src-gen')
         }
+
+
+
 
     }
 

@@ -75,18 +75,13 @@ class HeadlessApplicationTask extends DefaultTask {
         println("Executing ...")
         log.info("Starting headless application ${applicationname} in workingdir ${headlessRootPath}")
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream()
-        ByteArrayOutputStream eos = new ByteArrayOutputStream()
-
         Collection<String> arguments = new ArrayList<String>()
         arguments.add("java")
         arguments.add('-jar')
         arguments.add(equinoxLauncherJar.absolutePath)
         arguments.add('-debug')
 
-
-
-        arguments.add('-console')
+        arguments.add('-consoleLog')
         arguments.add('-nosplash')
         arguments.add('-application')
         if (applicationname == null)
@@ -103,28 +98,16 @@ class HeadlessApplicationTask extends DefaultTask {
             arguments.add("-XstartOnFirstThread")
         }
 
-
-
         println ("Arguments: " + arguments)
-
-
-
-
 
         try {
 
             project.exec {
-                standardOutput = bos
-                errorOutput = eos
                 workingDir = headlessRootPath
                 commandLine = arguments
             }
         } catch (Exception e) {
-
-            println("Output: " + bos.toString())
-            println("Error : " + eos.toString())
             throw e
-
         }
 
 
