@@ -25,6 +25,8 @@ class EclipseBaseDsl {
 
     Project project
 
+    Collection<String> additionalLocalUpdatesites = new ArrayList<String>()
+
     public EclipseBaseDsl (final Project project) {
         this.project = project
         integrationtests.add('**/**/integrationtest/**')
@@ -34,5 +36,9 @@ class EclipseBaseDsl {
 
     public void integrationtest (final String integrationtest) {
         integrationtests.add(integrationtest)
+    }
+
+    public localUpdatesite (final String updatesite) {
+        additionalLocalUpdatesites.add(updatesite)
     }
 }

@@ -72,6 +72,7 @@ class Eclipse {
             this.pluginContainers = new ArrayList<DefaultPluginContainer>()
             this.pluginContainers.add(getTargetplatformModel())
             this.pluginContainers.add(getWorkspace())
+            this.pluginContainers.addAll(getAdditionalLocalUpdatesites())
         }
 
         return this.pluginContainers
@@ -97,6 +98,24 @@ class Eclipse {
             log.info("Targetplatform is already created")
 
         return targetplatformModel
+
+    }
+
+    public List<Targetplatform> getAdditionalLocalUpdatesites () {
+        List<Targetplatform> platforms = new ArrayList<Targetplatform>()
+
+        if (eclipseDsl.additionalLocalUpdatesites != null) {
+            for (String next: eclipseDsl.additionalLocalUpdatesites) {
+              File nextPath = project.file (next)
+              if (! nextPath.exists())
+                throw new IllegalStateException("Additional local updatesite ${nextPath.absolutePath} does not exist")
+
+              platforms.add(new Targetplatform(project, project.file(next)))
+            }
+
+        }
+
+        return platforms
 
     }
 
