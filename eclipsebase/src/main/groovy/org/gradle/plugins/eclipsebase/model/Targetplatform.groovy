@@ -50,7 +50,7 @@ class Targetplatform extends DefaultPluginContainer {
             if (next.name.startsWith("."))
                 continue
 
-            if (next.isDirectory())
+            if (next.isDirectory() && isPluginPath(next))
                 readPlugins.add(new EclipsePlugin(next))
             else if (next.name.endsWith(".jar"))
                 readPlugins.add(new EclipsePlugin(new JarFile(next), next))
@@ -61,6 +61,10 @@ class Targetplatform extends DefaultPluginContainer {
         long delta = System.currentTimeMillis() - before
         log.info("Finished reading targetplatform ${localPath} in ${delta} ms (read ${readPlugins.size()} plugins)")
         return readPlugins
+    }
+
+    private boolean isPluginPath (final File path) {
+        return new File (path.absoluteFile, 'META-INF').exists()
     }
 
 
