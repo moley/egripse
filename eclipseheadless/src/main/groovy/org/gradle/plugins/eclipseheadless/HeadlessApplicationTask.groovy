@@ -25,6 +25,8 @@ class HeadlessApplicationTask extends DefaultTask {
      */
     protected String workspacename
 
+    protected Collection<String> memparameters = new ArrayList<String>()
+
     protected Collection<String> parameters = new ArrayList<String>()
 
 
@@ -42,6 +44,14 @@ class HeadlessApplicationTask extends DefaultTask {
     public void parameter (final String nextParam) {
         log.info("add parameter " + nextParam)
         parameters.add(nextParam)
+    }
+
+    public void xmx (final String xmx) {
+        memparameters.add("-Xmx${xmx}")
+    }
+
+    public void maxPermsize (final String maxpermsize) {
+        memparameters.add("-XX:MaxPermSite:${maxpermsize}")
     }
 
 
@@ -77,6 +87,10 @@ class HeadlessApplicationTask extends DefaultTask {
 
         Collection<String> arguments = new ArrayList<String>()
         arguments.add("java")
+
+        if (memparameters != null)
+            arguments.addAll(memparameters)
+
         arguments.add('-jar')
         arguments.add(equinoxLauncherJar.absolutePath)
         arguments.add('-debug')
