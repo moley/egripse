@@ -8,7 +8,6 @@ uploadArchives {
             repository(url:'https://api.bintray.com/maven/markusoley/egripse/eclipseplugin') {
                 String username = System.properties['bintray.username']
                 String password = System.properties['bintray.password']
-                println "Uploading with credentials $username and $password"
                 authentication( userName: username, password: password)
             }
         }

@@ -2,8 +2,6 @@ package org.gradle.plugins.eclipsebase
 
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
-import org.gradle.api.internal.artifacts.configurations.DefaultConfiguration
 import org.gradle.api.plugins.JavaPlugin
 import org.gradle.plugins.eclipsebase.model.Dependency
 import org.gradle.plugins.eclipsebase.model.Eclipse
@@ -92,11 +90,15 @@ class EclipseDependencyResolver {
                 log.info("Adding dependency in project ${projectName} to plugin " + nextPlugin.bundleID + "(" + nextPlugin.originPath.name + ")")
                 externalPluginsAsFile.add(nextPlugin.originPath)
 
-                //TODO fragment host handling
+                //TODO generic fragment host handling
                 if (nextPlugin.bundleID.equals("org.eclipse.swt")) {
-                    EclipsePlugin platformSwt = eclipsemodel.targetplatformModel.findBundleByID("org.eclipse.swt.gtk.linux.x86")
-                    log.info("Adding platform swt dependency " + platformSwt.originPath.name)
-                    externalPluginsAsFile.add(project.files(platformSwt.originPath))
+
+                    EclipsePlugin fragmentHost = eclipsemodel.targetplatformModel.findFragmentPlugin(nextPlugin.bundleID)
+                    if (fragmentHost == null)
+                        throw new IllegalStateException("No Fragment plugin found with host plugin ${nextPlugin.bundleID}")
+
+                    log.info("Adding platform swt dependency " + fragmentHost.originPath.name)
+                    externalPluginsAsFile.add(project.files(fragmentHost.originPath))
                 }
             }
         }

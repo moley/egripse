@@ -11,15 +11,10 @@ import org.gradle.api.tasks.TaskAction
 import org.gradle.process.ExecResult
 
 /**
- * Created with IntelliJ IDEA.
- * User: OleyMa
- * Date: 17.05.13
- * Time: 23:57
- * To change this template use File | Settings | File Templates.
+ * Created by OleyMa on 07.06.14.
  */
-
 @Slf4j
-class EclipseMweTask extends SourceTask {
+class EclipseMwe2Task extends SourceTask {
 
 
     File mweFile
@@ -64,52 +59,43 @@ class EclipseMweTask extends SourceTask {
     @TaskAction
     public void call () {
 
+        EclipseMwe eclipseMweDsl = project.extensions.eclipsemwe2
+
+        if (eclipseMweDsl.mweFiles.empty) {
+            log.warn("mwe plugin applied but no mwefiles defined")
+            return
+        }
+
+        if (eclipseMweDsl.mweFiles.size() > 1)
+            throw new IllegalStateException("In prototype only one mwefile is supported")
+
+        if (mweFile == null)
+            mweFile = project.file (eclipseMweDsl.mweFiles.iterator().next())
+
         source.files.each {log.info("Changed file " + it.absolutePath)}
 
-        FileCollection generatorclasspath = createMweClasspath(project)
+        Collection arguments = new ArrayList()
+        arguments.add(mweFile.absolutePath)
+
+        final FileCollection mweClasspath = createMweClasspath(project)
 
 
         ExecResult result = project.javaexec {
 
-            classpath = generatorclasspath
+            classpath = mweClasspath
 
-
-            EclipseMwe eclipseMweDsl = project.extensions.eclipsemwe
-
-            if (eclipseMweDsl.mweFiles.empty) {
-                log.warn("mwe plugin applied but no mwefiles defined")
-                return
-            }
-
-            if (eclipseMweDsl.mweFiles.size() > 1)
-                throw new IllegalStateException("In prototype only one mwefile is supported")
-
-            if (mweFile == null)
-                mweFile = project.file (eclipseMweDsl.mweFiles.iterator().next())
-
-            String workflowClassname = "org.eclipse.emf.mwe.core.WorkflowRunner"
+            main = 'org.eclipse.emf.mwe2.launch.runtime.Mwe2Launcher'
 
             //TODO with urlclassloader and real task called in project path
 
-            main = workflowClassname
-
-            Collection arguments = new ArrayList()
-            arguments.add(mweFile.absolutePath)
             args  = arguments
 
             maxHeapSize = "512M"
 
         }
 
-        if (result.exitValue != 0)
-            throw new IllegalStateException("Error running mwe generator in project " + project.name)
-        /**else {
-          //TODO Workaround until we know how to set outputdirectory of generator
-          project.copy {
-            from project.file(basedir.absolutePath + "/bin/src-gen")
-            into project.file(basedir.absolutePath + "/src-gen")
-          }
-        }  **/
+        result.assertNormalExitValue()
+
     }
 
 
@@ -117,7 +103,8 @@ class EclipseMweTask extends SourceTask {
 
     public boolean checkPattern (final ArrayList<String> patterns, final File filename) {
         if (log.isDebugEnabled())
-            log.debug("Check filename " + filename.name)
+          log.debug("Check filename " + filename.name)
+
         for (String nextPattern: patterns) {
             if (filename.name.indexOf(nextPattern) >= 0) {
                 if (log.isDebugEnabled())
@@ -152,6 +139,7 @@ class EclipseMweTask extends SourceTask {
         okPattern.add("org.antlr.generator_")
         okPattern.add("org.apache.log4j_")
         okPattern.add("org.eclipse.emf")
+        okPattern.add("org.eclipse.emf.mwe2.launch")
         okPattern.add("org.apache.commons.logging_")
         okPattern.add("org.apache.commons.cli_")
         okPattern.add("de.itemis.xtext.antlr_")
@@ -216,14 +204,14 @@ class EclipseMweTask extends SourceTask {
     private void addToCollectionIfExists (final Project project, FileCollection collection, final String file) {
         FileCollection added = project.files(file)
         for (File nextFile: added.getFiles() ) {
-          if (nextFile.exists()) {
-            log.info("Add file " + nextFile.absolutePath + " to classpath of project" + project.name)
+            if (nextFile.exists()) {
+                log.info("Add file " + nextFile.absolutePath + " to classpath of project" + project.name)
 
-            if (added != null)
-              collection.add(added)
-          }
-          else
-            log.info("Ignore file " + nextFile.absolutePath + " due to not existing (configuring project " + project.name + ")")
+                if (added != null)
+                    collection.add(added)
+            }
+            else
+                log.info("Ignore file " + nextFile.absolutePath + " due to not existing (configuring project " + project.name + ")")
         }
     }
 

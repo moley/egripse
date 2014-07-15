@@ -12,6 +12,19 @@ import groovy.util.logging.Slf4j
 @Slf4j
 abstract class DefaultPluginContainer implements PluginContainer {
 
+    /**
+     * finds first fragment plugin
+     * @param host plugin
+     * @return
+     */
+    public EclipsePlugin findFragmentPlugin (final String host) {
+        for (EclipsePlugin nextPlugin: getPlugins()) {
+            if (nextPlugin.fragmentHost.equals(host))
+                return nextPlugin
+        }
+
+    }
+
     public EclipsePlugin findBundleByID (final String id) {
         for (EclipsePlugin nextPlugin: getPlugins()) {
             if (nextPlugin.bundleID.equals(id))

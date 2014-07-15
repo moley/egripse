@@ -28,7 +28,7 @@ apply {
 
 
 eclipsebase {  
- targetplatform 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_201307031350.zip'
+ targetplatform 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_201405291009.zip'
  updatesite {
     host 'repository.intra.vsa.de'
     path 'vsaeclipse/kepler/updatesites/updateSiteTools'

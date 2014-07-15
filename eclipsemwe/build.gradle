@@ -1,9 +1,8 @@
-repositories { 
+repositories {
   maven { url "http://fornax.itemis.de/nexus/content/repositories/eclipse-maven/" }
 }
 
 dependencies {
-//  compile 'org.eclipse.emf:org.eclipse.emf.mwe.core:1.1.0'
   compile project(':eclipseplugin')
   compile project(':eclipsebase')
 }
@@ -14,7 +13,6 @@ uploadArchives {
             repository(url:'https://api.bintray.com/maven/markusoley/egripse/eclipsemwe') {
                 String username = System.properties['bintray.username']
                 String password = System.properties['bintray.password']
-                println "Uploading with credentials $username and $password"
                 authentication( userName: username, password: password)
             }
         }

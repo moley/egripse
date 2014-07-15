@@ -51,7 +51,7 @@ class HeadlessApplicationTask extends DefaultTask {
     }
 
     public void maxPermsize (final String maxpermsize) {
-        memparameters.add("-XX:MaxPermSite:${maxpermsize}")
+        memparameters.add("-XX:MaxPermSize=${maxpermsize}")
     }
 
 

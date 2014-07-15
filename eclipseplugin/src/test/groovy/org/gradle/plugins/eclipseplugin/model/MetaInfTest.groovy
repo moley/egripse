@@ -25,26 +25,38 @@ class MetaInfTest {
           Assert.assertTrue (writtenFile.parentFile.mkdirs())
     }
 
+    /**
+     * loads metainf from url
+     * @param urlAsString       url to load from
+     * @return metainf
+     */
+    MetaInf loadFromUrl (final String urlAsString) {
+        URL url = getClass().classLoader.getResource(urlAsString)
+        File file = new File (url.path).absoluteFile
+        println ("File $file loaded")
+        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
+        println (metaInf.toString())
+        return metaInf
+    }
 
+
+    @Test
+    public void hostplugin () {
+        MetaInf metainf = loadFromUrl('MANIFESTHostplugin.MF')
+        Assert.assertEquals ('org.eclipse.swt', metainf.fragmentHost)
+
+    }
 
     @Test(expected = IllegalStateException)
     public void failingWrittenFile () {
-
-        URL url = getClass().classLoader.getResource("MANIFESTError.MF")
-        File file = new File (url.path).absoluteFile
-
-        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
-
-
-        println ("File $file loaded")
-        println (metaInf.toString())
+        MetaInf metaInf = loadFromUrl('MANIFESTError.MF')
 
         metaInf.saveTo(writtenFile)
 
         println ("File $writtenFile saved")
 
         String content = writtenFile.text
-        println ("Content: " + content)
+        println ('Content: ' + content)
 
         Assert.assertFalse(content.trim().isEmpty())
 
@@ -52,21 +64,14 @@ class MetaInfTest {
 
     @Test
     public void bundleClasspath () {
-         URL url = getClass().classLoader.getResource("MANIFESTSimple.MF")
-         File file = new File (url.path).absoluteFile
-
-         MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
-
-
-         println ("File $file loaded")
-         println (metaInf.toString())
+         MetaInf metaInf = loadFromUrl('MANIFESTSimple.MF')
 
         Collection<String> bundleClasspath = metaInf.bundleClasspath
-        Assert.assertEquals ("Number of bundleclasspath entries not correct", 3, bundleClasspath.size())
+        Assert.assertEquals ('Number of bundleclasspath entries not correct', 3, bundleClasspath.size())
 
-        Assert.assertTrue ("castor.jar not read", bundleClasspath.contains("lib/castor/lib/castor.jar"))
-        Assert.assertTrue ("xercesImpl.jar not read", bundleClasspath.contains("lib/xerces/lib/xercesImpl.jar"))
-        Assert.assertTrue ("xml-apis.jar not read", bundleClasspath.contains("lib/xerces/lib/xml-apis.jar"))
+        Assert.assertTrue ('castor.jar not read', bundleClasspath.contains('lib/castor/lib/castor.jar'))
+        Assert.assertTrue ('xercesImpl.jar not read', bundleClasspath.contains('lib/xerces/lib/xercesImpl.jar'))
+        Assert.assertTrue ('xml-apis.jar not read', bundleClasspath.contains('lib/xerces/lib/xml-apis.jar'))
 
         metaInf.saveTo(writtenFile)
 
@@ -74,49 +79,35 @@ class MetaInfTest {
 
     @Test
     public void shortDeps () {
-        URL url = getClass().classLoader.getResource("MANIFESTLast.MF")
-        File file = new File (url.path).absoluteFile
-
-        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
-
+        MetaInf metaInf = loadFromUrl('MANIFESTLast.MF')
         metaInf.dependencies.each {println it}
-
-        Assert.assertNotNull (metaInf.findDependency("org.eclipse.osgi"))
+        Assert.assertNotNull (metaInf.findDependency('org.eclipse.osgi'))
     }
 
     @Test
     public void simple () {
-        URL url = getClass().classLoader.getResource("MANIFESTSimple.MF")
-        File file = new File (url.path).absoluteFile
-
-        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
-        Assert.assertEquals ("1.0.0.qualifier", metaInf.version)
-        Assert.assertNotNull (metaInf.findDependency("org.eclipse.gmf.runtime.diagram.ui.render"))
+        MetaInf metaInf = loadFromUrl('MANIFESTSimple.MF')
+        Assert.assertEquals ('1.0.0.qualifier', metaInf.version)
+        Assert.assertNotNull (metaInf.findDependency('org.eclipse.gmf.runtime.diagram.ui.render'))
     }
 
     @Test
     public void versions () {
-        URL url = getClass().classLoader.getResource("MANIFESTVersions.MF")
-        File file = new File (url.path).absoluteFile
-
-        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
+        MetaInf metaInf = loadFromUrl('MANIFESTVersions.MF')
         metaInf.dependencies.each {println it}
 
     }
 
     @Test
     public void multiVersions () {
-        URL url = getClass().classLoader.getResource("MANIFESTMulti.MF")
-        File file = new File (url.path).absoluteFile
-
-        MetaInf metaInf = new MetaInf(file, new FileInputStream(file))
+        MetaInf metaInf = loadFromUrl('MANIFESTMulti.MF')
         println (metaInf.dependencies)
         Assert.assertEquals (7, metaInf.dependencies.size())
 
-        Dependency stdlib = metaInf.findDependency("org.eclipse.xtend.util.stdlib")
+        Dependency stdlib = metaInf.findDependency('org.eclipse.xtend.util.stdlib')
         Assert.assertFalse (stdlib.reexported)
 
-        Dependency xsd = metaInf.findDependency("org.eclipse.xsd")
+        Dependency xsd = metaInf.findDependency('org.eclipse.xsd')
         Assert.assertTrue (xsd.reexported)
 
     }

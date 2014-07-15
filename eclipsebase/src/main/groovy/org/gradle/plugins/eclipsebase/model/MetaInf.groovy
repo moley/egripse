@@ -20,11 +20,13 @@ class MetaInf {
 
     String version
 
+    String fragmentHost
+
     Collection<String> bundleClasspath = new HashSet<String> ()
 
     Manifest manifest
 
-    private static final String NEWLINE = System.getProperty("line.separator")
+    private static final String NEWLINE = System.getProperty('line.separator')
     private final File file
 
     public MetaInf (final File file, final InputStream metainfFile) {
@@ -32,14 +34,17 @@ class MetaInf {
 
         manifest = new Manifest(metainfFile)
 
-        log.debug("Content of manifest " + manifest.entries.toString())
+        if (log.isDebugEnabled())
+          log.debug("Content of manifest $manifest.entries.toString()")
 
         createRequireBundle()
         createBundleId()
         createBundleClasspath()
         createVersion()
+        createFragmentHost()
 
-        log.debug("Read metainf " + bundleID)
+        if (log.isDebugEnabled())
+          log.debug("Read metainf $bundleID")
     }
 
     public Dependency findDependency (final String bundleID) {
@@ -53,8 +58,8 @@ class MetaInf {
 
     public void setVersion (final String version) {
         this.version = version
-        log.info ("set version " + version + " in file " + file.absolutePath)
-        manifest.mainAttributes.putValue("Bundle-Version", version)
+        log.info ("set version $version in file $file.absolutePath")
+        manifest.mainAttributes.putValue('Bundle-Version', version)
     }
 
     public void save () {
@@ -62,12 +67,12 @@ class MetaInf {
     }
 
     public void saveTo (File file) {
-        if (file.name.equals("MANIFEST.MF")) {
+        if (file.name.equals('MANIFEST.MF')) {
           log.info("Writing $file")
           FileOutputStream fos = new FileOutputStream(file)
 
-          if (! manifest.getMainAttributes().getValue("Manifest-Version"))
-              throw new IllegalStateException("File " + file.absolutePath + " could not be written, check if a manifest-version is set")
+          if (! manifest.getMainAttributes().getValue('Manifest-Version'))
+              throw new IllegalStateException("File $file.absolutePath could not be written, check if a manifest-version is set")
 
           try {
             manifest.write(fos)
@@ -77,12 +82,12 @@ class MetaInf {
           }
         }
         else
-            throw new IllegalStateException("You try to write a MANIFEST.MF which is encapsualted in another file. That is not supported")
+            throw new IllegalStateException('You try to write a MANIFEST.MF which is encapsualted in another file. That is not supported')
     }
 
 
     private void createRequireBundle () {
-        String requireBundleString = manifest.mainAttributes.getValue("Require-Bundle")
+        String requireBundleString = manifest.mainAttributes.getValue('Require-Bundle')
         if (requireBundleString == null)
             return
 
@@ -111,11 +116,22 @@ class MetaInf {
     }
 
     private void createVersion () {
-        version = manifest.mainAttributes.getValue("Bundle-Version")
+        version = manifest.mainAttributes.getValue('Bundle-Version')
+    }
+
+    private void createFragmentHost () {
+        String fragmentHost = manifest.mainAttributes.getValue('Fragment-Host')
+        if (fragmentHost != null) {
+            int posOfSemicolon = fragmentHost.indexOf(';')
+            if (posOfSemicolon >= 0)
+                fragmentHost = fragmentHost.substring(0, posOfSemicolon)
+
+            this.fragmentHost = fragmentHost
+        }
     }
 
     private void createBundleId () {
-        String bundlestrings =  manifest.mainAttributes.getValue("Bundle-SymbolicName")
+        String bundlestrings =  manifest.mainAttributes.getValue('Bundle-SymbolicName')
         if (bundlestrings == null)
             return
 
@@ -124,7 +140,7 @@ class MetaInf {
     }
 
     private void createBundleClasspath () {
-        String classpathAsString = manifest.mainAttributes.getValue("Bundle-ClassPath")
+        String classpathAsString = manifest.mainAttributes.getValue('Bundle-ClassPath')
         if (classpathAsString == null)
             return
 
@@ -141,11 +157,11 @@ class MetaInf {
 
 
     public String toString () {
-        String asString = ""
+        String asString = ''
 
-        asString += "Dependencies:" + NEWLINE
+        asString += 'Dependencies:' + NEWLINE
         for (Dependency nextDep: dependencies) {
-            asString +="  - " + nextDep + NEWLINE
+            asString +='  - ' + nextDep + NEWLINE
         }
 
         return asString

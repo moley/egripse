@@ -50,6 +50,10 @@ class EclipsePlugin extends EclipseProjectPart {
         return metainf != null ? metainf.dependencies : new ArrayList<Dependency>()
     }
 
+    public String getFragmentHost () {
+        return metainf != null ? metainf.fragmentHost : null
+    }
+
 
     public EclipsePlugin(File path) {
         super (path)

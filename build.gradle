@@ -6,7 +6,7 @@ buildscript {
 
 subprojects {
 
-    version=0.39
+    version=0.42
     group = 'org.egripse'
 
     apply {
@@ -60,7 +60,7 @@ subprojects {
 
     dependencies {
         compile gradleApi()
-        groovy localGroovy()
+        compile localGroovy()
     }
 }
 def testprojects = [];
@@ -90,7 +90,7 @@ def testIdeaTasks = []
 testprojects.each {
     String testDir = it;
 
-    def newTaskIdea = tasks.add(name: "idea" + testDir, type: GradleBuild, dependsOn: [subs]) {
+    def newTaskIdea = tasks.create(name: "idea" + testDir, type: GradleBuild, dependsOn: [subs]) {
         dir = testDir
         tasks = ['cleanIdea', 'ideaModule']
     }

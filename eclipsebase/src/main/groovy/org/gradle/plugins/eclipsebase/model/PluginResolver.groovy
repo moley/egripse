@@ -19,8 +19,8 @@ class PluginResolver {
                                   final Set<String> resolvedDependencies,
                                   final Dependency dependency,
                                   final EclipsePlugin plugin) {
-        if (resolvedDependencies.contains(dependency.identifier) ) // dependency.optional ||
-            return true
+        if (resolvedDependencies.contains(dependency.identifier))
+            return false
 
         prefix += "  "
 
@@ -60,7 +60,8 @@ class PluginResolver {
             statelogger += nextContainer.toString()
         }
 
-        throw new IllegalStateException(statelogger + "\nDependency <" + dependency.bundleID + "> for bundle <" + plugin.bundleID + "> was not found in any plugincontainer")
+        if (! dependency.optional)
+          throw new IllegalStateException(statelogger + "\nDependency <" + dependency.bundleID + "> for bundle <" + plugin.bundleID + "> was not found in any plugincontainer")
 
     }
 }

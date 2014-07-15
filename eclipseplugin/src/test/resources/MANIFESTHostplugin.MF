@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+SWT-OS: macosx
+Bundle-Localization: fragment
+Fragment-Host: org.eclipse.swt; bundle-version="[3.0.0,4.0.0)"
+Built-By: e4Build
+Bundle-SymbolicName: org.eclipse.swt.cocoa.macosx.x86_64; singleton:=t
+ rue
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/platfo
+ rm/eclipse.platform.swt.binaries.git;path="bundles/org.eclipse.swt.co
+ coa.macosx.x86_64";tag="I20140605-1635";commitId=0d0ae1118186dfd1b97b
+ d4e121f1c97228e37bc3
