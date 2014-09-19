@@ -54,7 +54,20 @@ class HeadlessApplicationTask extends DefaultTask {
         memparameters.add("-XX:MaxPermSize=${maxpermsize}")
     }
 
+    /**
+     * searches the equinox-launcher in the given path
+     * @param inPath  path
+     * @return one launcher jar
+     */
+    public File findEquinoxLauncher (final File inPath) {
+        List<File> foundFiles = inPath.listFiles().findAll {println it;it.name.startsWith('org.eclipse.equinox.launcher_')}
+        if  (foundFiles.size() == 0)
+            throw new IllegalStateException("No org.eclipse.equinox.launcher - jar found in path $inPath.absolutePath")
+        if  (foundFiles.size() > 1)
+            throw new IllegalStateException("Multiple org.eclipse.equinox.launcher - jars found in path $inPath.absolutePath, only one is allowed")
 
+        return foundFiles.first()
+    }
 
     @TaskAction
     void startHeadlessApplication() {
@@ -80,7 +93,8 @@ class HeadlessApplicationTask extends DefaultTask {
         else
             log.info("Workspace ${headlessRootPath.absolutePath} exists, skip copying")
 
-        File equinoxLauncherJar = new File(headlessRootPath, "plugins/org.eclipse.equinox.launcher_1.3.0.v20130327-1440.jar") //TODO search for
+        File pluginPath = new File (headlessRootPath, 'plugins')
+        File equinoxLauncherJar = findEquinoxLauncher(pluginPath)
 
         println("Executing ...")
         log.info("Starting headless application ${applicationname} in workingdir ${headlessRootPath}")
