@@ -2,6 +2,7 @@ package org.gradle.plugins.eclipseheadless.director
 
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipseheadless.HeadlessApplicationTask
+import org.gradle.process.ExecResult
 
 /**
  * Created with IntelliJ IDEA.
@@ -25,7 +26,7 @@ public class DirectorTask extends HeadlessApplicationTask{
     }
 
     @TaskAction
-    void startHeadlessApplication() {
+    ExecResult startHeadlessApplication() {
         applicationname = 'org.eclipse.equinox.p2.director'
 
         if (repository == null)
@@ -41,7 +42,7 @@ public class DirectorTask extends HeadlessApplicationTask{
         parameter("-installIU")
         parameter(installIU)
 
-        super.startHeadlessApplication()
+        return super.startHeadlessApplication()
 
 
     }

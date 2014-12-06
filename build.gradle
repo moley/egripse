@@ -1,12 +1,14 @@
 buildscript {
     repositories {
-        mavenCentral () 
+        mavenCentral ()
+        maven {url 'http://repo1.maven.org/maven2'}
     }
 }
 
+
 subprojects {
 
-    version=0.44
+    version=0.46
     group = 'org.egripse'
 
     apply {
@@ -100,26 +102,4 @@ testprojects.each {
 tasks.ideaProject.dependsOn(testIdeaTasks)
 tasks.ideaProject.dependsOn("cleanIdeaProject");
 
-idea {
-    project {
-        ipr {
-            withXml {
-                //We have to put in the testprojects by hand, because we can't them inject otherwise
-                Node node = it.asNode()
-                node.children().each {
-                    if (it.attribute("name") == "ProjectModuleManager") {
-                        for (String s : testprojects) {
-                            String filepath = '$PROJECT_DIR$/' + s + "/" + s + ".iml"
-                            it.children()[0].appendNode("module", [fileurl: 'file://' + filepath, filepath: filepath])
-                        }
-
-                    }
-                }
-                //Attaches the CVS support to the projecr
-                it.node.component.find { it.@name == 'VcsDirectoryMappings' }.mapping.@vcs = "CVS"
-            }
-        }
-    }
-
-}
-
+idea.project.vcs='Git'

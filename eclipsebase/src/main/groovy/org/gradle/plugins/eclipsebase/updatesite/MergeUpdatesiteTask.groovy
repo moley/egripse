@@ -37,7 +37,7 @@ class MergeUpdatesiteTask extends JavaExec{
         jvmArgs '-Xmx900m'
         jvmArgs '-XX:MaxPermSize=512m'
 
-        args '-console'
+        //args '-console'
         args '-consolelog'
         args '-application', 'org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher'
         args '-metadataRepository', 'file:' + updatesitePath.absolutePath + '/'
@@ -47,13 +47,24 @@ class MergeUpdatesiteTask extends JavaExec{
         //args '-compress'
         args '-publishArtifacts'
 
-        println ("Args: " + args)
+
         args (args)
         setErrorOutput(new ByteArrayOutputStream())
         setStandardOutput(new ByteArrayOutputStream())
 
+        println ("Commandline: " + toString(commandLine))
+
         super.exec()
         println ("ErrorOutput: " + errorOutput.toString())
         println ("StandardOutput: " + standardOutput.toString())
+    }
+
+    private String toString (final List<String> list) {
+        String asString = ""
+        for (String next: list) {
+            asString += " " + next
+        }
+
+        return asString.trim()
     }
 }

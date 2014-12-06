@@ -43,22 +43,20 @@ class EclipsePluginPluginTest {
         ProjectInternal rootproject = ProjectBuilder.builder().build()
         rootproject.apply plugin: 'eclipsebase'
         Project otherProject = ProjectBuilder.builder().withParent(rootproject).withName(OTHERPROJECT_NAME).build()
+
         otherProject.apply plugin: 'java'
         ProjectInternal project = ProjectBuilder.builder().withParent(rootproject).build()
+        File srcDir = project.file("src")
+        File srcGenDir = project.file("src-gen")
+        Assert.assertTrue (srcDir.mkdirs())
         project.apply plugin: 'eclipseplugin'
         project.eclipseplugin { testproject(OTHERPROJECT_NAME) }
         project.evaluate()
 
-        File srcDir = project.file("src")
-        File srcGenDir = project.file("src-gen")
+
         DefaultSourceSet sourceSetMain = project.sourceSets.main
-        Assert.assertFalse (sourceSetMain.allJava.srcDirs.contains(srcDir))
+        Assert.assertTrue (sourceSetMain.allJava.srcDirs.contains(srcDir))
         Assert.assertFalse (sourceSetMain.allJava.srcDirs.contains(srcGenDir))
-
-        DefaultSourceSet sourceSetTest = project.sourceSets.test
-        Assert.assertFalse (sourceSetTest.allJava.srcDirs.contains(srcGenDir))
-        Assert.assertTrue (sourceSetTest.allJava.srcDirs.contains(srcDir))
-
     }
 
     @Test (expected = IllegalStateException)

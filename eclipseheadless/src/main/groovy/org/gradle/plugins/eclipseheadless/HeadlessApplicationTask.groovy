@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.model.Eclipse
+import org.gradle.process.ExecResult
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +29,19 @@ class HeadlessApplicationTask extends DefaultTask {
     protected Collection<String> memparameters = new ArrayList<String>()
 
     protected Collection<String> parameters = new ArrayList<String>()
+
+    /**
+     * true:  starting eclipse itself,
+     * false: starting equinox launcher only
+     */
+    protected startEclipse = false
+
+    Collection<String> arguments = new ArrayList<String>()
+    Collection<String> jvmArguments = new ArrayList<String>()
+
+    protected boolean debugEnabled = false
+
+
 
 
 
@@ -69,48 +83,81 @@ class HeadlessApplicationTask extends DefaultTask {
         return foundFiles.first()
     }
 
+    protected File getHeadlessRootPath () {
+        return project.file("build/headless/" + getWorkspacename())
+    }
+
+    protected String getWorkspacename () {
+        if (workspacename == null)
+            workspacename = name
+        return workspacename
+    }
+
+    protected File getPluginsPath () {
+        return new File (headlessRootPath, 'plugins')
+    }
+
+    /**
+     * Lifecycle callback
+     */
+    protected void afterPlatformExists () {
+
+    }
+
     @TaskAction
-    void startHeadlessApplication() {
+    ExecResult startHeadlessApplication() {
         println("Starting...")
         Eclipse eclipseModel = project.rootProject.extensions.eclipsemodel
 
-        if (workspacename == null)
-            workspacename = name
+        boolean isMac = System.getProperty("os.name").contains("Mac")
 
-        File headlessRootPath = project.file("build/headless/" + workspacename)
+
+
+        File headlessRootPath = getHeadlessRootPath()
         log.info("Executing application " + applicationname + " in path " + headlessRootPath.absolutePath)
 
         File copyFromPath = new File(eclipseModel.explodedTargetplatform, "eclipse")
 
 
-        if (! headlessRootPath.exists()) {
-          println ("Copying workspace to ${headlessRootPath.absolutePath}...")
-          project.copy {
-           from (copyFromPath)
-           into(headlessRootPath)
-          }
-        }
-        else
+        if (!headlessRootPath.exists()) {
+            println("Copying workspace to ${headlessRootPath.absolutePath}...")
+            project.copy {
+                from(copyFromPath)
+                into(headlessRootPath)
+            }
+        } else
             log.info("Workspace ${headlessRootPath.absolutePath} exists, skip copying")
 
-        File pluginPath = new File (headlessRootPath, 'plugins')
+        File pluginPath = new File(headlessRootPath, 'plugins')
         File equinoxLauncherJar = findEquinoxLauncher(pluginPath)
+
+        afterPlatformExists()
 
         println("Executing ...")
         log.info("Starting headless application ${applicationname} in workingdir ${headlessRootPath}")
 
-        Collection<String> arguments = new ArrayList<String>()
-        arguments.add("java")
+
+
+
+
+        arguments.add(equinoxLauncherJar.absolutePath)
 
         if (memparameters != null)
             arguments.addAll(memparameters)
 
-        arguments.add('-jar')
-        arguments.add(equinoxLauncherJar.absolutePath)
-        arguments.add('-debug')
+        if (isMac) {
+            jvmArguments.add("-XstartOnFirstThread")
 
-        arguments.add('-consoleLog')
-        arguments.add('-nosplash')
+        }
+
+        if (debugEnabled)          {
+          arguments.add('-debug')
+          arguments.add('-consoleLog')
+        }
+
+
+
+        //application parameter
         arguments.add('-application')
         if (applicationname == null)
             throw new IllegalStateException("You did not configure an applicationname for task " + name)
@@ -119,21 +166,26 @@ class HeadlessApplicationTask extends DefaultTask {
         if (parameters != null)
           arguments.addAll(parameters)
 
+        File workspace = project.file('build/workspace' + System.currentTimeMillis())
 
-        String operatingsystem = System.getProperty("os.name")
-        if (operatingsystem.contains("Mac")) {
-            arguments.add("-vmargs")
-            arguments.add("-XstartOnFirstThread")
-        }
+        arguments.add('-data')
+        arguments.add(workspace.absolutePath)
+        arguments.add('-config')
+        arguments.add(new File (workspace, 'configuration').absolutePath)
+        arguments.add('-nosplash')
 
         println ("Arguments: " + arguments)
+        println ("jvmArguments: " + jvmArguments)
 
         try {
 
-            project.exec {
-                workingDir = headlessRootPath
-                commandLine = arguments
+            ExecResult result = project.javaexec {
+                main '-jar'
+                args arguments
+                jvmArgs jvmArguments
             }
+
+            return result;
         } catch (Exception e) {
             throw e
         }

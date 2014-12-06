@@ -23,7 +23,7 @@ import org.gradle.plugins.ide.eclipse.model.*
  * To change this template use File | Settings | File Templates.
  */
 @Slf4j
-public class EclipsePluginPlugin implements Plugin<Project>  {
+public class EclipsePluginPlugin implements Plugin<Project> {
 
     public final static String TASKNAME_CONFIGURE_BUILD = "configureBuild"
 
@@ -34,12 +34,12 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
 
     @Override
     void apply(Project project) {
-        log.info ("Applying plugin ${getClass()} in project ${project.name}")
+        log.info("Applying plugin ${getClass()} in project ${project.name}")
 
         project.plugins.apply(JavaPlugin) //We need for compile configuration
         project.plugins.apply(EclipsePlugin)
 
-        SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type:SynchronizeBuildMetadata, name:SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
+        SynchronizeBuildMetadata syncBuildproperties = project.tasks.create(type: SynchronizeBuildMetadata, name: SynchronizeBuildMetadata.TASKNAME_SYNC_BUILD_METADATA)
         project.tasks.processResources.dependsOn syncBuildproperties
 
         EclipsePluginDsl plugindsl = project.extensions.create("eclipseplugin", EclipsePluginDsl, project)
@@ -47,124 +47,123 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
         DefaultTask javaTask = project.tasks.findByName("compileJava")
         if (javaTask == null) throw new IllegalStateException("compileJava not available " + project.tasks.toListString())
 
-        ConfigurePluginProjectTask configureBuildTask = project.tasks.create(type:ConfigurePluginProjectTask, name:TASKNAME_CONFIGURE_BUILD)
+        ConfigurePluginProjectTask configureBuildTask = project.tasks.create(type: ConfigurePluginProjectTask, name: TASKNAME_CONFIGURE_BUILD)
         javaTask.dependsOn configureBuildTask
 
         project.afterEvaluate {
-          if (plugindsl.mirrorDependencies) {
-            log.info("Adding task ${TASKNAME_MIRROR_DEPENDENCIES}")
-            MirrorDependenciesTask mirrorDepsTask = project.tasks.create(type:MirrorDependenciesTask, name:TASKNAME_MIRROR_DEPENDENCIES)
-            project.tasks.classes.dependsOn(mirrorDepsTask)
-          }
-          else
-            log.info("No task ${TASKNAME_MIRROR_DEPENDENCIES} added")
+            if (plugindsl.mirrorDependencies) {
+                log.info("Adding task ${TASKNAME_MIRROR_DEPENDENCIES}")
+                MirrorDependenciesTask mirrorDepsTask = project.tasks.create(type: MirrorDependenciesTask, name: TASKNAME_MIRROR_DEPENDENCIES)
+                project.tasks.classes.dependsOn(mirrorDepsTask)
+            } else
+                log.info("No task ${TASKNAME_MIRROR_DEPENDENCIES} added")
         }
 
         configureProjectFiles(project)
 
-        project.afterEvaluate { //because we need configuration at eclipseplugin to know what to do, must be configured before created compile tasks
-          configureProjectLayout(project, plugindsl)
-          disableTestsBreakingTheBuild(project)
+        project.afterEvaluate {
+            //because we need configuration at eclipseplugin to know what to do, must be configured before created compile tasks
+            configureProjectLayout(project, plugindsl)
+            disableTestsBreakingTheBuild(project)
         }
 
-        configureDeletablePath (plugindsl, project)
+        configureDeletablePath(plugindsl, project)
     }
 
-    void configureDeletablePath (final EclipsePluginDsl plugindsl, final Project project) {
-        if (! plugindsl.additionalCleanablePath.isEmpty()) {
-          log.info("Recoginzed additionCleanablepaths " + plugindsl.additionalCleanablePath)
+    void configureDeletablePath(final EclipsePluginDsl plugindsl, final Project project) {
+        if (!plugindsl.additionalCleanablePath.isEmpty()) {
+            log.info("Recoginzed additionCleanablepaths " + plugindsl.additionalCleanablePath)
 
-          Delete taskClean = project.tasks.findByName("clean")
-          taskClean.outputs.upToDateWhen {
-              for (String nextRemovable: plugindsl.additionalCleanablePath) {
-                  File nextFile = project.file(nextRemovable)
-                  if (nextFile.exists()) {
-                      log.info("Uptodatecheck set to false due to " + nextFile.absolutePath )
-                      return false
-                  }
-              }
-              return true
-         }
-          taskClean.doFirst{
-            for (String next: plugindsl.additionalCleanablePath) {
-                delete project.file(next)
+            Delete taskClean = project.tasks.findByName("clean")
+            taskClean.outputs.upToDateWhen {
+                for (String nextRemovable : plugindsl.additionalCleanablePath) {
+                    File nextFile = project.file(nextRemovable)
+                    if (nextFile.exists()) {
+                        log.info("Uptodatecheck set to false due to " + nextFile.absolutePath)
+                        return false
+                    }
+                }
+                return true
             }
-          }
+            taskClean.doFirst {
+                for (String next : plugindsl.additionalCleanablePath) {
+                    delete project.file(next)
+                }
+            }
         }
     }
 
-    void configureProjectFiles (final Project project) {
+    void configureProjectFiles(final Project project) {
         log.info("Configure projectfiles in project " + project.name)
 
         EclipseModel eclipsemodel = project.extensions.findByType(EclipseModel)
         eclipsemodel.project {
-                natures 'org.eclipse.pde.PluginNature'
-                buildCommand 'org.eclipse.pde.ManifestBuilder'
-                buildCommand 'org.eclipse.pde.SchemaBuilder'
-            }
+            natures 'org.eclipse.pde.PluginNature'
+            buildCommand 'org.eclipse.pde.ManifestBuilder'
+            buildCommand 'org.eclipse.pde.SchemaBuilder'
+        }
 
         Eclipse eclipseModel = EclipseBuildUtils.ensureModel(project)
 
         Collection<ClasspathEntry> toRemove = new ArrayList<ClasspathEntry>()
         eclipsemodel.classpath {
-                file.whenMerged { Classpath classpath ->
+            file.whenMerged { Classpath classpath ->
 
-                    final String REQUIREDPLUGINS_KIND = 'org.eclipse.pde.core.requiredPlugins'
+                final String REQUIREDPLUGINS_KIND = 'org.eclipse.pde.core.requiredPlugins'
 
-                    boolean requiredPluginsContainerAvailable = false
+                boolean requiredPluginsContainerAvailable = false
 
-                    classpath.entries.each {
-                        ClasspathEntry classpathEntry ->
+                classpath.entries.each {
+                    ClasspathEntry classpathEntry ->
 
-                            if (classpathEntry instanceof Library) {
+                        if (classpathEntry instanceof Library) {
 
-                               Library lib = classpathEntry as Library
-                               log.info("Found library " + lib.toString())
-                               if (lib.library.file.absolutePath.startsWith(eclipseModel.explodedTargetplatformPath.absolutePath)) {
-                                   log.info("Remove library " + lib.library.file.absolutePath + " from classpath")
-                                   toRemove.add(lib)
-                               }
-                               if (lib.library.file.parentFile.parentFile.name == "build") //TODO check, why this is added library
-                                   toRemove.add(lib)
-
+                            Library lib = classpathEntry as Library
+                            log.info("Found library " + lib.toString())
+                            if (lib.library.file.absolutePath.startsWith(eclipseModel.explodedTargetplatformPath.absolutePath)) {
+                                log.info("Remove library " + lib.library.file.absolutePath + " from classpath")
+                                toRemove.add(lib)
                             }
-                            if (classpathEntry instanceof Container) {
-                                log.info("Found container " + classpathEntry.toString())
-                                Container container = classpathEntry
-                                if (container.path.equals(REQUIREDPLUGINS_KIND)) {
-                                    requiredPluginsContainerAvailable = true
-                                    log.info("Found requiredplugins container")
-                                }
-                                else
-                                    log.info("Container is not requiredplugins container")
-                            }
-                            if (classpathEntry instanceof SourceFolder) {   //Check if this path must be added as sourcefolder
-                                SourceFolder sourcefolder = classpathEntry
-                                log.info("Found sourcefolder " + classpathEntry.toString())
+                            if (lib.library.file.parentFile.parentFile.name == "build") //TODO check, why this is added library
+                                toRemove.add(lib)
 
-                                File absolute = sourcefolder.dir != null ? sourcefolder.dir : project.file(sourcefolder.path)
+                        }
+                        if (classpathEntry instanceof Container) {
+                            log.info("Found container " + classpathEntry.toString())
+                            Container container = classpathEntry
+                            if (container.path.equals(REQUIREDPLUGINS_KIND)) {
+                                requiredPluginsContainerAvailable = true
+                                log.info("Found requiredplugins container")
+                            } else
+                                log.info("Container is not requiredplugins container")
+                        }
+                        if (classpathEntry instanceof SourceFolder) {
+                            //Check if this path must be added as sourcefolder
+                            SourceFolder sourcefolder = classpathEntry
+                            log.info("Found sourcefolder " + classpathEntry.toString())
 
-                                if (absolute.absolutePath.endsWith("build/mergedResources"))
-                                  toRemove.add(sourcefolder)
-                                if (! absolute.exists()) //TODO remove after fixed in gradleplugins
-                                    toRemove.add(sourcefolder)
-                            }
-                    }
+                            File absolute = sourcefolder.dir != null ? sourcefolder.dir : project.file(sourcefolder.path)
 
-                   classpath.entries.removeAll(toRemove)
-
-                    if (! requiredPluginsContainerAvailable) {
-                      Container container = new Container("org.eclipse.pde.core.requiredPlugins")
-                      classpath.entries.add(container)
-                    }
+                            if (absolute.absolutePath.endsWith("build/mergedResources"))
+                                toRemove.add(sourcefolder)
+                            if (!absolute.exists()) //TODO remove after fixed in gradleplugins
+                                toRemove.add(sourcefolder)
+                        }
                 }
 
+                classpath.entries.removeAll(toRemove)
+
+                if (!requiredPluginsContainerAvailable) {
+                    Container container = new Container("org.eclipse.pde.core.requiredPlugins")
+                    classpath.entries.add(container)
                 }
+            }
+
+        }
     }
 
 
-
-    public void disableTestsBreakingTheBuild (final Project project) {
+    public void disableTestsBreakingTheBuild(final Project project) {
         project.gradle.taskGraph.whenReady { taskGraph ->
             project.tasks.withType(Test).each { Test test ->
                 test.ignoreFailures = true
@@ -173,39 +172,29 @@ public class EclipsePluginPlugin implements Plugin<Project>  {
     }
 
 
-
-
-    public void configureProjectLayout (final Project project, final EclipsePluginDsl plugindsl) {
+    public void configureProjectLayout(final Project project, final EclipsePluginDsl plugindsl) {
         log.info("Configure projectlayout for project ${project.name}")
 
 
-
-        if (plugindsl.sourceproject) {
-            log.info("Configure projectlayout for project ${project.name} as sourceproject")
+        if (!project.file("src/main/resources").exists()) {
             project.sourceSets {
                 main {
-                    java {
-                        srcDirs = plugindsl.additionalSourceDir
-                    }
+                    java { srcDirs = ["src"] }
+                    resources { srcDirs = ["resources"] }
                 }
             }
         }
 
-        if (plugindsl.testprojectFor != null) {
-            log.info("Configure projectlayout for project ${project.name} as testproject")
-            project.sourceSets {
-                test {
-                    java {
-                        srcDirs = plugindsl.additionalSourceDir
-                    }
+        project.sourceSets {
+            main {
+                java {
+                    srcDirs = plugindsl.additionalSourceDir
                 }
             }
-
         }
+
 
         layoutconfigurator.configure(project)
-
-
 
         //log.info(" - sourcedirs main : " + project.sourceSets.main.java.srcDirs)
         //log.info(" - sourcedirs test : " + project.sourceSets.test.java.srcDirs)

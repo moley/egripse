@@ -1,6 +1,5 @@
 package org.gradle.plugins.eclipsebase.config
 
-import com.google.common.collect.Iterables
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.tasks.Copy
@@ -41,6 +40,17 @@ class BuildPropertiesConfigurator {
             include(allIncludes)
             exclude ("build")
           }
+        }
+
+        File defaultMavenResources = project.file("src/main/resources")
+
+        if (defaultMavenResources.exists()) {
+            log.info("Copy files from default maven resources path " + defaultMavenResources)
+            project.copy {
+                into(mergedResourcesFolder)
+                from(defaultMavenResources)
+            }
+
         }
 
         File manifestFile = new File (mergedResourcesFolder, "META-INF/MANIFEST.MF")
