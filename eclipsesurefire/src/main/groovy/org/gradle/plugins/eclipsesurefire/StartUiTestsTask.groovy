@@ -59,81 +59,6 @@ class StartUiTestsTask extends HeadlessApplicationTask {
 
     }
 
-    /**private EquinoxInstallation createEclipseInstallation()  {
-        DependencyResolver platformResolver = dependencyResolverLocator.lookupDependencyResolver(project);
-        final List<Dependency> extraDependencies = getExtraDependencies();
-        List<ReactorProject> reactorProjects = getReactorProjects();
-
-        final DependencyResolverConfiguration resolverConfiguration = new DependencyResolverConfiguration() {
-            @Override
-            public OptionalResolutionAction getOptionalResolutionAction() {
-                return OptionalResolutionAction.IGNORE;
-            }
-
-            @Override
-            public List<Dependency> getExtraRequirements() {
-                return extraDependencies;
-            }
-        };
-
-
-        if (testRuntimeArtifacts == null) {
-            throw new GradleException("Cannot determinate build target platform location -- not executing tests");
-        }
-
-        work.mkdirs();
-
-        EquinoxInstallationDescription testRuntime = new DefaultEquinoxInstallationDescription();
-        testRuntime.addBundlesToExplode(getBundlesToExplode());
-        testRuntime.addFrameworkExtensions(getFrameworkExtensions());
-        if (bundleStartLevel != null) {
-            for (BundleStartLevel level : bundleStartLevel) {
-                testRuntime.addBundleStartLevel(level);
-            }
-        }
-
-        TestFrameworkProvider provider = providerHelper.selectProvider(getProjectType().getClasspath(project),
-                getMergedProviderProperties(), providerHint);
-        createSurefireProperties(provider);
-        for (ArtifactDescriptor artifact : testRuntimeArtifacts.getArtifacts(ArtifactType.TYPE_ECLIPSE_PLUGIN)) {
-            // note that this project is added as directory structure rooted at project basedir.
-            // project classes and test-classes are added via dev.properties file (see #createDevProperties())
-            // all other projects are added as bundle jars.
-            ReactorProject otherProject = artifact.getMavenProject();
-            if (otherProject != null) {
-                if (otherProject.sameProject(project)) {
-                    testRuntime.addBundle(artifact.getKey(), project.getBasedir());
-                    continue;
-                }
-                File file = otherProject.getArtifact(artifact.getClassifier());
-                if (file != null) {
-                    testRuntime.addBundle(artifact.getKey(), file);
-                    continue;
-                }
-            }
-            testRuntime.addBundle(artifact);
-        }
-
-        Set<Artifact> testFrameworkBundles = providerHelper.filterTestFrameworkBundles(provider, pluginArtifacts);
-        for (Artifact artifact : testFrameworkBundles) {
-            DevBundleInfo devInfo = workspaceState.getBundleInfo(session, artifact.getGroupId(),
-                    artifact.getArtifactId(), artifact.getVersion(), project.getPluginArtifactRepositories());
-            if (devInfo != null) {
-                testRuntime.addBundle(devInfo.getArtifactKey(), devInfo.getLocation(), true);
-                testRuntime.addDevEntries(devInfo.getSymbolicName(), devInfo.getDevEntries());
-            } else {
-                File bundleLocation = artifact.getFile();
-                ArtifactKey bundleArtifactKey = getBundleArtifactKey(bundleLocation);
-                testRuntime.addBundle(bundleArtifactKey, bundleLocation, true);
-            }
-        }
-
-        testRuntime.addDevEntries(getTestBundleSymbolicName(), getBuildOutputDirectories());
-
-        reportsDirectory.mkdirs();
-        return installationFactory.createInstallation(testRuntime, work);
-    } **/
-
     @TaskAction
     ExecResult startHeadlessApplication() {
         log.info("Start task " + getClass().getName() + " to execute ui tests")
@@ -206,17 +131,6 @@ class StartUiTestsTask extends HeadlessApplicationTask {
 
     }
 
-    /**
-     * boolean failIfNoTests = Boolean.parseBoolean(testProps.getProperty("failifnotests", "false"));
-     boolean redirectTestOutputToFile = Boolean.parseBoolean(testProps.getProperty("redirectTestOutputToFile",
-     "false"));
-     String testPlugin = testProps.getProperty("testpluginname");
-     File testClassesDir = new File(testProps.getProperty("testclassesdirectory"));
-     File reportsDir = new File(testProps.getProperty("reportsdirectory"));
-     String provider = testProps.getProperty("testprovider");
-     String runOrder = testProps.getProperty("runOrder");
-     */
-
 
     protected void afterPlatformExists () {
 
@@ -251,20 +165,25 @@ class StartUiTestsTask extends HeadlessApplicationTask {
         SourceSet sourcesetMain = project.sourceSets.main
 
         props.clear()
-        props.setProperty("testpluginname", plugin.getBundleID())
-        props.setProperty("testclassesdirectory", sourcesetMain.output.classesDir.absolutePath)
-        props.setProperty("reportsdirectory", "build/reports")
-        props.setProperty("redirectTestOutputToFile", "true") //TODO make configurable
-        props.setProperty("failifnotests", uiTestDsl.failIfNoTests.toString())
-        props.setProperty("runOrder", "filesystem") //TODO make configurable
-        props.setProperty("testprovider", "org.apache.maven.surefire.junit4.JUnit4Provider") //TODO make configurable
-        props.setProperty("excludes",'**/Abstract*Test.class,**/Abstract*TestCase.class,**/*$*') //TODO make configurable
-        props.setProperty("includes", "**/Test*.class,**/*Test.class,**/*TestCase.class")   //TODO make configurable
+        setAndLogProperty(props, "testpluginname", plugin.getBundleID())
+        setAndLogProperty(props, "testclassesdirectory", sourcesetMain.output.classesDir.absolutePath)
+        setAndLogProperty(props, "reportsdirectory", "build/reports")
+        setAndLogProperty(props, "redirectTestOutputToFile", "true") //TODO make configurable
+        setAndLogProperty(props, "failifnotests", uiTestDsl.failIfNoTests.toString())
+        setAndLogProperty(props, "runOrder", "filesystem") //TODO make configurable
+        setAndLogProperty(props, "testprovider", "org.apache.maven.surefire.junit4.JUnit4Provider") //TODO make configurable
+        setAndLogProperty(props, "excludes", uiTestDsl.excludesAsString)
+        setAndLogProperty(props, "includes", uiTestDsl.includesAsString)
 
 
         //TODO add properties here
         props.store(new FileOutputStream(surefireProperties), "created by egripse plugin")
 
+    }
+
+    public void setAndLogProperty (final Properties props, final String key, String value) {
+        log.info("Setting property " + key + " to <" + value + ">")
+        props.setProperty(key, value)
     }
 
 

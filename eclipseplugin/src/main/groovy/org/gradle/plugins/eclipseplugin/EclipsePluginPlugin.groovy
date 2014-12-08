@@ -175,15 +175,31 @@ public class EclipsePluginPlugin implements Plugin<Project> {
     public void configureProjectLayout(final Project project, final EclipsePluginDsl plugindsl) {
         log.info("Configure projectlayout for project ${project.name}")
 
-
-        if (!project.file("src/main/resources").exists()) {
-            project.sourceSets {
-                main {
-                    java { srcDirs = ["src"] }
-                    resources { srcDirs = ["resources"] }
+        if (plugindsl.testprojectFor != null) {
+            if (!project.file("src/test/resources").exists()) {
+                project.sourceSets {
+                    test {
+                        java { srcDirs = ["src"] }
+                        resources { srcDirs = ["resources"] }
+                    }
                 }
             }
+
         }
+        else {
+            if (!project.file("src/main/resources").exists()) {
+                project.sourceSets {
+                    main {
+                        java { srcDirs = ["src"] }
+                        resources { srcDirs = ["resources"] }
+                    }
+                }
+            }
+
+        }
+
+
+
 
         project.sourceSets {
             main {
