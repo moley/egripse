@@ -1,6 +1,8 @@
 package org.gradle.plugins.eclipsebase.integrationtest
 
 import org.apache.commons.io.FileUtils
+import org.gradle.tooling.GradleConnector
+import org.gradle.tooling.ProjectConnection
 import org.junit.After
 import org.junit.Assert
 import org.junit.Test
@@ -25,6 +27,19 @@ class FlatProjectTest {
     public void after () {
         if (param.copyFrom != null && param.path.absolutePath.contains("tmp"))
             FileUtils.deleteDirectory(param.path)
+
+    }
+
+    @Test
+    public void completeBuild () {
+
+        ProjectConnection connection = GradleConnector.newConnector().forProjectDirectory(new File("someProjectFolder")).connect();
+
+        try {
+            connection.newBuild().forTasks("tasks").run();
+        } finally {
+            connection.close();
+        }
 
     }
 
@@ -88,6 +103,11 @@ class FlatProjectTest {
         Assert.assertTrue ("buildDeps path not created", buildDeps.exists())
         Assert.assertTrue ("not enough content in buildDeps path, expected at least 5 files", buildDeps.listFiles().length > 5)
 
+        File buildReportsUi = new File (pluginProjectDir, "build/test-results")
+        Assert.assertTrue ("buildDeps path not created", buildReportsUi.exists())
+
+        File standaloneXml = new File (buildReportsUi, 'TEST-org.eclipse.egripse.plugin.test.TestStandalone.xml')
+        Assert.assertTrue ("Report-Xml " + standaloneXml + " does not exist", standaloneXml.exists())
     }
 
     private void checkUpdatesiteContent (final File rootpath)  {
@@ -114,6 +134,26 @@ class FlatProjectTest {
 
         checkUpdatesiteContent(new File (param.path, "build/newUpdatesiteContent"))
         checkUpdatesiteContent(new File (param.path, "build/updatesite"))
+    }
+
+    @Test
+    public void uitests () {
+        param = new GradleLauncherParam()
+        param.path = testprojectFlat
+        param.withStacktrace = true
+        param.tasks = "clean uitest"
+
+        GradleLauncherResult result = launcher.callGradleBuild(param)
+        launcher.checkOutputForOK(result)
+
+        File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin.test")
+
+        File buildReportsUi = new File (pluginProjectDir, "build/test-results-ui")
+        File uiXml = new File (buildReportsUi, 'TEST-org.eclipse.egripse.plugin.test.uitest.TestUi.xml')
+        Assert.assertTrue ("Report-Xml " + uiXml + " does not exist", uiXml.exists())
+
+
+
     }
 
 

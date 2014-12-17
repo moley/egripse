@@ -36,7 +36,12 @@ apply {
 
 
 eclipsebase {  
- targetplatform 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_20141120_1111.zip'
+
+ setup {
+   remoteZip 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_20141120_1111.zip'
+   remoteUpdatesite 'http://download.eclipse.org/releases/luna/'
+ }
+
  updatesite {
     host 'repository.intra.vsa.de'
     path 'vsaeclipse/kepler/updatesites/updateSiteTools'

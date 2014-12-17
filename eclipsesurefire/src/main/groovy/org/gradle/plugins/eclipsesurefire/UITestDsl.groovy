@@ -29,7 +29,7 @@ public class UITestDsl {
     public UITestDsl (final Project project) {
         this.project = project
         log.info("Constructing patternsets in closure " + getClass().getName() + "(" + System.identityHashCode(this) + ")")
-        include('**/uitest/**/Test*.class', '**/uitest/*Test.class', '**/uitest/*TestCase.class')
+        include('**/uitest/**/Test*.class', '**/uitest/**/*Test.class', '**/uitest/**/*TestCase.class')
         exclude('**/Abstract*Test.class', '**/Abstract*TestCase.class', '**/*$*')
 
     }

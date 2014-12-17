@@ -1,0 +1,11 @@
+apply {
+    plugin 'eclipseplugin'
+    plugin 'eclipsesurefire'
+}
+
+eclipseplugin { testproject ('org.eclipse.egripse.plugin') }
+
+uitest {
+  showDebugInfo = true
+  //debugPort = 8080
+}

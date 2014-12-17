@@ -15,7 +15,7 @@ class EclipseBaseDsl {
 
     String againstEclipse
 
-    String targetplatform
+    SetupDsl setup
 
     String pluginsPath
 
@@ -23,9 +23,11 @@ class EclipseBaseDsl {
 
     UpdatesiteDsl updatesite
 
+
     Project project
 
     Collection<String> additionalLocalUpdatesites = new ArrayList<String>()
+
 
     public EclipseBaseDsl (final Project project) {
         this.project = project
@@ -41,4 +43,6 @@ class EclipseBaseDsl {
     public localUpdatesite (final String updatesite) {
         additionalLocalUpdatesites.add(updatesite)
     }
+
+
 }

@@ -8,10 +8,14 @@ import org.gradle.api.plugins.JavaPlugin
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.plugins.eclipsebase.config.ProjectVersionConfigurator
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
+import org.gradle.plugins.eclipsebase.dsl.SetupDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
+import org.gradle.plugins.eclipsebase.model.Dependency
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
 import org.gradle.plugins.eclipsebase.model.EclipseProjectPart
+import org.gradle.plugins.eclipsebase.targetplatform.DependenciesSetupCreator
+import org.gradle.plugins.eclipsebase.targetplatform.ISetupCreator
 import org.gradle.plugins.eclipsebase.updatesite.*
 
 /**
@@ -44,7 +48,9 @@ class EclipseBasePlugin implements Plugin<Project> {
 
         EclipseBaseDsl eclipseBaseDsl = project.extensions.create("eclipsebase", EclipseBaseDsl, project)
         UpdatesiteDsl updatesite = project.extensions.create("updatesite", UpdatesiteDsl, eclipseBaseDsl)
+        SetupDsl setupdsl = project.extensions.create("setup", SetupDsl, eclipseBaseDsl)
         eclipseBaseDsl.updatesite = updatesite
+        eclipseBaseDsl.setup = setupdsl
 
         Eclipse eclipseModel = EclipseBuildUtils.ensureModel(project)
 
@@ -64,8 +70,23 @@ class EclipseBasePlugin implements Plugin<Project> {
                   projectVersionConfigurator.setVersion(nextSubProject, projectpart.version)
             }
 
+            if (! setupdsl.updatesites.isEmpty()) {
+                File setupFile = new File(project.projectDir, '.gradle' + File.separator + 'project.setup')
+                if (! setupFile.parentFile.exists())
+                    setupFile.parentFile.mkdirs()
+
+                Collection<Dependency> directDeps = eclipseModel.workspace.getAllDirectDependencies(false)
+                ISetupCreator setupCreator = new DependenciesSetupCreator(directDeps, setupdsl)
+                setupCreator.create(setupFile)
+            }
+            else
+                log.info ("Don't create setup file, because no remote updatesites are configured")
+
             Project rootProject = project.rootProject
             dependencyResolver.resolve(rootProject)
+
+
+
         }
 
 

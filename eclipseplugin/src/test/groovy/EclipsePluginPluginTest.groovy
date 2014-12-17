@@ -1,9 +1,12 @@
 import org.gradle.api.Project
 import org.gradle.api.internal.project.ProjectInternal
 import org.gradle.api.internal.tasks.DefaultSourceSet
+import org.gradle.api.tasks.SourceSet
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Assert
 import org.junit.Test
+
+import java.nio.file.Files
 
 /**
  * Created with IntelliJ IDEA.
@@ -71,6 +74,29 @@ class EclipsePluginPluginTest {
             sourceproject ()
             testproject(OTHERPROJECT_NAME)
         }
+    }
+
+    @Test
+    public void mavenProject () {
+        final String MAINJAVA = 'src/main/java'
+        final String TESTJAVA = 'src/test/java'
+        File projectDir = Files.createTempDirectory("mavenProject").toFile()
+        File srcMain = new File (projectDir, MAINJAVA)
+        File testMain = new File (projectDir, TESTJAVA)
+        Assert.assertTrue ("SrcMain could not be created", srcMain.mkdirs())
+        Assert.assertTrue ("SrcMain could not be created", testMain.mkdirs())
+
+        ProjectInternal project = ProjectBuilder.builder().withProjectDir(projectDir).build()
+        project.apply plugin: 'eclipseplugin'
+        project.evaluate()
+        SourceSet sourceSetMain = project.sourceSets.main
+        File srcMainFromProject = project.file(MAINJAVA)
+        Assert.assertTrue ("$srcMainFromProject not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcMainFromProject))
+
+        SourceSet sourceSetTest = project.sourceSets.test
+        File srcTestFromProject = project.file(TESTJAVA)
+        Assert.assertTrue ("$srcTestFromProject not contained in sourceset test ($sourceSetTest.allJava.srcDirs)\"", sourceSetTest.allJava.srcDirs.contains(srcTestFromProject))
+
     }
 
     @Test (expected = NullPointerException)

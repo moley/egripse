@@ -176,7 +176,9 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         log.info("Configure projectlayout for project ${project.name}")
 
         if (plugindsl.testprojectFor != null) {
-            if (!project.file("src/test/resources").exists()) {
+            log.info("Project is configured as testproject")
+            if (!project.file("src/test/java").exists()) {
+                log.info("No maven layout found, configuring src as source path and resources as resources path")
                 project.sourceSets {
                     test {
                         java { srcDirs = ["src"] }
@@ -184,31 +186,28 @@ public class EclipsePluginPlugin implements Plugin<Project> {
                     }
                 }
             }
+            else
+                log.info("Maven layout found")
 
         }
         else {
-            if (!project.file("src/main/resources").exists()) {
+            if (!project.file("src/main/java").exists()) {
                 project.sourceSets {
+                    log.info("No maven layout found, configuring src as source path and resources as resources path")
                     main {
                         java { srcDirs = ["src"] }
                         resources { srcDirs = ["resources"] }
                     }
                 }
             }
+            else
+                log.info("Maven layout found")
 
         }
 
-
-
-
-        project.sourceSets {
-            main {
-                java {
-                    srcDirs = plugindsl.additionalSourceDir
-                }
-            }
+        plugindsl.additionalSourceDir.each {
+            project.sourceSets.main.java.srcDirs it
         }
-
 
         layoutconfigurator.configure(project)
 

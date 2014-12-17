@@ -102,10 +102,8 @@ class GradleLauncher {
         String gradleHome = System.getenv("GRADLE_HOME")
         if (gradleHome == null) throw new IllegalStateException("Environment Variable GRADLE_HOME is not set")
 
-
-
         if (param.copyFrom != null) {
-            File root = new File (getProjectPath("integrationtests").parentFile, "tmp")
+            File root = new File (getProjectPath("integrationtests").absoluteFile.parentFile, "tmp")
             pathAsPath = new File (root, Files.createTempDir().name)
             println ("Using temporaer path " + pathAsPath.absolutePath)
             FileUtils.copyDirectory(param.copyFrom, pathAsPath)

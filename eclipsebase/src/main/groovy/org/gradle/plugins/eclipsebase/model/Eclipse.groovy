@@ -83,7 +83,7 @@ class Eclipse {
     }
 
     public Targetplatform getTargetplatformModel () {
-        final String targetplatform = eclipseDsl.targetplatform
+        final String targetplatform = eclipseDsl.setup.targetplatformZip
 
         if (targetplatform == null)
             throw new IllegalStateException("No targetplatform defined")
@@ -125,7 +125,7 @@ class Eclipse {
         if (!cacheDirectory.exists())
             cacheDirectory.mkdirs()
 
-        final String targetplatform = eclipseDsl.targetplatform
+        final String targetplatform = eclipseDsl.setup.targetplatformZip
         String[] targetplatformtokens = targetplatform.split("/")
 
         String targetplatformName = targetplatformtokens[targetplatformtokens.length - 1]

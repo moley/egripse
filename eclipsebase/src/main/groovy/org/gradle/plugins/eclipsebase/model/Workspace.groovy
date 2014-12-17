@@ -108,4 +108,29 @@ class Workspace extends DefaultPluginContainer{
     String getIdentifier() {
         return workspacePath.absolutePath
     }
+
+    public Collection<Dependency> getAllDirectDependencies (final boolean includeWorkspacePlugins) {
+        log.info("getAllDirectDependencies $includeWorkspacePlugins")
+        Set <Dependency> dependencies = new HashSet<Dependency>()
+        for (EclipsePlugin next: getPlugins()) {
+            for (Dependency nextDep: next.metainf.dependencies) {
+
+                boolean isWorkspacePlugin = (findPluginByBundleID(nextDep.bundleID) != null)
+                log.info("check $nextDep.bundleID as workspace plugin: $isWorkspacePlugin")
+                if (includeWorkspacePlugins || ! isWorkspacePlugin) {
+                    dependencies.add(nextDep)
+                    log.info("Add $nextDep.bundleID as direct dependency")
+                }
+
+            }
+
+        }
+
+        for (Dependency next: dependencies) {
+            log.info("Direct dependency " + next.toString() + "found")
+        }
+
+        return dependencies
+
+    }
 }
