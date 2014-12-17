@@ -19,11 +19,6 @@ class LayoutConfigurator {
      */
     public void configure (final Project project) {
         log.info("Configure projectlayout for project ${project.name} as sourceproject")
-        project.sourceSets {
-            main {
-                resources { srcDirs = ["build/mergedResources"] }
-            }
-
-        }
+        project.sourceSets.main.resources.srcDirs 'build/mergedResources'
     }
 }

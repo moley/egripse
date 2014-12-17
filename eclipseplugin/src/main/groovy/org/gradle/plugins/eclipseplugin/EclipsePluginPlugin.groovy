@@ -180,6 +180,12 @@ public class EclipsePluginPlugin implements Plugin<Project> {
             if (!project.file("src/test/java").exists()) {
                 log.info("No maven layout found, configuring src as source path and resources as resources path")
                 project.sourceSets {
+                    main {
+                        java { srcDirs = ["src"] }
+                        resources { srcDirs = ["resources"] }
+                    }
+                }
+                project.sourceSets {
                     test {
                         java { srcDirs = ["src"] }
                         resources { srcDirs = ["resources"] }

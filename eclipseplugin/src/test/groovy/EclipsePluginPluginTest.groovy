@@ -17,6 +17,12 @@ import java.nio.file.Files
  */
 class EclipsePluginPluginTest {
 
+    private final String MAINJAVA = 'src/main/java'
+    private final String TESTJAVA = 'src/test/java'
+
+    private final String MAINRESOURCES = 'src/main/resources'
+    private final String TESTRESOURCES = 'src/test/resources'
+
     @Test
     public void sourceProject () {
 
@@ -50,16 +56,17 @@ class EclipsePluginPluginTest {
         otherProject.apply plugin: 'java'
         ProjectInternal project = ProjectBuilder.builder().withParent(rootproject).build()
         File srcDir = project.file("src")
+        Assert.assertTrue ("Could not create sourcedir $srcDir.absolutePath", srcDir.mkdirs())
         File srcGenDir = project.file("src-gen")
-        Assert.assertTrue (srcDir.mkdirs())
+
         project.apply plugin: 'eclipseplugin'
         project.eclipseplugin { testproject(OTHERPROJECT_NAME) }
         project.evaluate()
 
 
         DefaultSourceSet sourceSetMain = project.sourceSets.main
-        Assert.assertTrue (sourceSetMain.allJava.srcDirs.contains(srcDir))
-        Assert.assertFalse (sourceSetMain.allJava.srcDirs.contains(srcGenDir))
+        Assert.assertTrue ("$srcDir not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcDir))
+        Assert.assertFalse ("$srcGenDir not contained in sourceset test ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcGenDir))
     }
 
     @Test (expected = IllegalStateException)
@@ -74,29 +81,44 @@ class EclipsePluginPluginTest {
             sourceproject ()
             testproject(OTHERPROJECT_NAME)
         }
+
+        SourceSet sourceSetMain = project.sourceSets.main
+        File srcMainFromProject = project.file(MAINJAVA)
+        File plainSrc = project.file ("src")
+        Assert.assertFalse ("$srcMainFromProject not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcMainFromProject))
+        Assert.assertTrue ("$srcMainFromProject not contained in sourceset test ($sourceSetMain.allJava.srcDirs)\"", sourceSetMain.allJava.srcDirs.contains(plainSrc))
+
+        SourceSet sourceSetTest = project.sourceSets.test
+        File srcTestFromProject = project.file(TESTJAVA)
+        Assert.assertFalse ("$srcTestFromProject not contained in sourceset test ($sourceSetTest.allJava.srcDirs)\"", sourceSetTest.allJava.srcDirs.contains(srcTestFromProject))
     }
 
     @Test
     public void mavenProject () {
-        final String MAINJAVA = 'src/main/java'
-        final String TESTJAVA = 'src/test/java'
+
         File projectDir = Files.createTempDirectory("mavenProject").toFile()
-        File srcMain = new File (projectDir, MAINJAVA)
-        File testMain = new File (projectDir, TESTJAVA)
-        Assert.assertTrue ("SrcMain could not be created", srcMain.mkdirs())
-        Assert.assertTrue ("SrcMain could not be created", testMain.mkdirs())
+        Assert.assertTrue ("javamain could not be created", new File (projectDir, MAINJAVA).mkdirs())
+        Assert.assertTrue ("javatest could not be created", new File (projectDir, TESTJAVA).mkdirs())
+        Assert.assertTrue ("resourcesmain could not be created", new File (projectDir, MAINRESOURCES).mkdirs())
+        Assert.assertTrue ("resourcestest could not be created", new File (projectDir, TESTRESOURCES).mkdirs())
 
         ProjectInternal project = ProjectBuilder.builder().withProjectDir(projectDir).build()
         project.apply plugin: 'eclipseplugin'
         project.evaluate()
         SourceSet sourceSetMain = project.sourceSets.main
-        File srcMainFromProject = project.file(MAINJAVA)
-        Assert.assertTrue ("$srcMainFromProject not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcMainFromProject))
+        File javaMainFromProject = project.file(MAINJAVA)
+        File resourcesMainFromProject = project.file(MAINRESOURCES)
+        File plainSrc = project.file ("src")
+        Assert.assertTrue ("$javaMainFromProject not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(javaMainFromProject))
+        Assert.assertTrue ("$resourcesMainFromProject not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.resources.srcDirs.contains(resourcesMainFromProject))
+        Assert.assertFalse ("$javaMainFromProject not contained in sourceset test ($sourceSetMain.resources.srcDirs)\"", sourceSetMain.allJava.srcDirs.contains(plainSrc))
 
         SourceSet sourceSetTest = project.sourceSets.test
-        File srcTestFromProject = project.file(TESTJAVA)
-        Assert.assertTrue ("$srcTestFromProject not contained in sourceset test ($sourceSetTest.allJava.srcDirs)\"", sourceSetTest.allJava.srcDirs.contains(srcTestFromProject))
+        File javaTestFromProject = project.file(TESTJAVA)
+        File resourcesTestFromProject = project.file(TESTRESOURCES)
 
+        Assert.assertTrue ("$javaTestFromProject not contained in sourceset test ($sourceSetTest.allJava.srcDirs)\"", sourceSetTest.allJava.srcDirs.contains(javaTestFromProject))
+        Assert.assertTrue ("$resourcesTestFromProject not contained in sourceset test ($sourceSetTest.resources.srcDirs)\"", sourceSetTest.resources.srcDirs.contains(resourcesTestFromProject))
     }
 
     @Test (expected = NullPointerException)

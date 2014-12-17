@@ -25,7 +25,6 @@ class EclipsePluginDsl {
     public EclipsePluginDsl (final Project project) {
         this.project = project
         additionalCleanablePath.add("build")
-        additionalSourceDir.add("src")
     }
 
     /**
