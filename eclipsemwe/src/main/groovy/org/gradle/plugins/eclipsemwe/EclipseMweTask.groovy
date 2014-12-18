@@ -22,7 +22,7 @@ import org.gradle.process.ExecResult
 class EclipseMweTask extends SourceTask {
 
 
-    File mweFile
+    String mweFile
 
     File basedir
 
@@ -85,7 +85,7 @@ class EclipseMweTask extends SourceTask {
                 throw new IllegalStateException("In prototype only one mwefile is supported")
 
             if (mweFile == null)
-                mweFile = project.file (eclipseMweDsl.mweFiles.iterator().next())
+                mweFile = eclipseMweDsl.mweFiles.iterator().next()
 
             String workflowClassname = "org.eclipse.emf.mwe.core.WorkflowRunner"
 
@@ -94,7 +94,7 @@ class EclipseMweTask extends SourceTask {
             main = workflowClassname
 
             Collection arguments = new ArrayList()
-            arguments.add(mweFile.absolutePath)
+            arguments.add(mweFile)
             args  = arguments
 
             maxHeapSize = "512M"
