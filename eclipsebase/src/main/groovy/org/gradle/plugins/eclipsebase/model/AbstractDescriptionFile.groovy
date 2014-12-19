@@ -20,11 +20,14 @@ class AbstractDescriptionFile {
 
     /**
      * reads chapter of file
-     * @param file      file
+     * @param inputStream      file
      * @param divider   divider to split chapter from content
      */
-    public void readChapters (InputStream file, final String divider) {
-        Collection<String> lines = file.text.split(NEWLINE)
+    public void readChapters (InputStream inputStream, final String divider) {
+        Collection<String> lines = inputStream.text.split(NEWLINE)
+        for (String nextLine: lines) {
+            log.info("Reading line $nextLine from $file.absolutePath")
+        }
 
         String currentChapter = null
         for (String next: lines) {
@@ -34,16 +37,21 @@ class AbstractDescriptionFile {
 
             String content = next
             int indexSeparator = next.indexOf(divider)
+            log.info("Reading line " + next + " with divider on position " + indexSeparator)
             if (indexSeparator > 0 && ! new Character(next.charAt(0)).isWhitespace()) {
                 currentChapter = next.substring(0, indexSeparator).trim()
+                log.info("set current chapter to " + currentChapter)
                 chapters.put(currentChapter, new ArrayList<String>())
                 content = next.substring(indexSeparator + 1, next.length())
+                log.info("set content to " + content)
             }
 
             content = content.replace(",", "").replace("\\", "").trim()
+            log.info("set content to " + content)
 
             Collection <String> contentOfChapter = chapters.get(currentChapter)
             contentOfChapter.add(content)
+            log.info("add content " + content + " to chapter " + currentChapter)
         }
     }
 }

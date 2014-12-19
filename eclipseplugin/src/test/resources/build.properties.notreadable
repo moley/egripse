@@ -1,6 +1,5 @@
 bin.includes = feature.xml,\
                p2.inf
-
 jars.compile.order = .
 source.. =
 category.id.vsamodeling=VSAModeling

@@ -19,6 +19,7 @@ public class BuildProperties extends AbstractDescriptionFile{
      * @param buildpropertiesFile   file
      */
     public BuildProperties (final File buildpropertiesFile) {
+        this.file = buildpropertiesFile
         if (buildpropertiesFile.exists()) {
           readChapters(new FileInputStream(buildpropertiesFile), "=")
           readBinIncludes()
