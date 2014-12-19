@@ -1,0 +1,9 @@
+bin.includes = feature.xml,\
+               p2.inf
+
+jars.compile.order = .
+source.. =
+category.id.vsamodeling=VSAModeling
+category.members.vsamodeling=vsa.eclipse.vsaeclipseTools
+category.description.vsamodeling=Tools from VSA GmbH to model like a worldmaster
+category.default=category.id.vsamodeling

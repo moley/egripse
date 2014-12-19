@@ -31,4 +31,17 @@ class BuildPropertiesTest {
 
     }
 
+    @Test
+    public void buildincludesNotReadble () {
+        URL url = getClass().classLoader.getResource("build.properties.notreadable")
+        File file = new File (url.path).absoluteFile
+
+        BuildProperties properties = new BuildProperties(file)
+        for (String next: properties.binIncludes) {
+            println (next)
+        }
+
+
+    }
+
 }
