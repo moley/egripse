@@ -1,11 +1,19 @@
-  buildscript {
-    repositories {
-        mavenCentral()
-        maven {url 'https://m2proxy.atlassian.com/repository/public/'}
-    }
+buildscript {
+  repositories {
+      mavenCentral()
+      maven {url 'https://m2proxy.atlassian.com/repository/public/'}
   }
+}
+
+allprojects {
+  repositories {
+        ivy { url "http://nexus.intra.vsa.de:8081/nexus/content/groups/publicivy/" }
+        maven { url "http://nexus.intra.vsa.de:8081/nexus/content/groups/publicmaven/" }
+  }
+}
 
 subprojects {
+
   apply { plugin 'eclipse' } 
   apply { plugin 'java' } 
   repositories {
@@ -38,13 +46,14 @@ apply {
 eclipsebase {  
 
  setup {
-   remoteZip 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_20141120_1111.zip'
+   remoteZip 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_20151222_1231.zip'
    remoteUpdatesite 'http://download.eclipse.org/releases/luna/'
+   localEclipse '/Applications/Eclipse4.5.app/Contents/Eclipse'
  }
 
  updatesite {
     host 'repository.intra.vsa.de'
-    path 'vsaeclipse/kepler/updatesites/updateSiteTools'
+    path 'vsaeclipseTestArea/testproject/updatesite'
     categoriesXml 'category.xml'
  }
 }

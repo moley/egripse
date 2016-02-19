@@ -1,11 +1,10 @@
 package org.gradle.plugins.eclipsebase.updatesite
-
 import groovy.util.logging.Slf4j
-import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
+import org.gradle.plugins.eclipsebase.model.Targetplatform
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +14,7 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
  * To change this template use File | Settings | File Templates.
  */
 @Slf4j
-class CreateCategoriesUpdatesiteTask extends JavaExec {
+class CreateCategoriesUpdatesiteTask extends RunExternalEclipseTask {
 
     /**
      * gets categoriesxml and throws error if not configured
@@ -43,19 +42,21 @@ class CreateCategoriesUpdatesiteTask extends JavaExec {
 
         Eclipse eclipse = project.eclipsemodel
 
+        Targetplatform externalEclipse = getExternalEclipse(project)
+
         File updatesitePath = project.file("build/updatesite")
         File categoryDefinition = findCategoriesXml()
         if (categoryDefinition == null)
             return
 
         log.info("Classpath " + getClass().getName())
-        for (File next: eclipse.targetplatformModel.updatesiteProgramsClasspath) {
+        for (File next: externalEclipse.updatesiteProgramsClasspath) {
             log.info("- Entry " + next.absolutePath)
         }
 
         workingDir 'build/newUpdatesiteContent'
         main 'org.eclipse.core.launcher.Main'
-        classpath eclipse.targetplatformModel.updatesiteProgramsClasspath
+        classpath externalEclipse.updatesiteProgramsClasspath
         jvmArgs '-Xms40m'
         jvmArgs '-Xmx900m'
         jvmArgs '-XX:MaxPermSize=512m'

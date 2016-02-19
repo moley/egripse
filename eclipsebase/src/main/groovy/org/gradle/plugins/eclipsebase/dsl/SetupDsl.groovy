@@ -11,6 +11,9 @@ class SetupDsl {
 
     String targetplatformZip
 
+
+    String localEclipse
+
     public SetupDsl(final EclipseBaseDsl baseDsl) {
         this.eclipseBaseDsl = baseDsl
     }
@@ -22,4 +25,11 @@ class SetupDsl {
     public remoteZip (final String targetplatformZip) {
         this.targetplatformZip = targetplatformZip
     }
+
+    public localEclipse (final String localEclispePath) {
+        this.localEclipse = localEclispePath
+    }
+
+
+
 }

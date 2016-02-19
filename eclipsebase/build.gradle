@@ -10,4 +10,8 @@ uploadArchives {
     }
 }
 
+dependencies {
+    compile 'de.pdark:decentxml:1.3'
+}
+
 

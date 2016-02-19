@@ -1,10 +1,8 @@
 package org.gradle.plugins.eclipsebase.updatesite
-
 import groovy.util.logging.Slf4j
-import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.model.Eclipse
-
+import org.gradle.plugins.eclipsebase.model.Targetplatform
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -13,7 +11,7 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
  * To change this template use File | Settings | File Templates.
  */
 @Slf4j
-class MergeUpdatesiteTask extends JavaExec{
+class MergeUpdatesiteTask extends RunExternalEclipseTask {
 
 
     @TaskAction
@@ -23,8 +21,11 @@ class MergeUpdatesiteTask extends JavaExec{
         File updatesitePath = eclipse.localUpdatesitePath
         File updatesiteContentPath = eclipse.localUpdatesiteContentPath
 
+        //Download eclipse executable
+        Targetplatform externalEclipse = getExternalEclipse(project)
+
         log.info("Classpath updatesitemerge")
-        for (File next: eclipse.targetplatformModel.updatesiteProgramsClasspath) {
+        for (File next: externalEclipse.updatesiteProgramsClasspath) {
             log.info("- Entry " + next.absolutePath)
         }
 
@@ -32,7 +33,7 @@ class MergeUpdatesiteTask extends JavaExec{
 
         workingDir updatesiteContentPath
         main 'org.eclipse.core.launcher.Main'
-        classpath eclipse.targetplatformModel.updatesiteProgramsClasspath
+        classpath externalEclipse.updatesiteProgramsClasspath
         jvmArgs '-Xms40m'
         jvmArgs '-Xmx900m'
         jvmArgs '-XX:MaxPermSize=512m'

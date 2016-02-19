@@ -119,6 +119,13 @@ class Eclipse {
 
     }
 
+    private void downloadExecutableOnDemand () {
+        if (!cacheDirectory.exists())
+            cacheDirectory.mkdirs()
+
+
+    }
+
 
     private void downloadTargetplatformOnDemand() {
 
