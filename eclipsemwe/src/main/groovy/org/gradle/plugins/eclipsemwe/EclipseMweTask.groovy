@@ -103,13 +103,6 @@ class EclipseMweTask extends SourceTask {
 
         if (result.exitValue != 0)
             throw new IllegalStateException("Error running mwe generator in project " + project.name)
-        /**else {
-          //TODO Workaround until we know how to set outputdirectory of generator
-          project.copy {
-            from project.file(basedir.absolutePath + "/bin/src-gen")
-            into project.file(basedir.absolutePath + "/src-gen")
-          }
-        }  **/
     }
 
 

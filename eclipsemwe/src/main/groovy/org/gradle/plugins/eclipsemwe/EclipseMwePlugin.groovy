@@ -80,12 +80,13 @@ class EclipseMwePlugin implements Plugin<Project>  {
 
 
 
-        //Add msi files TODO make nicer
+        //Add additional files as resources
         Copy task = project.tasks.findByName("processResources")
         Copy copyMweAdditions = project.tasks.create(type:Copy, name:'copyMweFiles')
         copyMweAdditions.destinationDir = project.file ('build/resources/main')
         copyMweAdditions.from (['src-gen', 'src'])
         copyMweAdditions.include('**/*.xmi')
+        copyMweAdditions.include('**/*.xtextbin')
         copyMweAdditions.include("**/*.g")
         copyMweAdditions.include("**/*.tokens")
         copyMweAdditions.include("**/*.xtext")
