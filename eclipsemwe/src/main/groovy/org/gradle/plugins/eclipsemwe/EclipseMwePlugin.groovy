@@ -87,6 +87,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
         copyMweAdditions.from (['src-gen', 'src'])
         copyMweAdditions.include('**/*.xmi')
         copyMweAdditions.include('**/*.xtextbin')
+        copyMweAdditions.include('**/*.tokens')
         copyMweAdditions.include("**/*.g")
         copyMweAdditions.include("**/*.tokens")
         copyMweAdditions.include("**/*.xtext")
