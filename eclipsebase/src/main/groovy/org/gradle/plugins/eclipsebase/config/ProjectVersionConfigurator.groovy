@@ -19,8 +19,12 @@ class ProjectVersionConfigurator {
     private String EXTENSIONKEY_QUALIFIER_TIMESTAMP = 'qualifierTimestamp'
 
     public void setVersion (final Project project, final String version) {
-        String currentDateAsString = project.rootProject.extensions.extraProperties.get(EXTENSIONKEY_QUALIFIER_TIMESTAMP)
-        if (currentDateAsString == null) {
+
+        String currentDateAsString = null
+        if (project.rootProject.extensions.extraProperties.has(EXTENSIONKEY_QUALIFIER_TIMESTAMP)) {
+            currentDateAsString = project.rootProject.extensions.extraProperties.has(EXTENSIONKEY_QUALIFIER_TIMESTAMP)
+        }
+        else {
             DateFormatter formatter = new DateFormatter(new SimpleDateFormat("yyyyMMddHHmm"))
             currentDateAsString = formatter.valueToString(new Date (System.currentTimeMillis()))
             project.rootProject.extensions.extraProperties.set(EXTENSIONKEY_QUALIFIER_TIMESTAMP, currentDateAsString)
