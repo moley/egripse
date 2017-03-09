@@ -8,8 +8,8 @@ buildscript {
 subprojects {
 
 
-    version=0.56
-    group = 'org.egripse'
+    version=0.57
+    group = 'de.vsa.gradle.egripse'
 
     apply {
         plugin 'maven'
@@ -30,6 +30,31 @@ subprojects {
       compile localGroovy()
       compile gradleApi()
     }
+
+  /**uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url:'https://api.bintray.com/maven/markusoley/egripse/eclipsefeature') {
+                String username = System.properties['bintray.username']
+                String password = System.properties['bintray.password']
+                authentication( userName: username, password: password)
+            }
+        }
+    }
+  }**/
+
+  uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url:'http://repo.intra.vsa.de:8081/artifactory/vsa-maven') {
+                String username = System.properties['artifactory.username']
+                String password = System.properties['artifactory.password']
+                authentication( userName: username, password: password)
+            }
+        }
+    }
+  }
+
 
     task sourcesJar(type: Jar, dependsOn: classes) {
       classifier = 'sources'

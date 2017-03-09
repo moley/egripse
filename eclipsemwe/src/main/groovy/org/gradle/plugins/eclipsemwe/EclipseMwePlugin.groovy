@@ -89,7 +89,6 @@ class EclipseMwePlugin implements Plugin<Project>  {
         copyMweAdditions.include('**/*.xtextbin')
         copyMweAdditions.include('**/*.tokens')
         copyMweAdditions.include("**/*.g")
-        copyMweAdditions.include("**/*.tokens")
         copyMweAdditions.include("**/*.xtext")
         copyMweAdditions.include("**/*.ecore")
         copyMweAdditions.include("**/*.ext")

@@ -1,15 +1,3 @@
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url:'https://api.bintray.com/maven/markusoley/egripse/eclipsebase') { 
-                String username = System.properties['bintray.username']
-                String password = System.properties['bintray.password']
-                authentication( userName: username, password: password)
-            }
-        }
-    }
-}
-
 dependencies {
     compile 'de.pdark:decentxml:1.3'
 }

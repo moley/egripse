@@ -35,14 +35,18 @@ class DownloadUpdatesiteTask extends DefaultTask{
         println ("Downloading updatesite from host ${updatesite.host} to ${localUpdatesite.absolutePath}")
 
         ConfigurationContainer configurationContainer = project.configurations
-        project.ant {
-            taskdef(name: 'ftp', classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP', classpath: configurationContainer.ftpAntTask.asPath)
+        try {
+            project.ant {
+                taskdef(name: 'ftp', classname: 'org.apache.tools.ant.taskdefs.optional.net.FTP', classpath: configurationContainer.ftpAntTask.asPath)
 
-            ftp(action: "mkdir", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd)
+                ftp(action: "mkdir", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd)
 
-            ftp(action: "get", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd) {
-                fileset(dir: localUpdatesite.absolutePath)
+                ftp(action: "get", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd) {
+                    fileset(dir: localUpdatesite.absolutePath)
+                }
             }
+        } catch (Exception e ) {
+            println ("No previous content could be loaded from $updatesite.path. Please check if this is your first release on this path")
         }
     }
 
