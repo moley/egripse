@@ -8,7 +8,7 @@ buildscript {
 subprojects {
 
 
-    version=0.57
+    version=0.59
     group = 'de.vsa.gradle.egripse'
 
     apply {

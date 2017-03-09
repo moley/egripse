@@ -28,17 +28,9 @@ import org.gradle.plugins.eclipsebase.updatesite.*
 @Slf4j
 class EclipseBasePlugin implements Plugin<Project> {
 
-    private static Date currentBuildDate
-
     private EclipseDependencyResolver dependencyResolver = new EclipseDependencyResolver()
 
     private ProjectVersionConfigurator projectVersionConfigurator = new ProjectVersionConfigurator()
-
-
-
-    static {
-        currentBuildDate = new Date(System.currentTimeMillis())
-    }
 
     @Override
     void apply(Project project) {

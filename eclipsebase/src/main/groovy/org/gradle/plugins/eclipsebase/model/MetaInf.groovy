@@ -26,7 +26,7 @@ class MetaInf {
 
     Manifest manifest
 
-    private static final String NEWLINE = System.getProperty('line.separator')
+    private final String NEWLINE = System.getProperty('line.separator')
     private final File file
 
     public MetaInf (final File file, final InputStream metainfFile) {

@@ -42,7 +42,7 @@ class UploadUpdatesiteTask extends DefaultTask {
                 fileset(dir: ".", includes : '**/**')
             }
 
-            ftp(action: "put", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd) {
+            ftp(action: "put", remotedir: updatesite.path, server: updatesite.host, userid: updatesite.user, password: updatesite.pwd, chmod:'644') {
                 fileset(dir: localUpdatesite.absolutePath, includes : '**/**')
             }
         }

@@ -20,7 +20,7 @@ class Eclipse {
 
     Workspace workspace
 
-    private final static String USER_HOME = System.getProperty("user.home")
+    private final String USER_HOME = System.getProperty("user.home")
 
     private final HashMap<MetaInf, Collection<Dependency>> dependenciesCache = new HashMap<MetaInf, Collection<Dependency>>()
 

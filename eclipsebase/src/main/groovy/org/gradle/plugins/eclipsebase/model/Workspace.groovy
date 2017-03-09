@@ -13,9 +13,9 @@ import org.gradle.api.Project
 @Slf4j
 class Workspace extends DefaultPluginContainer{
 
-    private static Collection<EclipsePlugin> eclipsePlugins
+    private Collection<EclipsePlugin> eclipsePlugins
 
-    private static Collection<EclipseFeature> eclipseFeatures
+    private Collection<EclipseFeature> eclipseFeatures
 
     private File workspacePath
 

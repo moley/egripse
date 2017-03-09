@@ -16,16 +16,17 @@ import java.text.SimpleDateFormat
 @Slf4j
 class ProjectVersionConfigurator {
 
-    private static Date currentBuildDate
-
-    static {
-        currentBuildDate = new Date (System.currentTimeMillis())
-    }
+    private String EXTENSIONKEY_QUALIFIER_TIMESTAMP = 'qualifierTimestamp'
 
     public void setVersion (final Project project, final String version) {
+        String currentDateAsString = project.rootProject.extensions.extraProperties.get(EXTENSIONKEY_QUALIFIER_TIMESTAMP)
+        if (currentDateAsString == null) {
+            DateFormatter formatter = new DateFormatter(new SimpleDateFormat("yyyyMMddHHmm"))
+            currentDateAsString = formatter.valueToString(new Date (System.currentTimeMillis()))
+            project.rootProject.extensions.extraProperties.set(EXTENSIONKEY_QUALIFIER_TIMESTAMP, currentDateAsString)
+        }
         //set version from metainf / feature.xml
-        DateFormatter formatter = new DateFormatter(new SimpleDateFormat("yyyyMMddHHmm"))
-        String currentDateAsString = formatter.valueToString(currentBuildDate)
+
         project.version = version.replace("qualifier", "v" + currentDateAsString)
         log.info ("Set current version " + project.version + " in project " + project)
     }
