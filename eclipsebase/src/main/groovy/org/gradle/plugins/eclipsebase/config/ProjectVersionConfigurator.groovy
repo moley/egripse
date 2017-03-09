@@ -22,7 +22,7 @@ class ProjectVersionConfigurator {
 
         String currentDateAsString = null
         if (project.rootProject.extensions.extraProperties.has(EXTENSIONKEY_QUALIFIER_TIMESTAMP)) {
-            currentDateAsString = project.rootProject.extensions.extraProperties.has(EXTENSIONKEY_QUALIFIER_TIMESTAMP)
+            currentDateAsString = project.rootProject.extensions.extraProperties.get(EXTENSIONKEY_QUALIFIER_TIMESTAMP)
         }
         else {
             DateFormatter formatter = new DateFormatter(new SimpleDateFormat("yyyyMMddHHmm"))
