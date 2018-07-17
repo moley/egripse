@@ -1,3 +1,4 @@
+
 buildscript {
     repositories {
         mavenCentral ()
@@ -8,7 +9,7 @@ buildscript {
 subprojects {
 
 
-    version=0.61
+    version=0.62
     group = 'de.vsa.gradle.egripse'
 
     apply {
@@ -29,6 +30,10 @@ subprojects {
     dependencies {
       compile localGroovy()
       compile gradleApi()
+      testCompile 'junit:junit:4.12'
+      testCompile  'com.google.guava:guava:18.0'
+      testCompile  'commons-io:commons-io:2.4' // bei Bernd nicht dabei ... // testCompile
+
     }
 
   /**uploadArchives {
@@ -42,6 +47,7 @@ subprojects {
         }
     }
   }**/
+
 
   uploadArchives {
     repositories {
@@ -80,55 +86,11 @@ subprojects {
         include "**/reallife/**"
     }
 
-    gradle.taskGraph.whenReady { taskGraph ->
-        tasks.withType(Test).each { Test test ->
-            test.ignoreFailures = true
-        }
-    }
-
     dependencies {
         compile gradleApi()
         compile localGroovy()
     }
 }
-def testprojects = [];
-for (File f : projectDir.listFiles()) {
-    if (f.name.startsWith("testproject") && f.isDirectory()) {
-        testprojects.add(f.name)
-    }
-}
-
-//////////////////////////////////   IDE Handling   ///////////////////////////////////
-
-
-apply {
-    plugin "idea"
-}
-
-//Because the test projects can't be subprohects (because you can test them isolated anymore) we must
-//call the creation of the IDE files by hand
-
-def subs = [];
-project.subprojects.each {
-    subs.add(':' + it.name + ':jar');
-}
-
-
-def testIdeaTasks = []
-testprojects.each {
-    String testDir = it;
-
-    def newTaskIdea = tasks.create(name: "idea" + testDir, type: GradleBuild, dependsOn: [subs]) {
-        dir = testDir
-        tasks = ['cleanIdea', 'ideaModule']
-    }
-    testIdeaTasks.add(newTaskIdea)
-}
-
-tasks.ideaProject.dependsOn(testIdeaTasks)
-tasks.ideaProject.dependsOn("cleanIdeaProject");
-
-idea.project.vcs='Git'
 
 subprojects {
   sourceCompatibility = 1.8
