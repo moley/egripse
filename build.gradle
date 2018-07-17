@@ -52,9 +52,9 @@ subprojects {
   uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url:'http://repo.intra.vsa.de:8081/artifactory/vsa-maven') {
-                String username = System.properties['artifactory.username']
-                String password = System.properties['artifactory.password']
+            repository(url:System.properties['maven.url']) {
+                String username = System.properties['maven.user']
+                String password = System.properties['maven.password']
                 authentication( userName: username, password: password)
             }
         }
