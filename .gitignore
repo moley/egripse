@@ -2,6 +2,7 @@
 *.jar
 build/
 .gradle/
+.idea/
 *build.log
 *.iml
 *.ipr
