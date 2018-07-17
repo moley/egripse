@@ -10,7 +10,7 @@ subprojects {
 
 
     version=0.62
-    group = 'de.vsa.gradle.egripse'
+    group = 'org.egripse'
 
     apply {
         plugin 'maven'
