@@ -5,6 +5,7 @@ import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.SourceDirectorySet
 import org.gradle.api.internal.file.DefaultSourceDirectorySet
+import org.gradle.api.internal.file.collections.DefaultDirectoryFileTreeFactory
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.SourceSet
 import org.gradle.plugins.eclipseplugin.EclipsePluginPlugin
@@ -34,7 +35,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
 
         project.afterEvaluate { //because layout is done in afterEvaluate
 
-            SourceDirectorySet directorySetMwe = new DefaultSourceDirectorySet("mwe workflow", project.fileResolver)
+            SourceDirectorySet directorySetMwe = new DefaultSourceDirectorySet("mwe workflow", project.fileResolver, new DefaultDirectoryFileTreeFactory())
             directorySetMwe.filter.includes = ['**/*.mwe', '**/*.xtext', '**/*.ecore']
             sourceSetMain.java.srcDirs.each {
                 if (! it.name.contains('gen'))
@@ -54,7 +55,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
                 log.info("mwetask " + mweTask.name + " dependend in " + compileJavaTaskName)
             }
 
-            SourceDirectorySet directorySetMwe2 = new DefaultSourceDirectorySet("mwe2 workflow", project.fileResolver)
+            SourceDirectorySet directorySetMwe2 = new DefaultSourceDirectorySet("mwe2 workflow", project.fileResolver, new DefaultDirectoryFileTreeFactory())
             directorySetMwe2.filter.includes = ['**/*.mwe2', '**/*.xtext', '**/*.ecore']
             sourceSetMain.java.srcDirs.each {
                 if (! it.name.contains('gen'))

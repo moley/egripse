@@ -9,7 +9,7 @@ buildscript {
 subprojects {
 
 
-    version=0.62
+    version=0.65
     group = 'org.egripse'
 
     apply {
