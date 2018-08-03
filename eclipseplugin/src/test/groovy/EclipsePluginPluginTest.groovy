@@ -65,7 +65,7 @@ class EclipsePluginPluginTest {
 
 
         DefaultSourceSet sourceSetMain = project.sourceSets.main
-        Assert.assertTrue ("$srcDir not contained in sourceset main ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcDir))
+        Assert.assertTrue ("$srcDir not removed ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.isEmpty())
         Assert.assertFalse ("$srcGenDir not contained in sourceset test ($sourceSetMain.allJava.srcDirs)", sourceSetMain.allJava.srcDirs.contains(srcGenDir))
     }
 
