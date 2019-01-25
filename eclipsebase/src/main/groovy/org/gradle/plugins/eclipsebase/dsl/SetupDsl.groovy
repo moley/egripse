@@ -9,9 +9,6 @@ class SetupDsl {
 
     Collection<String> updatesites = new ArrayList<String>()
 
-    String targetplatformZip
-
-
     String localEclipse
 
     public SetupDsl(final EclipseBaseDsl baseDsl) {

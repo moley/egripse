@@ -1,1 +1,7 @@
-include "eclipsebase", "eclipseplugin", "eclipsefeature", "eclipsemwe", "eclipseheadless", "eclipsesurefire", "integrationtests"
+include "eclipsebase"
+include "eclipseplugin"
+include "eclipsefeature"
+include "eclipsemwe"
+include "eclipseheadless"
+include "eclipsesurefire"
+include "integrationtests"

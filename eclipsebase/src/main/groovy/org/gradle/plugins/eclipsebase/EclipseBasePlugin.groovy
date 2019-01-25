@@ -44,6 +44,8 @@ class EclipseBasePlugin implements Plugin<Project> {
         eclipseBaseDsl.updatesite = updatesite
         eclipseBaseDsl.setup = setupdsl
 
+        configureGoomph(project)
+
         Eclipse eclipseModel = EclipseBuildUtils.ensureModel(project)
 
         project.plugins.apply(JavaPlugin) //Because we need lifecycle task jar
@@ -53,6 +55,10 @@ class EclipseBasePlugin implements Plugin<Project> {
 
         //dependencies are resolved in afterEvaluate because we need infos from dsl objects
         project.afterEvaluate {
+            if (project.rootProject.equals(project)) {
+                project.tasks.updatesiteDownload.dependsOn project.tasks.build
+            }
+
             for (Project nextSubProject : project.rootProject.subprojects) {
                 log.info("Set version in project " + nextSubProject.name)
                 nextSubProject.plugins.apply(JavaPlugin)
@@ -76,14 +82,16 @@ class EclipseBasePlugin implements Plugin<Project> {
 
             Project rootProject = project.rootProject
             dependencyResolver.resolve(rootProject)
-
-
-
         }
-
-
     }
 
+
+    public void configureGoomph (final Project project) {
+        if (project.rootProject.equals(project)) {
+            project.plugins.apply('com.diffplug.gradle.oomph.ide')
+
+        }
+    }
 
     public void configureUpdatesiteTasks(final Project project) {
         log.info("Configure updatesite tasks for project " + project.name)

@@ -1,6 +1,7 @@
 package org.gradle.plugins.eclipsebase.model
 
 import groovy.util.logging.Slf4j
+import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
 
@@ -16,56 +17,59 @@ import java.util.jar.JarFile
 @Slf4j
 class Targetplatform extends DefaultPluginContainer {
 
-    private File localPath
-
     private Collection <EclipsePlugin> containedPlugins = new ArrayList<EclipsePlugin>()
 
-    private Project project
+    Project project
 
-    public Targetplatform (final Project project, final File localPath) {
+    public Targetplatform (final Project project) {
         this.project = project
-        this.localPath = localPath
-
         if (! containedPlugins.isEmpty())
             throw new IllegalStateException("We only have to select the contained plugins once")
         containedPlugins = read()
     }
 
-    public FileCollection getUpdatesiteProgramsClasspath () {
-        return project.fileTree (pluginsPath) {
-            include 'org.eclipse.equinox.launcher_*.jar'
-            include 'org.eclipse.core.runtime*.jar'
+    public File getPath () {
+        return new File (System.getProperty("user.home"), ".goomph")
+    }
+
+    private File idePath (final Project project) {
+        File bundlesInfoFile = project.file('build/oomph-ide.app/Contents/Eclipse')
+        if (!bundlesInfoFile.exists())
+            bundlesInfoFile = project.file('build/oomph-ide/')
+
+        return bundlesInfoFile
+    }
+
+    List <EclipsePlugin> read () {
+        File idePath = idePath(project)
+        File bundlesInfoFile = new File (idePath, 'configuration/org.eclipse.equinox.simpleconfigurator/bundles.info')
+        if (! bundlesInfoFile.exists())
+            throw new IllegalStateException("Bundles Info file does not exist in project " + project.name)
+        BundlesInfo bundlesInfo = new BundlesInfo(bundlesInfoFile)
+        Collection<EclipsePlugin> eclipsePluginCollection = new ArrayList<EclipsePlugin>()
+        for (BundlesInfoEntry nextEntry: bundlesInfo.entries) {
+            log.info("Found bundle info " + nextEntry.bundleID + ", " + nextEntry.version + ", " + nextEntry.bundleID)
+            File jarFile = new File (idePath.absolutePath + File.separator + nextEntry.ref).absoluteFile
+            if (! jarFile.exists())
+                throw new IllegalStateException("Referenced jarfile " + jarFile.getAbsolutePath() + " does not exist (ide path " + idePath.absolutePath + ")")
+
+            addPlugin(eclipsePluginCollection, jarFile)
         }
+
+        return eclipsePluginCollection
     }
 
-    private File getPluginsPath () {
-        return new File (localPath, "plugins")
-    }
-
-    public Collection <EclipsePlugin> read () {
-        long before = System.currentTimeMillis()
-        Collection <EclipsePlugin> readPlugins = new ArrayList<EclipsePlugin>()
-        File pluginPath = getPluginsPath()
-
-        for (File next: pluginPath.listFiles()) {
-            if (next.name.startsWith("."))
-                continue
-
-            if (next.isDirectory() && isPluginPath(next))
-                readPlugins.add(new EclipsePlugin(next))
-            else if (next.name.endsWith(".jar"))
-                readPlugins.add(new EclipsePlugin(new JarFile(next), next))
-            else
-              log.warn("File ${next.absolutePath} is neither a directory nor a jarfile")
-        }
-
-        long delta = System.currentTimeMillis() - before
-        log.info("Finished reading targetplatform ${localPath} in ${delta} ms (read ${readPlugins.size()} plugins)")
-        return readPlugins
-    }
-
-    private boolean isPluginPath (final File path) {
+    protected boolean isPluginPath (final File path) {
         return new File (path.absoluteFile, 'META-INF').exists()
+    }
+
+    public void addPlugin (final List<EclipsePlugin> eclipsePlugins, final File next) {
+        if (next.isDirectory() && isPluginPath(next))
+            eclipsePlugins.add(new EclipsePlugin(next))
+        else if (next.name.endsWith(".jar"))
+            eclipsePlugins.add(new EclipsePlugin(new JarFile(next), next))
+        else
+            log.warn("File ${next.absolutePath} is neither a directory nor a jarfile")
     }
 
 
@@ -118,6 +122,6 @@ class Targetplatform extends DefaultPluginContainer {
 
     @Override
     String getIdentifier() {
-        return localPath.absolutePath
+        return "oomph"
     }
 }

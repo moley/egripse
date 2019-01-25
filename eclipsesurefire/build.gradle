@@ -1,11 +1,5 @@
 dependencies {
     compile project(':eclipseheadless')
-    compile 'org.eclipse.tycho:org.eclipse.tycho.surefire.osgibooter:0.19.0'
-    compile 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit:0.19.0'
-    compile 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit4:0.19.0'
-    compile 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit47:0.19.0'
-    compile 'org.eclipse.tycho:sisu-equinox-launching:0.19.0'
-
 
 }
 

@@ -1,5 +1,7 @@
 *.class
 *.jar
+CVS/
+out/
 build/
 .gradle/
 .idea/
@@ -8,4 +10,5 @@ build/
 *.ipr
 *.iws
 *.bin
+*.log
 testprojects/flat/.gradle/

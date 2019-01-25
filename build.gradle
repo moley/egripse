@@ -1,97 +1,100 @@
-
-buildscript {
-    repositories {
-        mavenCentral ()
-        maven {url 'http://repo1.maven.org/maven2'}
-    }
+plugins {
+  id 'java'
+  id 'groovy'
+  id 'maven-publish'
 }
+
+def mavenUrl = System.getProperty("maven.url")
+def mavenUser = System.getProperty("maven.user")
+def mavenPwd = System.getProperty("maven.password")
+
 
 subprojects {
 
+  version = 0.66
+  group = 'org.egripse'
 
-    version=0.66
-    group = 'org.egripse'
+  apply {
+    plugin 'maven-publish'
+    plugin 'java'
+    plugin 'groovy'
+  }
 
-    apply {
-        plugin 'maven'
-        plugin 'java'
-        plugin 'groovy'
-        plugin 'eclipse'
-        plugin 'idea'
+  repositories {
+    mavenCentral()
+    maven {
+      url 'http://www.fornax-platform.org/m2/repository'
     }
+  }
 
+  dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    testCompile 'junit:junit:4.12'
+    testCompile 'com.google.guava:guava:18.0'
+    testCompile 'commons-io:commons-io:2.4'
+
+  }
+
+  sourceCompatibility = 1.8
+
+  //create source jar
+  tasks.create('sourceJar', Jar) {
+    from sourceSets.main.allJava
+  }
+
+  //publish the additional source jar
+  publishing {
     repositories {
-        mavenCentral () 
-        maven {
-           url 'http://www.fornax-platform.org/m2/repository'
+      maven {
+        credentials {
+          username mavenUser
+          password mavenPwd
         }
+        url mavenUrl
+      }
     }
+    publications {
+      myPublication(MavenPublication) {
+        from components.java
 
-    dependencies {
-      compile localGroovy()
-      compile gradleApi()
-      testCompile 'junit:junit:4.12'
-      testCompile  'com.google.guava:guava:18.0'
-      testCompile  'commons-io:commons-io:2.4' // bei Bernd nicht dabei ... // testCompile
-
-    }
-
-  /**uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url:'https://api.bintray.com/maven/markusoley/egripse/eclipsefeature') {
-                String username = System.properties['bintray.username']
-                String password = System.properties['bintray.password']
-                authentication( userName: username, password: password)
-            }
+        artifact project.sourceJar {
+          classifier 'sources'
         }
-    }
-  }**/
-
-
-  uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url:System.properties['maven.url']) {
-                String username = System.properties['maven.user']
-                String password = System.properties['maven.password']
-                authentication( userName: username, password: password)
-            }
-        }
+      }
     }
   }
 
 
-    task sourcesJar(type: Jar, dependsOn: classes) {
-      classifier = 'sources'
-      from sourceSets.main.allSource
-    }
- 
-    artifacts {
-      archives sourcesJar
-    }
+  task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+  }
 
-    // Tests in package integration are only called in task integrationtest and tests in
-    // package reallife are called in task reallifetest
-    test {
-        exclude "**/integrationtest/**"
-    }
+  artifacts {
+    archives sourcesJar
+  }
 
-    task integrationtest(type: Test) {
-        include "**/integrationtest/**"
-        jvmArgs "-XX:MaxPermSize=128m"
-    }
+  // Tests in package integration are only called in task integrationtest and tests in
+  // package reallife are called in task reallifetest
+  test {
+    exclude "**/integrationtest/**"
+  }
 
-    task reallifetest(type: Test) {
-        include "**/reallife/**"
-    }
+  task integrationtest(type: Test) {
+    dependsOn project.tasks.publishToMavenLocal
+    include "**/integrationtest/**"
+    jvmArgs "-XX:MaxPermSize=128m"
+  }
 
-    dependencies {
-        compile gradleApi()
-        compile localGroovy()
-    }
+  dependencies {
+    compile gradleApi()
+    compile localGroovy()
+  }
 }
 
-subprojects {
-  sourceCompatibility = 1.8
+allprojects {
+  version = project.rootProject.file('releasenotes.md').text.split("\n").first().replaceAll("\\*", "")
 }
+
+println "Using repo url " + mavenUrl + " with user " + mavenUser + " and version " + version

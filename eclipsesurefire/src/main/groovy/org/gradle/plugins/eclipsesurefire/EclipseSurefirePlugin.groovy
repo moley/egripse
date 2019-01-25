@@ -4,6 +4,7 @@ import groovy.util.logging.Slf4j
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.Task
+import org.gradle.api.plugins.JavaPlugin
 
 /**
  * Created by OleyMa on 21.11.14.
@@ -13,6 +14,7 @@ class EclipseSurefirePlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        project.plugins.apply(JavaPlugin)
         log.info("Applying plugin ${getClass()} in project ${project.name}")
 
         UITestDsl uiTestDsl = project.extensions.create("uitest", UITestDsl, project)

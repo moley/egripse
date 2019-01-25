@@ -1,5 +1,6 @@
 dependencies {
     compile 'de.pdark:decentxml:1.3'
+    compile 'com.diffplug.gradle:goomph:3.17.1'
 }
 
 

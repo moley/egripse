@@ -1,6 +1,7 @@
 dependencies {
-    compile project (":eclipsebase")
-    compile project (":eclipseplugin")
-    compile project (":eclipsefeature")
-    compile project (":eclipsemwe")
+    testCompile gradleTestKit()
+    testCompile project (":eclipsebase")
+    testCompile project (":eclipseplugin")
+    testCompile project (":eclipsefeature")
+    testCompile project (":eclipsemwe")
 }

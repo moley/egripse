@@ -1,9 +1,8 @@
 package org.gradle.plugins.eclipsebase.integrationtest
 
-import org.apache.commons.io.FileUtils
+import org.gradle.testkit.runner.GradleRunner
 import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
-import org.junit.After
 import org.junit.Assert
 import org.junit.Test
 
@@ -14,21 +13,11 @@ import org.junit.Test
  * Time: 21:43
  * To change this template use File | Settings | File Templates.
  */
-class FlatProjectTest {
+class FlatProjectTest extends AbstractIntegrationTest {
 
-    private GradleLauncher launcher = new GradleLauncher()
-
-    File path = launcher.getProjectPath("testprojects")
+    File path = getProjectPath("testprojects")
     File testprojectFlat = new File (path, "flat")
 
-    GradleLauncherParam param
-
-    @After
-    public void after () {
-        if (param.copyFrom != null && param.path.absolutePath.contains("tmp"))
-            FileUtils.deleteDirectory(param.path)
-
-    }
 
     @Test
     public void completeBuild () {
@@ -45,13 +34,9 @@ class FlatProjectTest {
 
     @Test
     public void eclipse () {
-        param = new GradleLauncherParam()
-        param.copyFrom = testprojectFlat
-        param.withStacktrace = true
-        param.tasks = "eclipse"
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['eclipse']).build().output
 
-        GradleLauncherResult result = launcher.callGradleBuild(param)
-        launcher.checkOutputForOK(result)
+
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
         String dotProjectPlugin = new File (pluginProjectDir, ".project").text
@@ -70,14 +55,7 @@ class FlatProjectTest {
 
     @Test
     public void buildParentsFirst () {
-        param = new GradleLauncherParam()
-        param.copyFrom = testprojectFlat
-        param.withStacktrace = true
-        param.buildscriptFile = "withParentsFirst.gradle"
-        param.tasks = "clean build"
-
-        GradleLauncherResult result = launcher.callGradleBuild(param)
-        launcher.checkOutputForOK(result)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["-b withParentsFirst.gradle", "clean", "build"]).build().output
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
 
@@ -89,13 +67,8 @@ class FlatProjectTest {
 
     @Test
     public void build () {
-        param = new GradleLauncherParam()
-        param.path = testprojectFlat
-        param.withStacktrace = true
-        param.tasks = "clean build"
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "build"]).build().output
 
-        GradleLauncherResult result = launcher.callGradleBuild(param)
-        launcher.checkOutputForOK(result)
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
 
@@ -124,13 +97,7 @@ class FlatProjectTest {
 
     @Test
     public void updatesite () {
-        param = new GradleLauncherParam()
-        param.path = testprojectFlat
-        param.tasks = "clean build updatesiteLocal"
-        param.withStacktrace = true
-
-        GradleLauncherResult result = launcher.callGradleBuild(param)
-        launcher.checkOutputForOK(result)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "build", "updatesiteLocal"]).build().output
 
         checkUpdatesiteContent(new File (param.path, "build/newUpdatesiteContent"))
         checkUpdatesiteContent(new File (param.path, "build/updatesite"))
@@ -138,22 +105,13 @@ class FlatProjectTest {
 
     @Test
     public void uitests () {
-        param = new GradleLauncherParam()
-        param.path = testprojectFlat
-        param.withStacktrace = true
-        param.tasks = "clean uitest"
-
-        GradleLauncherResult result = launcher.callGradleBuild(param)
-        launcher.checkOutputForOK(result)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "uitest"]).build().output
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin.test")
 
         File buildReportsUi = new File (pluginProjectDir, "build/test-results-ui")
         File uiXml = new File (buildReportsUi, 'TEST-org.eclipse.egripse.plugin.test.uitest.TestUi.xml')
         Assert.assertTrue ("Report-Xml " + uiXml + " does not exist", uiXml.exists())
-
-
-
     }
 
 

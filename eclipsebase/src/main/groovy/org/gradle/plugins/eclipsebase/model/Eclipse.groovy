@@ -1,5 +1,7 @@
 package org.gradle.plugins.eclipsebase.model
 
+import com.diffplug.gradle.oomph.OomphIdeAccessor
+import com.diffplug.gradle.oomph.OomphIdeExtension
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
@@ -15,195 +17,166 @@ import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 class Eclipse {
 
 
+  Targetplatform targetplatformModel
 
-    Targetplatform targetplatformModel
+  Workspace workspace
 
-    Workspace workspace
+  private final String USER_HOME = System.getProperty("user.home")
 
-    private final String USER_HOME = System.getProperty("user.home")
-
-    private final HashMap<MetaInf, Collection<Dependency>> dependenciesCache = new HashMap<MetaInf, Collection<Dependency>>()
+  private final HashMap<MetaInf, Collection<Dependency>> dependenciesCache = new HashMap<MetaInf, Collection<Dependency>>()
 
 
-    private Project project
+  private Project project
 
-    private EclipseBaseDsl eclipseBaseDsl
+  private EclipseBaseDsl eclipseBaseDsl
 
-    Collection <DefaultPluginContainer> pluginContainers
+  Collection<DefaultPluginContainer> pluginContainers
 
-    File explodedTargetplatform
+ public Eclipse(final Project project) {
+    this.project = project
+  }
 
-    public Eclipse(final Project project) {
-        this.project = project
+  public EclipseBaseDsl getEclipseDsl() {
+    if (this.eclipseBaseDsl == null)
+      this.eclipseBaseDsl = project.rootProject.extensions.findByName("eclipsebase")
+
+    return this.eclipseBaseDsl
+  }
+
+  public File getLocalUpdatesitePath() {
+    return project.rootProject.file("build/updatesite")
+  }
+
+  public File getLocalUpdatesiteContentPath() {
+    return project.rootProject.file('build/newUpdatesiteContent')
+  }
+
+
+  public File getCacheDirectory() { //TODO -> nach .gradle verschieben?
+    return new File(USER_HOME, ".egripse")
+  }
+
+  public Workspace getWorkspace() {
+    if (this.workspace == null) {
+      String pluginsPath = eclipseDsl.pluginsPath
+      String featuresPath = eclipseDsl.featuresPath
+      this.workspace = new Workspace(project, pluginsPath, featuresPath)
     }
 
-    public EclipseBaseDsl getEclipseDsl () {
-        if (this.eclipseBaseDsl == null)
-          this.eclipseBaseDsl = project.rootProject.extensions.findByName("eclipsebase")
+    return this.workspace
+  }
 
-        return this.eclipseBaseDsl
+  public Collection<DefaultPluginContainer> getPluginContainers() {
+    if (this.pluginContainers == null) {
+      this.pluginContainers = new ArrayList<DefaultPluginContainer>()
+      this.pluginContainers.add(getTargetplatformModel())
+      this.pluginContainers.add(getWorkspace())
+      this.pluginContainers.addAll(getAdditionalLocalUpdatesites())
     }
 
-    public File getLocalUpdatesitePath () {
-        return project.rootProject.file("build/updatesite")
-    }
-
-    public File getLocalUpdatesiteContentPath () {
-        return project.rootProject.file('build/newUpdatesiteContent')
-    }
+    return this.pluginContainers
+  }
 
 
-    public File getCacheDirectory() { //TODO -> nach .gradle verschieben?
-        return new File(USER_HOME, ".egripse")
-    }
+  private boolean createProxyFile(final File proxyFile) {
 
-    public Workspace getWorkspace () {
-        if (this.workspace == null) {
-            String pluginsPath = eclipseDsl.pluginsPath
-            String featuresPath = eclipseDsl.featuresPath
-            this.workspace = new Workspace(project, pluginsPath, featuresPath)
+    String httpProxyHost = System.getProperty("http.proxyHost")
+    String httpProxyPort = System.getProperty("http.proxyPort")
+    String httpBypass = System.getProperty("http.nonProxyHosts")
+
+    String httpsProxyHost = System.getProperty("https.proxyHost")
+    String httpsProxyPort = System.getProperty("https.proxyPort")
+    String httpsBypass = System.getProperty("https.nonProxyHosts")
+
+    System.out.println("Using HTTP proxy host       : " + httpProxyHost)
+    System.out.println("Using HTTP proxy port       : " + httpProxyPort)
+    System.out.println("Using HTTP non proxy hosts  : " + httpBypass)
+    System.out.println("Using HTTPS proxy host       : " + httpsProxyHost)
+    System.out.println("Using HTTPS proxy port       : " + httpsProxyPort)
+    System.out.println("Using HTTPS non proxy hosts  : " + httpsBypass)
+
+    if (httpProxyHost != null && !httpProxyHost.trim().isEmpty()) {
+      proxyFile.parentFile.mkdirs()
+      proxyFile.text = """
+org.eclipse.core.net/proxyData/HTTP/host=${httpProxyHost}
+org.eclipse.core.net/proxyData/HTTPS/host=${httpsProxyHost}
+org.eclipse.core.net/proxyData/HTTPS/hasAuth=false
+org.eclipse.core.net/proxyData/HTTP/port=${httpProxyPort}
+org.eclipse.core.net/proxyData/HTTPS/port=${httpsProxyPort}
+org.eclipse.core.net/org.eclipse.core.net.hasMigrated=true
+org.eclipse.core.net/nonProxiedHosts=${httpBypass}
+org.eclipse.core.net/systemProxiesEnabled=false
+org.eclipse.core.net/proxyData/HTTP/hasAuth=false
+"""
+      return true
+    } else
+      return false
+
+  }
+
+  public Targetplatform getTargetplatformModel() {
+    if (this.targetplatformModel == null) {
+      OomphIdeExtension oomphIdeExtension = project.extensions.findByName('oomphIde')
+      if (oomphIdeExtension == null)
+        throw new IllegalStateException("Please use the ide extension to define your targetplatform with goomph")
+      else {
+        //Configure proxy if necessary or remove the file if not
+        File proxyFile = project.file('build/egripse/proxy.ini')
+        boolean proxyConfigured = createProxyFile(proxyFile)
+        if (proxyConfigured) {
+          oomphIdeExtension.p2director {
+            addArg('plugincustomization', proxyFile.absolutePath)
+          }
         }
-
-        return this.workspace
+        OomphIdeAccessor oomphIdeAccessor = new OomphIdeAccessor()
+        oomphIdeAccessor.ideSetupP2(oomphIdeExtension)
+        this.targetplatformModel = new Targetplatform(project)
+      }
     }
 
-    public Collection <DefaultPluginContainer> getPluginContainers () {
-        if (this.pluginContainers == null) {
-            this.pluginContainers = new ArrayList<DefaultPluginContainer>()
-            this.pluginContainers.add(getTargetplatformModel())
-            this.pluginContainers.add(getWorkspace())
-            this.pluginContainers.addAll(getAdditionalLocalUpdatesites())
-        }
+    return targetplatformModel
 
-        return this.pluginContainers
-    }
+  }
 
-    public File getExplodedTargetplatformPath () {
-        return explodedTargetplatform
-    }
+  public List<Targetplatform> getAdditionalLocalUpdatesites() {
+    List<Targetplatform> platforms = new ArrayList<Targetplatform>()
 
-    public Targetplatform getTargetplatformModel () {
-        final String targetplatform = eclipseDsl.setup.targetplatformZip
+    if (eclipseDsl.additionalLocalUpdatesites != null) {
+      for (String next : eclipseDsl.additionalLocalUpdatesites) {
+        File nextPath = project.file(next)
+        if (!nextPath.exists())
+          throw new IllegalStateException("Additional local updatesite ${nextPath.absolutePath} does not exist")
 
-        if (targetplatform == null)
-            throw new IllegalStateException("No targetplatform defined")
-
-        if (this.targetplatformModel == null) {
-            downloadTargetplatformOnDemand()
-            log.info("Read targetplatform for project " + project.name + " in path "+ eclipseDsl.againstEclipse)
-            this.targetplatformModel = new Targetplatform(project, new File(eclipseDsl.againstEclipse))
-            log.info("Finished createing targetplatform")
-        }
-        else
-            log.info("Targetplatform is already created")
-
-        return targetplatformModel
+        platforms.add(new Targetplatform(project, project.file(next)))
+      }
 
     }
 
-    public List<Targetplatform> getAdditionalLocalUpdatesites () {
-        List<Targetplatform> platforms = new ArrayList<Targetplatform>()
+    return platforms
 
-        if (eclipseDsl.additionalLocalUpdatesites != null) {
-            for (String next: eclipseDsl.additionalLocalUpdatesites) {
-              File nextPath = project.file (next)
-              if (! nextPath.exists())
-                throw new IllegalStateException("Additional local updatesite ${nextPath.absolutePath} does not exist")
+  }
 
-              platforms.add(new Targetplatform(project, project.file(next)))
-            }
 
-        }
+  public void log() {
+    for (MetaInf nextMetaInf : dependenciesCache.keySet()) {
+      Collection<Dependency> deps = dependenciesCache.get(nextMetaInf)
 
-        return platforms
-
+      log.info("Cache of metainf " + nextMetaInf.bundleID + "(" + System.identityHashCode(nextMetaInf) + ":")
+      logDependencies("", deps)
     }
+  }
 
-    private void downloadExecutableOnDemand () {
-        if (!cacheDirectory.exists())
-            cacheDirectory.mkdirs()
-
-
+  public void logDependencies(final String pre, final Collection<Dependency> deps) {
+    for (Dependency nextDep : deps) {
+      String resolvedString = nextDep.resolved ? nextDep.resolvedPlugin.originPath.name : "not resolved"
+      log.info(pre + "  - " + nextDep.bundleID + ", " + resolvedString + ", " + System.identityHashCode(nextDep))
+      EclipsePlugin depPlugin = nextDep.resolvedPlugin
+      if (depPlugin != null)
+        logDependencies(pre + "  ", depPlugin.dependencies)
     }
+  }
 
 
-    private void downloadTargetplatformOnDemand() {
-
-        if (!cacheDirectory.exists())
-            cacheDirectory.mkdirs()
-
-        final String targetplatform = eclipseDsl.setup.targetplatformZip
-        String[] targetplatformtokens = targetplatform.split("/")
-
-        String targetplatformName = targetplatformtokens[targetplatformtokens.length - 1]
-
-        File downloadedTargetplatform = new File(cacheDirectory, targetplatformName)
-        explodedTargetplatform = new File(cacheDirectory, targetplatformName + "_exploded")
-
-        if (!explodedTargetplatform.exists()) {
-            if (!downloadedTargetplatform.exists()) {
-                println("Downloading targetplatform " + downloadedTargetplatform.absolutePath + " from " + targetplatform)
-                def out = new BufferedOutputStream(new FileOutputStream(downloadedTargetplatform))
-                out << new URL(targetplatform).openStream()
-                out.close()
-            }
-
-            def ant = new AntBuilder()   // create an antbuilder
-            ant.unzip(src: downloadedTargetplatform.absolutePath,
-                    dest: explodedTargetplatform.absolutePath,
-                    overwrite: "true")
-
-        }
-
-
-        log.info("Using exploded targetplatform in ${explodedTargetplatform.absolutePath}")
-        eclipseDsl.againstEclipse = explodedTargetplatform.absolutePath + File.separator + "eclipse"
-    }
-
-
-
-    public void log () {
-        for (MetaInf nextMetaInf: dependenciesCache.keySet()) {
-            Collection<Dependency> deps = dependenciesCache.get(nextMetaInf)
-
-            log.info("Cache of metainf " + nextMetaInf.bundleID + "(" + System.identityHashCode(nextMetaInf) + ":")
-            logDependencies("", deps)
-        }
-    }
-    public void logDependencies (final String pre, final Collection<Dependency> deps) {
-        for (Dependency nextDep: deps) {
-            String resolvedString = nextDep.resolved ? nextDep.resolvedPlugin.originPath.name : "not resolved"
-            log.info(pre + "  - " + nextDep.bundleID + ", " + resolvedString + ", " + System.identityHashCode(nextDep))
-            EclipsePlugin depPlugin = nextDep.resolvedPlugin
-            if (depPlugin != null)
-                logDependencies(pre + "  ", depPlugin.dependencies)
-        }
-    }
-
-    public Collection<Dependency> getDependencies(final MetaInf metaInf) {
-        log.info("get external dependencies of metainf file " + metaInf.bundleID + "(" + System.identityHashCode(metaInf) + ")")
-
-        Collection <Dependency> cachedDeps = dependenciesCache.get(metaInf)
-        if (cachedDeps != null) {
-            log.info("get external dependencies of bundle " + metaInf.bundleID + " from cache")
-            return cachedDeps
-        }
-
-
-        cachedDeps = new ArrayList<EclipsePlugin>()
-
-        for (Dependency nextDep : metaInf.dependencies) {
-            EclipsePlugin foundPlugin = targetplatformModel.findPluginByBundleID(nextDep.bundleID)
-            if (foundPlugin == null)
-                cachedDeps.add(nextDep)
-        }
-
-        dependenciesCache.put(metaInf, cachedDeps)
-
-        log.info("get external dependencies of bundle " + metaInf.bundleID + " from targetplatform (metainf ${System.identityHashCode(metaInf)})")
-
-        return cachedDeps
-    }
 
 
 }

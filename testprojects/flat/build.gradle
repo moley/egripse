@@ -1,52 +1,42 @@
 buildscript {
   repositories {
-      mavenCentral()
-      maven {url 'https://m2proxy.atlassian.com/repository/public/'}
+    mavenLocal()
+    mavenCentral()
+    maven {url 'http://www.fornax-platform.org/m2/repository'}
   }
-}
-
-allprojects {
-  repositories {
-        ivy { url "http://nexus.intra.vsa.de:8081/nexus/content/groups/publicivy/" }
-        maven { url "http://nexus.intra.vsa.de:8081/nexus/content/groups/publicmaven/" }
+  dependencies {
+    classpath 'org.egripse:eclipseplugin:0.+'
+    classpath 'org.egripse:eclipsefeature:0.+'
+    classpath 'org.egripse:eclipsebase:0.+'
+    classpath 'org.egripse:eclipsemwe:0.+'
+    classpath 'org.egripse:eclipseheadless:0.+'
+    classpath 'org.egripse:eclipsesurefire:0.+'
   }
 }
 
 subprojects {
-
-  apply { plugin 'eclipse' } 
+  apply { plugin 'eclipse' }
   apply { plugin 'java' } 
   repositories {
     mavenCentral()
   }
 }
 
-buildscript {
-    dependencies {
-        classpath fileTree (dir: '../../eclipseplugin/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath fileTree (dir: '../../eclipsefeature/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath fileTree (dir: '../../eclipsebase/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath fileTree (dir: '../../eclipsemwe/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath fileTree (dir: '../../eclipseheadless/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath fileTree (dir: '../../eclipsesurefire/build/libs/', include: '*.jar', exclude: '*source*')
-        classpath 'org.eclipse.tycho:org.eclipse.tycho.surefire.osgibooter:0.19.0'
-        classpath 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit:0.19.0'
-        classpath 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit4:0.19.0'
-        classpath 'org.eclipse.tycho:org.eclipse.tycho.surefire.junit47:0.19.0'
-        classpath 'org.eclipse.tycho:sisu-equinox-launching:0.19.0'
-    }
+apply {
+  plugin 'eclipsebase'
 }
 
-apply {
-  plugin 'java' //TODO remove after dependend task of updatesite is refactored
-  plugin 'eclipsebase'
+oomphIde {
+  repo 'http://download.eclipse.org/releases/2018-12'
+  repo 'http://download.eclipse.org/buildship/updates/e48/snapshots/3.x/'
+  feature 'org.eclipse.epp.package.committers.feature'
+  feature 'org.eclipse.buildship'
 }
 
 
 eclipsebase {  
 
  setup {
-   remoteZip 'ftp://repository.intra.vsa.de/vsaeclipseTestArea/targetplatform_20151222_1231.zip'
    remoteUpdatesite 'http://download.eclipse.org/releases/luna/'
    localEclipse '/Applications/Eclipse4.5.app/Contents/Eclipse'
  }

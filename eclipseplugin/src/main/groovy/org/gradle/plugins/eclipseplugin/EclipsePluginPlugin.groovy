@@ -120,12 +120,15 @@ public class EclipsePluginPlugin implements Plugin<Project> {
 
                             Library lib = classpathEntry as Library
                             log.info("Found library " + lib.toString())
-                            if (lib.library.file.absolutePath.startsWith(eclipseModel.explodedTargetplatformPath.absolutePath)) {
-                                log.info("Remove library " + lib.library.file.absolutePath + " from classpath")
+                            if (lib.library.file.absolutePath.startsWith(eclipseModel.targetplatformModel.path.absolutePath)) {
+                                log.info("Remove from classpath targetplatform library " + lib.library.file.absolutePath)
                                 toRemove.add(lib)
                             }
-                            if (lib.library.file.parentFile.parentFile.name == "build") //TODO check, why this is added library
+
+                            if (! lib.library.file.exists()) {
+                                log.info("Remove from classpath non existing library " + lib.library.file.absolutePath)
                                 toRemove.add(lib)
+                            }
 
                         }
                         if (classpathEntry instanceof Container) {
@@ -144,10 +147,14 @@ public class EclipsePluginPlugin implements Plugin<Project> {
 
                             File absolute = sourcefolder.dir != null ? sourcefolder.dir : project.file(sourcefolder.path)
 
-                            if (absolute.absolutePath.endsWith("build/mergedResources"))
+                            if (absolute.absolutePath.endsWith("build/mergedResources")) {
+                                log.info("Remove from classpath mergedresources " + absolute.absolutePath)
                                 toRemove.add(sourcefolder)
-                            if (!absolute.exists()) //TODO remove after fixed in gradleplugins
+                            }
+                            if (!absolute.exists()) {
+                                log.info("Remove from classpath non existing sourcepath " + absolute.absolutePath)
                                 toRemove.add(sourcefolder)
+                            }
                         }
                 }
 
