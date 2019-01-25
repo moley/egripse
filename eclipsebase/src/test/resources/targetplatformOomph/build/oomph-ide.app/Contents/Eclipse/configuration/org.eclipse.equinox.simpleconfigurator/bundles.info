@@ -1,4 +1,0 @@
-#encoding
-#version=1
-com.google.gson,2.8.2.v20180104-1110,../../../.goomph/shared-bundles/plugins/com.google.gson_2.8.2.v20180104-1110.jar,4,false
-#org.apache.ant,1.10.5.v20180808-0324,../../../.goomph/shared-bundles/plugins/org.apache.ant_1.10.5.v20180808-0324/,4,false

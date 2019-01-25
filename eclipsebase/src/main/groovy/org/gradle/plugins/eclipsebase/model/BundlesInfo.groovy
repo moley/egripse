@@ -6,7 +6,7 @@ import java.nio.charset.Charset
 
 
 /**
- * reads the file build/oomph-ide.app/Contents/Eclipse/configuration/org.eclipse.equinox.simpleconfigurator/bundles.info
+ * reads the file build/oomph-ide.app/Contents/Eclipse/configuration/org.eclipse.equinox.org.eclipse.equinox.source/bundles.info
  * to have info about the currently installed bundles
  */
 class BundlesInfo {
