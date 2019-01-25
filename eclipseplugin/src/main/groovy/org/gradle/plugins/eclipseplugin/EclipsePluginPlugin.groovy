@@ -185,7 +185,7 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         if (plugindsl.testprojectFor != null) {
             log.info("Project is configured as testproject")
             if (!project.file("src/test/java").exists()) {
-                log.info("No maven layout found, configuring src as source path and resources as resources path")
+                log.info("No maven layout found, configuring src as org.eclipse.equinox.simpleconfigurator path and resources as resources path")
                 project.sourceSets {
                     main {
                         java { srcDirs = [] }
@@ -206,7 +206,7 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         else {
             if (!project.file("src/main/java").exists()) {
                 project.sourceSets {
-                    log.info("No maven layout found, configuring src as source path and resources as resources path")
+                    log.info("No maven layout found, configuring src as org.eclipse.equinox.simpleconfigurator path and resources as resources path")
                     main {
                         java { srcDirs = ["src"] }
                         resources { srcDirs = ["resources"] }

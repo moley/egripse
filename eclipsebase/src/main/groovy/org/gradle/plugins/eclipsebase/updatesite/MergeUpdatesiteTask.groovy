@@ -44,7 +44,7 @@ class MergeUpdatesiteTask extends RunExternalEclipseTask {
         args '-metadataRepository', 'file:' + updatesitePath.absolutePath + '/'
         args '-append'
         args '-artifactRepository', 'file:'  + updatesitePath.absolutePath + '/'
-        args '-source ' + updatesiteContentPath.absolutePath
+        args '-org.eclipse.equinox.simpleconfigurator ' + updatesiteContentPath.absolutePath
         //args '-compress'
         args '-publishArtifacts'
 

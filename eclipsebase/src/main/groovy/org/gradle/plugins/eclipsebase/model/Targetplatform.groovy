@@ -42,7 +42,7 @@ class Targetplatform extends DefaultPluginContainer {
 
     List <EclipsePlugin> read () {
         File idePath = idePath(project)
-        File bundlesInfoFile = new File (idePath, 'configuration/org.eclipse.equinox.source/source.info')
+        File bundlesInfoFile = new File (idePath, 'configuration/org.eclipse.equinox.simpleconfigurator/bundles.info')
         if (! bundlesInfoFile.exists())
             throw new IllegalStateException("Bundles Info file does not exist in project " + project.name + "(" + bundlesInfoFile.absolutePath + ")")
         BundlesInfo bundlesInfo = new BundlesInfo(bundlesInfoFile)

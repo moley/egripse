@@ -38,12 +38,12 @@ subprojects {
 
   sourceCompatibility = 1.8
 
-  //create source jar
+  //create org.eclipse.equinox.simpleconfigurator jar
   tasks.create('sourceJar', Jar) {
     from sourceSets.main.allJava
   }
 
-  //publish the additional source jar
+  //publish the additional org.eclipse.equinox.simpleconfigurator jar
   publishing {
     repositories {
       maven {
