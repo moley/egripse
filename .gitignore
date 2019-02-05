@@ -1,5 +1,4 @@
 *.class
-*.jar
 CVS/
 out/
 build/
@@ -14,4 +13,5 @@ build/
 .classpath
 .project
 .settings/
+target/
 testprojects/flat/.gradle/
