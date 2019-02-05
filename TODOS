@@ -1,4 +1,5 @@
 TODO 
+
 - Synchronize deps: ausgepackte Jars wieder in ein jarfile verwandeln
 - Abhängigkeitsauflösung über Import package 
 - Abhängigkeitsauflösung mit Versionen
