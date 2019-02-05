@@ -1,12 +1,11 @@
 language: java
-
-dist: trusty
+install: true
 
 jdk:
   - openjdk8
 
 script:
-  - ./gradlew build
+  - ./gradlew build -s
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
