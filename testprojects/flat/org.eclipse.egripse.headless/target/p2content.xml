@@ -1,0 +1,32 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<units size='1'>
+  <unit id='org.eclipse.egripse.headless' version='1.0.0.201412051412'>
+    <update id='org.eclipse.egripse.headless' range='[0.0.0,1.0.0.201412051412)' severity='0'/>
+    <properties size='4'>
+      <property name='org.eclipse.equinox.p2.name' value='Headless'/>
+      <property name='maven-groupId' value='org.egripse.testproject'/>
+      <property name='maven-artifactId' value='org.eclipse.egripse.headless'/>
+      <property name='maven-version' value='1.0.0-SNAPSHOT'/>
+    </properties>
+    <provides size='4'>
+      <provided namespace='org.eclipse.equinox.p2.iu' name='org.eclipse.egripse.headless' version='1.0.0.201412051412'/>
+      <provided namespace='osgi.bundle' name='org.eclipse.egripse.headless' version='1.0.0.201412051412'/>
+      <provided namespace='java.package' name='org.eclipse.egripse.headless' version='0.0.0'/>
+      <provided namespace='org.eclipse.equinox.p2.eclipse.type' name='bundle' version='1.0.0'/>
+    </provides>
+    <requires size='1'>
+      <required namespace='osgi.bundle' name='org.eclipse.core.runtime' range='0.0.0'/>
+    </requires>
+    <artifacts size='1'>
+      <artifact classifier='osgi.bundle' id='org.eclipse.egripse.headless' version='1.0.0.201412051412'/>
+    </artifacts>
+    <touchpoint id='org.eclipse.equinox.p2.osgi' version='1.0.0'/>
+    <touchpointData size='1'>
+      <instructions size='1'>
+        <instruction key='manifest'>
+          Bundle-SymbolicName: org.eclipse.egripse.headless;singleton:=true&#xA;Bundle-Version: 1.0.0.201412051412&#xA;
+        </instruction>
+      </instructions>
+    </touchpointData>
+  </unit>
+</units>

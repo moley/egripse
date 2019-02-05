@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: org.eclipse.egripse.plugin.test
+Bundle-SymbolicName: org.eclipse.egripse.plugin.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: org.eclipse.egripse.plugin.test.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.junit;bundle-version="4.11.0",
+ org.eclipse.egripse.plugin;bundle-version="1.0.0",
+ org.eclipse.core.resources;bundle-version="3.9.1"
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7,
+ JavaSE-1.6
+Bundle-ActivationPolicy: lazy

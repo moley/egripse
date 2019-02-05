@@ -1,0 +1,19 @@
+apply {
+    plugin 'eclipseplugin'
+    plugin 'eclipseheadless'
+}
+
+eclipseplugin {
+    sourceproject ()
+}
+
+task (installLocalFeature, type: org.gradle.plugins.eclipseheadless.director.DirectorTask) {
+    workspacename 'headless'
+    repository '../build/updatesite'
+    installIU 'org.eclipse.egripse.feature.group'
+}
+
+task (callHeadlessApp, type: org.gradle.plugins.eclipseheadless.HeadlessApplicationTask) {
+    workspacename 'headless'
+    applicationname 'org.eclipse.egripse.headless.app1'
+}

@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Export-Package: org.eclipse.egripse.headless
+Require-Bundle: org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
+Bundle-Version: 1.0.0.201412051412
+Bundle-Name: Headless
+Bundle-Activator: org.eclipse.egripse.headless.Activator
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: org.eclipse.egripse.headless;singleton:=true
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7,JavaSE-1.6
+
