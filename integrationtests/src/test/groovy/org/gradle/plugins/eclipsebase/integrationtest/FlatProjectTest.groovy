@@ -1,9 +1,11 @@
 package org.gradle.plugins.eclipsebase.integrationtest
 
+import org.apache.commons.io.FileUtils
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.tooling.GradleConnector
 import org.gradle.tooling.ProjectConnection
 import org.junit.Assert
+import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -19,24 +21,20 @@ class FlatProjectTest extends AbstractIntegrationTest {
     File testprojectFlat = new File (path, "flat")
 
 
+    private clearProject (final File projectpath) {
+        FileUtils.deleteDirectory(new File (projectpath, 'build'))
+        FileUtils.deleteDirectory(new File (projectpath, '.gradle'))
+    }
+
     @Test
-    public void completeBuild () {
-
-        ProjectConnection connection = GradleConnector.newConnector().forProjectDirectory(new File("someProjectFolder")).connect();
-
-        try {
-            connection.newBuild().forTasks("tasks").run();
-        } finally {
-            connection.close();
-        }
-
+    public void tasks () {
+        GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['tasks', '-s']).build().output
     }
 
     @Test
     public void eclipse () {
-        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['eclipse']).build().output
-
-
+        clearProject(testprojectFlat)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['eclipse', '-s']).build().output
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
         String dotProjectPlugin = new File (pluginProjectDir, ".project").text
@@ -54,26 +52,15 @@ class FlatProjectTest extends AbstractIntegrationTest {
     }
 
     @Test
-    public void buildParentsFirst () {
-        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["-b withParentsFirst.gradle", "clean", "build"]).build().output
-
-        File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
-
-        File buildDeps = new File (pluginProjectDir, "build/deps")
-        Assert.assertTrue ("buildDeps path not created", buildDeps.exists())
-        Assert.assertTrue ("not enough content in buildDeps path, expected at least 5 files", buildDeps.listFiles().length > 5)
-
-    }
-
-    @Test
     public void build () {
-        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "build"]).build().output
+        clearProject(testprojectFlat)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['build', '-s']).build().output
 
 
         File pluginProjectDir = new File (testprojectFlat, "org.eclipse.egripse.plugin")
 
         File buildDeps = new File (pluginProjectDir, "build/deps")
-        Assert.assertTrue ("buildDeps path not created", buildDeps.exists())
+        Assert.assertTrue ("buildDeps path $buildDeps.absolutePath not created", buildDeps.exists())
         Assert.assertTrue ("not enough content in buildDeps path, expected at least 5 files", buildDeps.listFiles().length > 5)
 
         File buildReportsUi = new File (pluginProjectDir, "build/test-results")
@@ -97,13 +84,14 @@ class FlatProjectTest extends AbstractIntegrationTest {
 
     @Test
     public void updatesite () {
-        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "build", "updatesiteLocal"]).build().output
+        clearProject(testprojectFlat)
+        println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(['build', 'updatesite', "-s"]).build().output
 
-        checkUpdatesiteContent(new File (param.path, "build/newUpdatesiteContent"))
-        checkUpdatesiteContent(new File (param.path, "build/updatesite"))
+        checkUpdatesiteContent(new File (testprojectFlat, "build/newUpdatesiteContent"))
+        checkUpdatesiteContent(new File (testprojectFlat, "build/updatesite"))
     }
 
-    @Test
+    @Test@Ignore
     public void uitests () {
         println GradleRunner.create().withProjectDir(testprojectFlat).withArguments(["clean", "uitest"]).build().output
 

@@ -23,17 +23,19 @@ class EclipseDependencyResolver {
      * @param rootProject rootproject
      */
     public void resolve (Project rootProject) {
+        log.info("resolve dependencies for rootproject " + rootProject.name + " with " + rootProject.subprojects.size()+ " subprojects")
 
         Eclipse eclipseModel = rootProject.eclipsemodel
 
         for (Project next: rootProject.subprojects) {
-          log.info("Resolve dependencies of " + next.project)
+          log.info("Resolve dependencies of project " + next.project)
 
           next.plugins.apply(JavaPlugin) //We need for compile configuration
 
           //we only resolve projects that are plugins
           EclipsePlugin currentEclipseplugin = eclipseModel.workspace.findPluginByPath(next.projectDir)
           if (currentEclipseplugin != null) {
+              log.info ("Resolve dependencies of plugin project " + currentEclipseplugin.bundleID)
             addBundleClasspathEntries(next, currentEclipseplugin)
             resolveDependencies(next, eclipseModel, currentEclipseplugin)
           }
@@ -50,6 +52,7 @@ class EclipseDependencyResolver {
     }
 
     private void resolveDependencies (final Project project, final Eclipse eclipsemodel, final EclipsePlugin currentEclipseplugin) {
+        log.info("resolve dependencies called in project " + project.name)
         //Resolve external bundles
         String projectName = project.name
 

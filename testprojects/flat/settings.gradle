@@ -1,1 +1,5 @@
-include "org.eclipse.egripse.plugin", "org.eclipse.egripse.plugin.test", "org.eclipse.egripse.headless", "org.eclipse.egripse.feature"
+include "org.eclipse.egripse.plugin"
+include "org.eclipse.egripse.plugin.test"
+include "org.eclipse.egripse.headless" 
+include "org.eclipse.egripse.feature"
+include "org.eclipse.egripse.ui.plugin"

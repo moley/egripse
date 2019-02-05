@@ -1,7 +1,15 @@
+**0.74**
+- When builded multiple jars creating updatesite does not through exception but uses latest jar files
+
+**0.72**
+- Buildable on windows
+
 **0.71**
 - Buildable on linux
+
 **0.68**
 - Minor bugfixes for goomph
+
 **0.67**
 - Using goomph for resolving workspaces
 

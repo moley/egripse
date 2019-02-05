@@ -9,13 +9,26 @@ import org.junit.Test
 class TargetplatformTest {
 
   @Test
-  public void read () {
+  public void readWithBundlesInfo () {
 
     File expectedFile = new File ("src/test/resources/targetplatformOomph/build/.goomph/shared-bundles/plugins/com.google.gson_2.8.2.v20180104-1110.jar").absoluteFile
     Project project = ProjectBuilder.builder().withProjectDir(new File ("src/test/resources/targetplatformOomph")).build()
     Targetplatform targetplatformOomph = new Targetplatform(project)
     List <EclipsePlugin> plugins = targetplatformOomph.read()
     Assert.assertTrue ("Expected file does not exist", plugins.get(0).originPath.exists())
+    Assert.assertEquals ("Expected file does not exist", expectedFile, plugins.get(0).originPath)
+
+  }
+
+  @Test
+  public void readWithConfigIni () {
+
+    System.setProperty("user.home", new File ("src/test/resources/targetplatformOomph2/build").absolutePath)
+    File expectedFile = new File ("src/test/resources/targetplatformOomph2/build/.goomph/shared-bundles/plugins/com.google.gson_2.8.2.v20180104-1110.jar").absoluteFile
+    Project project = ProjectBuilder.builder().withProjectDir(new File ("src/test/resources/targetplatformOomph2")).build()
+    Targetplatform targetplatformOomph = new Targetplatform(project)
+    List <EclipsePlugin> plugins = targetplatformOomph.read()
+    Assert.assertTrue ("Expected file " + plugins.get(0).originPath + "does not exist", plugins.get(0).originPath.exists())
     Assert.assertEquals ("Expected file does not exist", expectedFile, plugins.get(0).originPath)
 
   }

@@ -26,7 +26,17 @@ class UploadUpdatesiteTask extends DefaultTask {
         UpdatesiteDsl updatesite = basedsl.updatesite
 
         if (updatesite == null) {
-            log.warn("No updatesite defined. Skip uploading updatesite")
+            println "No updatesite defined. Skip uploading updatesite"
+            return
+        }
+
+        if (updatesite.host == null) {
+            println "No updatesite host defined. Skip uploading updatesite"
+            return
+        }
+
+        if (updatesite.path == null) {
+            println "No updatesite path defined. Skip uploading updatesite"
             return
         }
 

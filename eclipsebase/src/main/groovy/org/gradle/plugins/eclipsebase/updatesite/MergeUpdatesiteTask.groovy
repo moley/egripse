@@ -1,5 +1,7 @@
 package org.gradle.plugins.eclipsebase.updatesite
 import groovy.util.logging.Slf4j
+import org.gradle.api.tasks.Exec
+import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.Targetplatform
@@ -11,8 +13,7 @@ import org.gradle.plugins.eclipsebase.model.Targetplatform
  * To change this template use File | Settings | File Templates.
  */
 @Slf4j
-class MergeUpdatesiteTask extends RunExternalEclipseTask {
-
+class MergeUpdatesiteTask extends Exec {
 
     @TaskAction
     public void exec () {
@@ -22,50 +23,28 @@ class MergeUpdatesiteTask extends RunExternalEclipseTask {
         File updatesiteContentPath = eclipse.localUpdatesiteContentPath
 
         //Download eclipse executable
-        Targetplatform externalEclipse = getExternalEclipse(project)
-
-        log.info("Classpath updatesitemerge")
-        for (File next: externalEclipse.updatesiteProgramsClasspath) {
-            log.info("- Entry " + next.absolutePath)
-        }
+        Targetplatform externalEclipse = eclipse.targetplatformModel
 
         println ("Merge udpatesite content from " + updatesiteContentPath.absolutePath + " to updatesite " + updatesitePath.absolutePath)
 
         workingDir updatesiteContentPath
-        main 'org.eclipse.core.launcher.Main'
-        classpath externalEclipse.updatesiteProgramsClasspath
-        jvmArgs '-Xms40m'
-        jvmArgs '-Xmx900m'
-        jvmArgs '-XX:MaxPermSize=512m'
+        executable(externalEclipse.executableEclipse(project).absolutePath)
+
+        args '-Xmx900m'
 
         //args '-console'
-        args '-consolelog'
         args '-application', 'org.eclipse.equinox.p2.publisher.FeaturesAndBundlesPublisher'
         args '-metadataRepository', 'file:' + updatesitePath.absolutePath + '/'
         args '-append'
         args '-artifactRepository', 'file:'  + updatesitePath.absolutePath + '/'
-        args '-org.eclipse.equinox.simpleconfigurator ' + updatesiteContentPath.absolutePath
+        args '-source', updatesiteContentPath.absolutePath
         //args '-compress'
         args '-publishArtifacts'
+        //args '-console'
+        //args '-consoleLog'
+        args '-nosplash'
 
-
-        args (args)
-        setErrorOutput(new ByteArrayOutputStream())
-        setStandardOutput(new ByteArrayOutputStream())
-
-        println ("Commandline: " + toString(commandLine))
-
+        println String.join(" ", commandLine)
         super.exec()
-        println ("ErrorOutput: " + errorOutput.toString())
-        println ("StandardOutput: " + standardOutput.toString())
-    }
-
-    private String toString (final List<String> list) {
-        String asString = ""
-        for (String next: list) {
-            asString += " " + next
-        }
-
-        return asString.trim()
     }
 }

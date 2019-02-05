@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.eclipse.egripse"
-      label="Feature"
-      version="1.0.0.qualifier">
+      id="org.eclipse.egripse.feature"
+      label="Testproject Feature"
+      version="1.0.0.qualifier" 
+      provider-name="egripse">
 
    <description url="http://www.example.com/description">
       [Enter Feature Description here.]
@@ -23,6 +24,13 @@
 
    <plugin
          id="org.eclipse.egripse.plugin"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.egripse.ui.plugin"
          download-size="0"
          install-size="0"
          version="0.0.0"

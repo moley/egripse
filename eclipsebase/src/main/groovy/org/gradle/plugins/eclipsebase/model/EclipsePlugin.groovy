@@ -16,96 +16,95 @@ import java.util.zip.ZipEntry
 @Slf4j
 class EclipsePlugin extends EclipseProjectPart {
 
-    MetaInf metainf
-    File originPath
+  MetaInf metainf
+  File originPath
 
-    boolean fromWorkspace
+  boolean fromWorkspace
 
-    Collection <File> bundleClasspath = new ArrayList<File>()
-
-
+  Collection<File> bundleClasspath = new ArrayList<File>()
 
 
-    public EclipsePlugin(JarFile jarfile, final File originPath) {
-        super (null)
-        this.originPath = originPath
+  public EclipsePlugin(JarFile jarfile, final File originPath) {
+    super(null)
+    this.originPath = originPath
 
-        ZipEntry manifestEntry = jarfile.getEntry("META-INF/MANIFEST.MF")
-        if (manifestEntry != null) {
-            metainf = new MetaInf(originPath, jarfile.getInputStream(manifestEntry))
+    ZipEntry manifestEntry = jarfile.getEntry("META-INF/MANIFEST.MF")
+    if (manifestEntry != null) {
+      metainf = new MetaInf(originPath, jarfile.getInputStream(manifestEntry))
+    }
+
+    log.debug("Reading plugin from jarfile " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
+
+
+    jarfile.close()
+
+  }
+
+  public String getBundleID() {
+    return metainf != null ? metainf.bundleID : null
+  }
+
+  public Collection<Dependency> getDependencies() {
+    return metainf != null ? metainf.dependencies : new ArrayList<Dependency>()
+  }
+
+  public String getFragmentHost() {
+    return metainf != null ? metainf.fragmentHost : null
+  }
+
+
+  public EclipsePlugin(File path) {
+    super(path)
+
+    try {
+      this.originPath = path
+
+      File manifest = new File(path, "META-INF")
+      File metainfFile = new File(manifest, "MANIFEST.MF")
+      if (metainfFile.exists()) {
+
+        metainf = new MetaInf(metainfFile, new FileInputStream(metainfFile))
+
+        log.debug("Reading plugin from path " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
+
+
+        //TODO make it globally available
+        for (String next : metainf.bundleClasspath) {
+          File nextEntry = new File(path, next)
+          if (!nextEntry.exists()) {
+            log.warn("BundleclasspathEntry " + nextEntry.absolutePath + " in manifest " + manifest.absolutePath + " doesnt exist")
+          } else
+            bundleClasspath.add(nextEntry)
         }
+      }
 
-        log.debug("Reading plugin from jarfile " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
 
-
-        jarfile.close()
-
+    } catch (Exception e) {
+      throw new GradleException("Error reading project " + path.absolutePath, e)
     }
+  }
 
-    public String getBundleID () {
-        return metainf != null ? metainf.bundleID : null
-    }
+  @Override
+  String getVersion() {
+    return metainf != null ? metainf.version : null
+  }
 
-    public Collection<Dependency> getDependencies () {
-        return metainf != null ? metainf.dependencies : new ArrayList<Dependency>()
-    }
+  public String toString() {
+    return originPath.name
+  }
 
-    public String getFragmentHost () {
-        return metainf != null ? metainf.fragmentHost : null
-    }
+  public boolean isTestPlugin() {
+    return originPath.name.contains("test") //TODO make dependable from dsl
+  }
 
+  public boolean equals(Object object) {
+    if (object == null)
+      return false
+    if (!(object instanceof EclipsePlugin))
+      return false
 
-    public EclipsePlugin(File path) {
-        super (path)
+    EclipsePlugin compPlugin = object
 
-        try {
-          this.originPath = path
-
-          File manifest = new File (path, "META-INF")
-          File metainfFile = new File (manifest, "MANIFEST.MF")
-          metainf = new MetaInf(metainfFile, new FileInputStream(metainfFile))
-
-          log.debug ("Reading plugin from path " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
-
-
-            //TODO make it globally available
-          for (String next: metainf.bundleClasspath) {
-              File nextEntry = new File (path, next)
-              if (! nextEntry.exists()) {
-                  log.warn("BundleclasspathEntry " + nextEntry.absolutePath + " in manifest " + manifest.absolutePath + " doesnt exist")
-              }
-              else
-                bundleClasspath.add(nextEntry)
-          }
-
-
-
-        } catch (Exception e) {
-            throw new GradleException("Error reading project " + path.absolutePath, e)
-        }
-    }
-
-    @Override
-    String getVersion() {
-        return metainf != null ? metainf.version : null
-    }
-
-    public String toString () {
-        return originPath.name
-    }
-
-    public boolean isTestPlugin () {
-        return originPath.name.contains("test") //TODO make dependable from dsl
-    }
-
-    public boolean equals (Object object) {
-        if (object == null)
-            return false
-        if (! (object instanceof EclipsePlugin))
-            return false
-
-        EclipsePlugin compPlugin = object
-
-        return bundleID.equals(compPlugin.bundleID) //TODO version
-    }
+    return bundleID.equals(compPlugin.bundleID) //TODO version
+  }
 }

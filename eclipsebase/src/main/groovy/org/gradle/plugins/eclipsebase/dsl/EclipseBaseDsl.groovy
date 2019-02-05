@@ -13,21 +13,13 @@ class EclipseBaseDsl {
 
     Collection<String> integrationtests = new ArrayList<String>()
 
-    String againstEclipse
-
-    SetupDsl setup
-
     String pluginsPath
 
     String featuresPath
 
     UpdatesiteDsl updatesite
 
-
     Project project
-
-    Collection<String> additionalLocalUpdatesites = new ArrayList<String>()
-
 
     public EclipseBaseDsl (final Project project) {
         this.project = project
@@ -40,9 +32,6 @@ class EclipseBaseDsl {
         integrationtests.add(integrationtest)
     }
 
-    public localUpdatesite (final String updatesite) {
-        additionalLocalUpdatesites.add(updatesite)
-    }
 
 
 }

@@ -28,7 +28,17 @@ class DownloadUpdatesiteTask extends DefaultTask{
 
         UpdatesiteDsl updatesite = basedsl.updatesite
         if (updatesite == null) {
-            log.warn("No updatesite defined, skipping upload updatesite")
+            println "No updatesite defined. Skip downloading updatesite"
+            return
+        }
+
+        if (updatesite.host == null) {
+            println "No updatesite host defined. Skip downloading updatesite"
+            return
+        }
+
+        if (updatesite.path == null) {
+            println "No updatesite path defined. Skip downloading updatesite"
             return
         }
 

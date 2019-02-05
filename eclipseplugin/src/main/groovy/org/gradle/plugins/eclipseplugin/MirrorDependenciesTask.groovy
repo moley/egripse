@@ -18,7 +18,7 @@ class MirrorDependenciesTask extends DefaultTask {
     @TaskAction
     public void mirror() {
 
-        File toPath = new File("build/deps")
+        File toPath = project.file("build/deps")
 
         for (File next : project.configurations.compile) {
 

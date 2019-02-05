@@ -1,5 +1,7 @@
 package org.gradle.plugins.eclipsebase.updatesite
 import groovy.util.logging.Slf4j
+import org.gradle.api.tasks.Exec
+import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
@@ -7,14 +9,11 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.Targetplatform
 
 /**
- * Created with IntelliJ IDEA.
- * User: OleyMa
- * Date: 04.07.13
- * Time: 11:53
- * To change this template use File | Settings | File Templates.
+ * Create categories for the updatesite,
+ * see details: https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fp2_publisher.html
  */
 @Slf4j
-class CreateCategoriesUpdatesiteTask extends RunExternalEclipseTask {
+class CreateCategoriesUpdatesiteTask extends Exec {
 
     /**
      * gets categoriesxml and throws error if not configured
@@ -42,33 +41,35 @@ class CreateCategoriesUpdatesiteTask extends RunExternalEclipseTask {
 
         Eclipse eclipse = project.eclipsemodel
 
-        Targetplatform externalEclipse = getExternalEclipse(project)
+        Targetplatform externalEclipse = eclipse.targetplatformModel
 
         File updatesitePath = project.file("build/updatesite")
         File categoryDefinition = findCategoriesXml()
-        if (categoryDefinition == null)
+        if (categoryDefinition == null) {
+            println "No category definition found in project $project.projectDir.absolutePath"
             return
-
-        log.info("Classpath " + getClass().getName())
-        for (File next: externalEclipse.updatesiteProgramsClasspath) {
-            log.info("- Entry " + next.absolutePath)
         }
 
+        println "Category definition          : " + categoryDefinition.absolutePath
+        println "Updatesite                   : " + updatesitePath.absolutePath
+
+        log.info("Classpath " + getClass().getName())
+
         workingDir 'build/newUpdatesiteContent'
-        main 'org.eclipse.core.launcher.Main'
-        classpath externalEclipse.updatesiteProgramsClasspath
-        jvmArgs '-Xms40m'
-        jvmArgs '-Xmx900m'
-        jvmArgs '-XX:MaxPermSize=512m'
+
+        executable(externalEclipse.executableEclipse(project).absolutePath)
+
+        args '-Xmx900m'
 
         args '-application', 'org.eclipse.equinox.p2.publisher.CategoryPublisher'
         args '-metadataRepository', 'file:' + updatesitePath.absolutePath
         args '-categoryDefinition', 'file:' + categoryDefinition.absolutePath
-        args '-categoryQualifier'
-        args '-compress'
-        args '-console'
-        args '-consoleLog'
-        args (args)
+        //args '-compress'
+        //args '-console'
+        //args '-consoleLog'
+        args '-nosplash'
+
+        println String.join(" ", commandLine)
 
         super.exec()
     }

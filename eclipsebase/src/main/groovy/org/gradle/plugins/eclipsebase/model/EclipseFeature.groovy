@@ -22,7 +22,8 @@ class EclipseFeature extends EclipseProjectPart  {
         log.debug("Create feature for path " + path.absolutePath)
 
         File featureXmlFile = new File (path, "feature.xml")
-        featureXml = new FeatureXml(featureXmlFile)
+        if (featureXmlFile.exists())
+          featureXml = new FeatureXml(featureXmlFile)
 
     }
 

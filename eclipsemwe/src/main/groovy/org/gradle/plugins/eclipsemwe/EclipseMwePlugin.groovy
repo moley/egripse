@@ -48,6 +48,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
                 mweTask.basedir = project.projectDir
                 mweTask.source = directorySetMwe
                 mweTask.outputDir = project.file("src-gen")
+                mweTask.dependsOn project.tasks.eclipse
                 log.info("Mwe Generator is configured to be called from " + project.projectDir.absolutePath)
 
                 String compileJavaTaskName = project.sourceSets.main.compileJavaTaskName
@@ -68,6 +69,7 @@ class EclipseMwePlugin implements Plugin<Project>  {
                 mwe2Task.basedir = project.projectDir
                 mwe2Task.source = directorySetMwe2
                 mwe2Task.outputDir = project.file("src-gen")
+                mwe2Task.dependsOn project.tasks.eclipse
                 log.info("Mwe2 Generator is configured to be called from " + project.projectDir.absolutePath)
 
                 String compileJavaTaskName = project.sourceSets.main.compileJavaTaskName

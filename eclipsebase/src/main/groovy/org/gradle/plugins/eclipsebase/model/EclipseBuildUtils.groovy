@@ -14,6 +14,9 @@ import org.gradle.api.file.FileCollection
 @Slf4j
 class EclipseBuildUtils {
 
+    public static final String eclipsemodelName = "eclipsemodel"
+
+
     public static FileCollection createClasspath (final Project project) {
 
         FileCollection collection = project.sourceSets.main.compileClasspath
@@ -40,11 +43,14 @@ class EclipseBuildUtils {
      */
     public static Eclipse ensureModel (final Project project) {
         Project rootproject = project.rootProject
-        final String eclipsemodelName = "eclipsemodel"
-        Eclipse eclipsemodel = rootproject.extensions.findByName(eclipsemodelName)
+        Eclipse eclipsemodel = getModel(rootproject)
         if (eclipsemodel == null)
           eclipsemodel = rootproject.extensions.create("eclipsemodel", Eclipse, project)
 
         return eclipsemodel
+    }
+
+    public static Eclipse getModel (final Project project) {
+        return project.rootProject.extensions.findByName(eclipsemodelName)
     }
 }

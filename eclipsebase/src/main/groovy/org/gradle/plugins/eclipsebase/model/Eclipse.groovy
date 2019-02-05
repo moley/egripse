@@ -71,7 +71,6 @@ class Eclipse {
       this.pluginContainers = new ArrayList<DefaultPluginContainer>()
       this.pluginContainers.add(getTargetplatformModel())
       this.pluginContainers.add(getWorkspace())
-      this.pluginContainers.addAll(getAdditionalLocalUpdatesites())
     }
 
     return this.pluginContainers
@@ -115,10 +114,12 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
   }
 
   public Targetplatform getTargetplatformModel() {
+
     if (this.targetplatformModel == null) {
+      log.info("create targetplatform model for project " + project.name + "in eclipse object " + System.identityHashCode(this))
       OomphIdeExtension oomphIdeExtension = project.extensions.findByName('oomphIde')
       if (oomphIdeExtension == null)
-        throw new IllegalStateException("Please use the ide extension to define your targetplatform with goomph")
+        throw new IllegalStateException("Please use the ide extension to define your targetplatform with goomph in project " + project.name + ")")
       else {
         //Configure proxy if necessary or remove the file if not
         File proxyFile = project.file('build/egripse/proxy.ini')
@@ -133,29 +134,12 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
         this.targetplatformModel = new Targetplatform(project)
       }
     }
+    else
+      log.info("use targetplatform model for project " + project.name + " in eclipse object " + System.identityHashCode(this))
 
     return targetplatformModel
 
   }
-
-  public List<Targetplatform> getAdditionalLocalUpdatesites() {
-    List<Targetplatform> platforms = new ArrayList<Targetplatform>()
-
-    if (eclipseDsl.additionalLocalUpdatesites != null) {
-      for (String next : eclipseDsl.additionalLocalUpdatesites) {
-        File nextPath = project.file(next)
-        if (!nextPath.exists())
-          throw new IllegalStateException("Additional local updatesite ${nextPath.absolutePath} does not exist")
-
-        platforms.add(new Targetplatform(project, project.file(next)))
-      }
-
-    }
-
-    return platforms
-
-  }
-
 
   public void log() {
     for (MetaInf nextMetaInf : dependenciesCache.keySet()) {

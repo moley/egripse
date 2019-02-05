@@ -32,24 +32,41 @@ class Targetplatform extends DefaultPluginContainer {
         return new File (System.getProperty("user.home"), ".goomph")
     }
 
-    private File idePath (final Project project) {
-        File bundlesInfoFile = project.file('build/oomph-ide.app/Contents/Eclipse')
-        if (!bundlesInfoFile.exists())
-            bundlesInfoFile = project.file('build/oomph-ide/')
+    public File idePath (final Project project) {
+        File idePath = project.file('build/oomph-ide.app/Contents/Eclipse')
+        if (!idePath.exists())
+            idePath = project.file('build/oomph-ide/')
 
-        return bundlesInfoFile
+        if (!idePath.exists())
+            throw new IllegalStateException("ide path not found in project " + project.projectDir.absolutePath)
+
+        return idePath
+    }
+
+    public File executableEclipse (final Project project) {
+        File executable = project.file('build/oomph-ide.app/Contents/MacOS/eclipse')
+        if (!executable)
+            throw new IllegalStateException("Executable eclipse not found in project " + project.projectDir.absolutePath)
+        return executable
     }
 
     List <EclipsePlugin> read () {
         File idePath = idePath(project)
         File bundlesInfoFile = new File (idePath, 'configuration/org.eclipse.equinox.simpleconfigurator/bundles.info')
-        if (! bundlesInfoFile.exists())
-            throw new IllegalStateException("Bundles Info file does not exist in project " + project.name + "(" + bundlesInfoFile.absolutePath + ")")
-        BundlesInfo bundlesInfo = new BundlesInfo(bundlesInfoFile)
+        List<BundlesInfoEntry> bundlesInfoEntries = new ArrayList<BundlesInfoEntry>()
+        if (bundlesInfoFile.exists()) {
+            BundlesInfo bundlesInfo = new BundlesInfo(bundlesInfoFile)
+            bundlesInfoEntries = bundlesInfo.entries
+        }
+        else throw new IllegalStateException("File " + bundlesInfoFile.absolutePath + " does not exist in path $idePath.absolutePath, please check if your platform is supported by eclipse")
+
+        if (bundlesInfoEntries.isEmpty())
+            throw new IllegalStateException("No bundle infos are available in path " + idePath.absolutePath)
+
         Collection<EclipsePlugin> eclipsePluginCollection = new ArrayList<EclipsePlugin>()
-        for (BundlesInfoEntry nextEntry: bundlesInfo.entries) {
+        for (BundlesInfoEntry nextEntry: bundlesInfoEntries) {
             log.info("Found bundle info " + nextEntry.bundleID + ", " + nextEntry.version + ", " + nextEntry.bundleID)
-            File jarFile = new File (idePath.absolutePath + File.separator + nextEntry.ref).canonicalFile
+            File jarFile = new File (nextEntry.ref).isAbsolute() ? new File (nextEntry.ref) : new File (idePath.absolutePath + File.separator + nextEntry.ref).canonicalFile
             if (! jarFile.exists())
                 throw new IllegalStateException("Referenced jarfile " + jarFile.getAbsolutePath() + " does not exist (ide path " + idePath.absolutePath + ")")
 
