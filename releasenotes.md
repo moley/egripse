@@ -1,4 +1,4 @@
-**0.74**
+**0.75**
 - When builded multiple jars creating updatesite does not through exception but uses latest jar files
 
 **0.72**
