@@ -1,5 +1,6 @@
 package org.gradle.plugins.eclipsebase.model
 
+import com.diffplug.common.swt.os.OS
 import groovy.util.logging.Slf4j
 import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Project
@@ -45,15 +46,20 @@ class Targetplatform extends DefaultPluginContainer {
 
     public File executableEclipse (final Project project) {
 
-        File executable = project.file('build/oomph-ide.app/Contents/MacOS/eclipse')
-        if (executable.exists())
-            return executable
+        File macPath = project.file('build/oomph-ide.app')
+        File defaultPath = project.file('build/oomph-ide/eclipse')
 
-        executable = project.file('build/oomph-ide/eclipse')
-        if (executable.exists())
-            return executable
+        File currentPath = OS.running.mac ? macPath: defaultPath
+        String executableToken = OS.getNative().winMacLinux(
+          "eclipsec.exe",
+          "Contents/MacOS/eclipse",
+          "eclipse");
 
-        throw new IllegalStateException("Executable eclipse not found in project " + project.projectDir.absolutePath + ", found: " + project.file('build').listFiles())
+        File executableFile = new File (currentPath, executableToken)
+        if (executableFile.exists())
+            return executableFile
+        else
+          throw new IllegalStateException("Executable eclipse not found in project " + project.projectDir.absolutePath + " (expected path " + currentPath.absolutePath + ", expected executable token " + executableToken + ")")
     }
 
     List <EclipsePlugin> read () {
