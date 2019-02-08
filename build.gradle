@@ -123,6 +123,10 @@ subprojects {
 
 allprojects {
   version = project.rootProject.file('releasenotes.md').text.split("\n").first().replaceAll("\\*", "")
+
+  apply {
+    plugin 'jacoco'
+  }
   test {
     testLogging {
       events "passed", "skipped", "failed"
@@ -213,7 +217,30 @@ project (':integrationtests') {
       showStackTraces = 'true'
     }
   }
+
+  tasks.build.dependsOn tasks.integrationtest
 }
+
+//Code coverage
+task codeCoverageReport(type: JacocoReport) {
+  executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+  subprojects.each {
+    sourceSets it.sourceSets.main
+  }
+
+  reports {
+    xml.enabled true
+    xml.destination project.file("${buildDir}/reports/jacoco/report.xml")
+    html.enabled true
+    csv.enabled false
+  }
+}
+
+codeCoverageReport.dependsOn {
+  subprojects*.test
+}
+
 
 println "Using repo url " + mavenUrl + " with user " + mavenUser + " and version " + version
 
