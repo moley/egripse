@@ -45,8 +45,9 @@ class Targetplatform extends DefaultPluginContainer {
 
     public File executableEclipse (final Project project) {
         File executable = project.file('build/oomph-ide.app/Contents/MacOS/eclipse')
-        if (!executable)
-            throw new IllegalStateException("Executable eclipse not found in project " + project.projectDir.absolutePath)
+        if (!executable.exists()) {
+            throw new IllegalStateException("Executable eclipse not found in project " + project.projectDir.absolutePath + ", found: " + project.files('build/**/eclipse*'))
+        }
         return executable
     }
 
