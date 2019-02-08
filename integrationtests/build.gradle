@@ -7,3 +7,12 @@ dependencies {
 }
 
 tasks.build.dependsOn tasks.integrationtest
+
+
+integrationtest {
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat 'full'
+        showStackTraces = 'true'
+    }
+}

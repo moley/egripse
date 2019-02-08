@@ -70,131 +70,6 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.di_1.2.400.v20180920-1522.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding.observable_1.6.300.v20180827-2028.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.swt.theme_0.12.100.v20180828-0227.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.services_1.3.300.v20180920-1522.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ant.core_3.5.200.v20180822-0553.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.preferences_3.7.200.v20180827-1235.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench3_0.14.200.v20180828-0227.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.registry_3.8.200.v20181008-1820.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.runtime_3.15.100.v20181107-1343.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding.property_1.6.300.v20180827-2028.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.widgets_1.2.300.v20180920-1522.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.commands_0.12.400.v20181119-1026.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/javax.inject_1.0.0.v20091030.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.variables_3.4.300.v20181028-0627.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.jobs_3.10.200.v20180912-1356.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.bindings_0.12.300.v20180913-1535.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.renderers.swt_0.14.400.v20181112-1716.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.constants_1.10.0.v20180703-1553.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.util_1.10.0.v20180703-1553.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.services_2.1.300.v20180930-0910.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.di_1.7.100.v20180817-1215.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.bidi_1.1.200.v20180827-1235.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding_1.7.100.v20181030-1443.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.di.extensions_0.15.200.v20180817-1215.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.swt_3.109.0.v20181204-1801.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
@@ -205,82 +80,17 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.contenttype_3.7.200.v20181107-1343.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.di_1.2.400.v20180920-1522.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.common_3.10.200.v20181021-1645.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding.property_1.6.300.v20180827-2028.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.resources_3.13.200.v20181121-1020.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench_1.8.0.v20181119-1304.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.model.workbench_2.1.200.v20180920-1522.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.css_1.10.0.v20180703-1553.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.emf.xpath_0.2.200.v20180828-0227.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.addons.swt_1.3.300.v20181102-1042.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.w3c.css.sac_1.3.1.v200903091627.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.help_3.8.200.v20180821-0700.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.swt_0.13.300.v20181030-1443.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.core_0.12.400.v20180917-1628.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.app_1.4.0.v20181009-1752.jar">
-		<attributes>
-			<attribute name="gradle_used_by_scope" value="main,test"/>
-		</attributes>
-	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.jface.databinding_1.8.400.v20181030-1443.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ant.core_3.5.200.v20180822-0553.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -290,7 +100,7 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.jface_3.15.0.v20181123-1505.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.util_1.10.0.v20180703-1553.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -300,27 +110,32 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.expressions_3.6.200.v20180817-1401.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.jface.databinding_1.8.400.v20181030-1443.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ui_3.111.0.v20181117-0847.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.resources_3.13.200.v20181121-1020.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.filesystem_1.7.200.v20180828-0158.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.services_1.3.300.v20180920-1522.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.common_2.15.0.v20180914-1817.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/javax.inject_1.0.0.v20091030.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.contenttype_3.7.200.v20181107-1343.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.bidi_1.1.200.v20180827-1235.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -330,7 +145,147 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.w3c.css.sac_1.3.1.v200903091627.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench3_0.14.200.v20180828-0227.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.core_0.12.400.v20180917-1628.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.expressions_3.6.200.v20180817-1401.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ui.workbench_3.112.100.v20181127-1518.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore_2.16.0.v20181124-0637.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.css_1.10.0.v20180703-1553.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.common_3.10.200.v20181021-1645.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.swt.theme_0.12.100.v20180828-0227.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.services_2.1.300.v20180930-0910.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.emf.xpath_0.2.200.v20180828-0227.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore.change_2.13.0.v20180706-1146.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.common_2.15.0.v20180914-1817.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.di_1.7.100.v20180817-1215.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.di.extensions_0.15.200.v20180817-1215.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.jface_3.15.0.v20181123-1505.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.jobs_3.10.200.v20180912-1356.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.variables_3.4.300.v20181028-0627.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.swt_0.14.400.v20181022-1348.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.registry_3.8.200.v20181008-1820.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.model.workbench_2.1.200.v20180920-1522.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.bindings_0.12.300.v20180913-1535.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench_1.8.0.v20181119-1304.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.addons.swt_1.3.300.v20181102-1042.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding.observable_1.6.300.v20180827-2028.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.ui_3.111.0.v20181117-0847.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.databinding_1.7.100.v20181030-1443.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.contexts_1.7.100.v20180817-1215.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.renderers.swt_0.14.400.v20181112-1716.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
@@ -340,7 +295,52 @@
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.workbench.swt_0.14.400.v20181022-1348.jar">
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.emf.ecore.xmi_2.15.0.v20180706-1146.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.css.swt_0.13.300.v20181030-1443.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.runtime_3.15.100.v20181107-1343.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.core.commands_0.12.400.v20181119-1026.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.help_3.8.200.v20180821-0700.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.preferences_3.7.200.v20180827-1235.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.core.filesystem_1.7.200.v20180828-0158.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.apache.batik.constants_1.10.0.v20180703-1553.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.e4.ui.widgets_1.2.300.v20180920-1522.jar">
+		<attributes>
+			<attribute name="gradle_used_by_scope" value="main,test"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/OleyMa/.goomph/shared-bundles/plugins/org.eclipse.equinox.app_1.4.0.v20181009-1752.jar">
 		<attributes>
 			<attribute name="gradle_used_by_scope" value="main,test"/>
 		</attributes>
