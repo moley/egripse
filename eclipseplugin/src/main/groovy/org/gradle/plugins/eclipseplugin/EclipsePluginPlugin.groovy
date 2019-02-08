@@ -69,7 +69,6 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         next.version = jarversion
         next.jarFile = jarFile
         GenerateMavenArtifactTask generateMavenArtifactTask = project.tasks.create("generateMavenArtifact" + next.name.capitalize(), GenerateMavenArtifactTask)
-        generateMavenArtifactTask.classifier = next.name
         project.tasks.publish.dependsOn generateMavenArtifactTask
         project.tasks.publishToMavenLocal.dependsOn generateMavenArtifactTask
 

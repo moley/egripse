@@ -1,4 +1,4 @@
-**0.76**
+**0.77**
 - Eclipse artifacts can be mavenized now
 
 **0.75**

@@ -2,9 +2,7 @@ package org.gradle.plugins.eclipsebase.model
 
 import com.diffplug.common.swt.os.OS
 import groovy.util.logging.Slf4j
-import org.apache.tools.ant.taskdefs.condition.Os
 import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
 
 import java.util.jar.JarFile
 

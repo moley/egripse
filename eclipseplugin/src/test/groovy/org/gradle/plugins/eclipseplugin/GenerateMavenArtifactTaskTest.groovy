@@ -44,6 +44,7 @@ class GenerateMavenArtifactTaskTest {
     GenerateMavenArtifactTask generateMavenArtifactTask = project.tasks.generateMavenArtifactXtext
     generateMavenArtifactTask.mavenizeArtifact()
     Assert.assertEquals ("xtext-2.16.0.v20181203-0514.jar", generateMavenArtifactTask.archiveName)
+    Assert.assertTrue ("Classifier is not empty", generateMavenArtifactTask.classifier.trim().isEmpty())
 
     println project.projectDir.absolutePath
     PublicationContainer publicationContainer = project.publishing.publications
