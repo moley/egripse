@@ -1,6 +1,4 @@
 [![Build Status](https://travis-ci.org/moley/egripse.svg?branch=master)](https://travis-ci.org/moley/egripse)
-
-
 [![CodeCoverage](https://codecov.io/gh/moley/egripse/branch/master/graph/badge.svg)](https://codecov.io/gh/moley/egripse)
 
 
