@@ -12,27 +12,14 @@ class GenerateMavenArtifactTask extends Jar {
 
   @TaskAction
   public void mavenizeArtifact () {
-
-    String version
-    File foundJarFile = null
-
-    for (File next : project.configurations.compile) {
-      if (next.name.startsWith(mavenizeItem.origin + "_")) {
-        println "Use " + next.name
-        foundJarFile = next
-        version = next.name.split("_").last()
-        FileTree jarFile = project.zipTree(next.absolutePath)
-        from (jarFile)
-      }
-    }
-
-    if (foundJarFile == null)
-      throw new IllegalStateException("No matching dependency found for " + mavenizeItem.origin)
+    println "Use " + mavenizeItem.name
+    FileTree jarFile = project.zipTree(mavenizeItem.jarFile.absolutePath)
+    from (jarFile)
 
     if (! mavenizeItem.excludes.isEmpty())
       exclude(mavenizeItem.excludes)
 
-    archiveName = mavenizeItem.name + "-" + version
+    archiveName = mavenizeItem.name + "-" + mavenizeItem.version + ".jar"
     println "Build archive $archiveName"
 
 

@@ -6,5 +6,6 @@ class MavenizeItem {
   String group
   String version
   String origin
+  File jarFile
   List<String> excludes = new ArrayList<String>()
 }

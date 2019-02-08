@@ -3,6 +3,7 @@ package org.gradle.plugins.eclipsebase.model
 import groovy.util.logging.Slf4j
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
+import org.gradle.api.file.FileTree
 
 /**
  * Created with IntelliJ IDEA.
@@ -16,6 +17,25 @@ class EclipseBuildUtils {
 
     public static final String eclipsemodelName = "eclipsemodel"
 
+
+    public static String determineVersionFromJarFile (final File jarfile) {
+        String [] tokens = jarfile.name.split("_")
+        if (tokens.length < 2)
+            throw new IllegalStateException("Jarfile " + jarfile.absolutePath + " does not contain version")
+        return tokens.last().replace(".jar", "")
+    }
+
+    public static File findDependency (final Project project, final String mavenizeItem) {
+        File foundJarFile = null
+
+        for (File next : project.configurations.compile) {
+            if (next.name.startsWith(mavenizeItem + "_"))
+                return next
+        }
+
+        if (foundJarFile == null)
+            throw new IllegalStateException("No matching dependency found for identifier " + mavenizeItem)
+    }
 
     public static FileCollection createClasspath (final Project project) {
 

@@ -63,6 +63,11 @@ public class EclipsePluginPlugin implements Plugin<Project> {
 
       for (MavenizeItem next : plugindsl.mavenizeItems) {
         project.plugins.apply 'maven-publish'
+
+        File jarFile = EclipseBuildUtils.findDependency(project, next.origin)
+        String jarversion = EclipseBuildUtils.determineVersionFromJarFile(jarFile)
+        next.version = jarversion
+        next.jarFile = jarFile
         GenerateMavenArtifactTask generateMavenArtifactTask = project.tasks.create("generateMavenArtifact" + next.name.capitalize(), GenerateMavenArtifactTask)
         generateMavenArtifactTask.classifier = next.name
         project.tasks.publish.dependsOn generateMavenArtifactTask
@@ -75,7 +80,7 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         publishingExtension.publications.create(next.name, MavenPublication) {
           groupId = next.group
           artifactId = next.name
-          version = "3.1"
+          version = jarversion
 
           artifact generateMavenArtifactTask
         }
