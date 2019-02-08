@@ -1,3 +1,6 @@
+**0.76**
+- Eclipse artifacts can be mavenized now
+
 **0.75**
 - When builded multiple jars creating updatesite does not through exception but uses latest jar files
 
