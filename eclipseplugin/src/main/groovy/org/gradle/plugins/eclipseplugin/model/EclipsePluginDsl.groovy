@@ -1,6 +1,7 @@
 package org.gradle.plugins.eclipseplugin.model
 
 import org.gradle.api.Project
+import org.gradle.plugins.eclipsebase.dsl.MavenizeItem
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,6 +21,8 @@ class EclipsePluginDsl {
     Set <String> additionalCleanablePath = new HashSet<String>()
 
     Set<String> additionalSourceDir = new HashSet<String> ()
+
+    Collection<MavenizeItem> mavenizeItems = new ArrayList<>()
 
 
     public EclipsePluginDsl (final Project project) {
@@ -69,6 +72,20 @@ class EclipsePluginDsl {
         if (sourceproject && testprojectFor != null)
             throw new IllegalStateException("An eclipse plugin can be either an sourceproject with src path or a testproject related to another sourceplugin with src path or a maven " +
                                             "layouted project, which can contain both (default). If you want to override this you have to define your sourceSets on your own")
+    }
+
+    /**
+     * creates tasks per mavenize item to upload a mavenized artifact to
+     * @param name              name of the scenario, is used to create taskname
+     * @param group             group of artifact
+     * @param origin            origin name of artifact
+     * @param excludes          excludes to be applied to jarfile before providing
+     */
+    public void mavenize (final String name,
+                          final String group,
+                          final String origin,
+                          final String...excludes) {
+        mavenizeItems.add(new MavenizeItem(name: name, group: group, origin: origin, excludes: excludes))
     }
 
 }

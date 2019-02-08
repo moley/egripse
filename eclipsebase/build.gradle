@@ -1,6 +1,12 @@
+apply {
+ plugin 'com.jfrog.bintray'
+}
+
+
 dependencies {
     compile 'de.pdark:decentxml:1.3'
     compile 'com.diffplug.gradle:goomph:3.17.1'
 }
 
+rootProject.tasks.release.dependsOn tasks.bintrayUpload
 

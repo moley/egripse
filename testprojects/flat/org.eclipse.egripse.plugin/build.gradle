@@ -11,6 +11,8 @@ dependencies {
 eclipseplugin {
     sourceproject ()
     mirrorDependencies = true
+    mavenize ('runtime', 'org.egripse.testproject.flat', 'org.eclipse.core.runtime')
+    mavenize ('ui', 'org.egripse.testproject.flat', 'org.eclipse.ui')
 }
 
 eclipsemwe2 { mweFile 'src/org/eclipse/egripse/plugin/Example.mwe2'}

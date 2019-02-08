@@ -1,3 +1,17 @@
+
+buildscript {
+  repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.4'
+  }
+}
+
 plugins {
   id 'java'
   id 'groovy'
@@ -91,6 +105,30 @@ subprojects {
     compile gradleApi()
     compile localGroovy()
   }
+
+  //Deploy on bintray
+  apply {
+    plugin 'com.jfrog.bintray'
+  }
+  bintray {
+    user = System.properties['bintray.username']
+    key = System.properties['bintray.password']
+    publications = ['myPublication']
+    pkg {
+      repo = 'egripse'
+      name = "${project.name}"
+      desc = 'gradle plugins to build eclipse bundles and features'
+      websiteUrl = 'https://github.com/moley/egripse'
+      issueTrackerUrl = 'https://github.com/moley/egripse'
+      vcsUrl = 'https://github.com/moley/egripse.git'
+      licenses = ['Apache-2.0']
+      labels = ['eclipse', 'gradle', 'gorilla']
+      attributes= ['plat': ['win', 'linux', 'osx']]
+      publicDownloadNumbers = true
+      version.attributes = [ 'gradle-plugin': "org.egripse.${project.name}:org.egripse:${project.name}" ]
+    }
+  }
+
 }
 
 allprojects {
@@ -98,3 +136,6 @@ allprojects {
 }
 
 println "Using repo url " + mavenUrl + " with user " + mavenUser + " and version " + version
+
+task release {
+}

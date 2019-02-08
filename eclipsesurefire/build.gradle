@@ -1,5 +1,5 @@
 dependencies {
     compile project(':eclipseheadless')
-
 }
 
+rootProject.tasks.release.dependsOn tasks.bintrayUpload

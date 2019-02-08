@@ -21,6 +21,7 @@ class EclipseBaseDsl {
 
     Project project
 
+
     public EclipseBaseDsl (final Project project) {
         this.project = project
         integrationtests.add('**/**/integrationtest/**')
@@ -31,6 +32,8 @@ class EclipseBaseDsl {
     public void integrationtest (final String integrationtest) {
         integrationtests.add(integrationtest)
     }
+
+
 
 
 

@@ -44,8 +44,10 @@ oomphIde {
 
 eclipsebase {  
 
+
  updatesite {
     categoriesXml 'category.xml'
  }
+  
 }
 

@@ -2,3 +2,4 @@ dependencies {
     compile project (":eclipsebase")
 }
 
+rootProject.tasks.release.dependsOn tasks.bintrayUpload

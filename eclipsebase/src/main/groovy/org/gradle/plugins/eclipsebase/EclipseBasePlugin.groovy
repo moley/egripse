@@ -5,8 +5,10 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
+import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.plugins.eclipsebase.config.ProjectVersionConfigurator
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
+import org.gradle.plugins.eclipsebase.dsl.MavenizeItem
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
@@ -60,6 +62,7 @@ class EclipseBasePlugin implements Plugin<Project> {
         if (projectpart != null)
           projectVersionConfigurator.setVersion(nextSubProject, projectpart.version)
       }
+
 
 
       Project rootProject = project.rootProject
