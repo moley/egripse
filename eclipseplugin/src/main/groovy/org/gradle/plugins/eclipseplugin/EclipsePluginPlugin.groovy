@@ -61,6 +61,8 @@ public class EclipsePluginPlugin implements Plugin<Project> {
       } else
         log.info("No task ${TASKNAME_MIRROR_DEPENDENCIES} added")
 
+      if (! plugindsl.mavenizeItems.isEmpty())
+        println "Defined mavenized upload artifacts: "
       for (MavenizeItem next : plugindsl.mavenizeItems) {
         project.plugins.apply 'maven-publish'
 
@@ -72,7 +74,7 @@ public class EclipsePluginPlugin implements Plugin<Project> {
         project.tasks.publish.dependsOn generateMavenArtifactTask
         project.tasks.publishToMavenLocal.dependsOn generateMavenArtifactTask
 
-        println "Task " + generateMavenArtifactTask.name + " created for uploading mavenized " + next.origin
+        println "'${next.group}:${next.name}:${next.version}'"
         generateMavenArtifactTask.mavenizeItem = next
 
         PublishingExtension publishingExtension = project.publishing
