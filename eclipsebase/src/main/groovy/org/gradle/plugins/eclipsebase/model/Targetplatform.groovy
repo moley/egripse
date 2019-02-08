@@ -45,11 +45,7 @@ class Targetplatform extends DefaultPluginContainer {
     }
 
     public File executableEclipse (final Project project) {
-
-        File macPath = project.file('build/oomph-ide.app')
-        File defaultPath = project.file('build/oomph-ide/eclipse')
-
-        File currentPath = OS.running.mac ? macPath: defaultPath
+        File currentPath = OS.running.mac ? project.file('build/oomph-ide.app'): project.file('build/oomph-ide')
         String executableToken = OS.getNative().winMacLinux(
           "eclipsec.exe",
           "Contents/MacOS/eclipse",
