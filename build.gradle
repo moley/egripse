@@ -133,6 +133,13 @@ subprojects {
 
 allprojects {
   version = project.rootProject.file('releasenotes.md').text.split("\n").first().replaceAll("\\*", "")
+  test {
+    testLogging {
+      events "passed", "skipped", "failed"
+      exceptionFormat 'full'
+      showStackTraces = 'true'
+    }
+  }
 }
 
 println "Using repo url " + mavenUrl + " with user " + mavenUser + " and version " + version
