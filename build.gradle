@@ -30,6 +30,7 @@ subprojects {
   apply {
     plugin 'java'
     plugin 'groovy'
+    plugin 'jacoco'
     plugin 'maven-publish'
     plugin 'com.jfrog.bintray'
   }
@@ -58,6 +59,15 @@ subprojects {
   tasks.create('sourceJar', Jar) {
     from sourceSets.main.allJava
   }
+
+  jacocoTestReport {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+  }
+
+  check.dependsOn jacocoTestReport
 
   //publish the additional org.eclipse.equinox.simpleconfigurator jar
   publishing {
