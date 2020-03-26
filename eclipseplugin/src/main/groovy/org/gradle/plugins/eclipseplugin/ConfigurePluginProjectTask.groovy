@@ -62,8 +62,8 @@ class ConfigurePluginProjectTask extends DefaultTask{
 
             project.tasks.withType(JacocoReport.class).each {
                log.info("Configure jacoco task " + it.name + "with data from project " + sourceproject.name)
-               it.sourceDirectories = mainSourceset.java
-               it.classDirectories = mainSourceset.output
+               it.additionalSourceDirs(mainSourceset.java)
+               it.additionalClassDirs(mainSourceset.output)
             }
 
         }
