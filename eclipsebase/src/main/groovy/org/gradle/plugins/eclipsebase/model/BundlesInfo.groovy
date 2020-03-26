@@ -13,7 +13,7 @@ class BundlesInfo {
   private List <BundlesInfoEntry> bundlesInfoEntries = new ArrayList<BundlesInfoEntry>()
 
   public BundlesInfo (final File file) {
-    Collection<String> lines = Files.readAllLines(file, Charset.defaultCharset())
+    Collection<String> lines = Files.readAllLines(file.toPath(), Charset.defaultCharset())
     for (String next: lines) {
       if (! next.startsWith("#")) {
         String [] tokens = next.split(",")
