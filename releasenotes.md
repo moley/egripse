@@ -1,3 +1,6 @@
+**0.79*
+- gradle 6
+
 **0.78**
 - Eclipse artifacts can be mavenized now
 
