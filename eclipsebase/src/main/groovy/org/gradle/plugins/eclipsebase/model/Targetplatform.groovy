@@ -13,7 +13,6 @@ import java.util.jar.JarFile
  * Time: 21:45
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class Targetplatform extends DefaultPluginContainer {
 
     private Collection<EclipsePlugin> containedPlugins = new ArrayList<EclipsePlugin>()
@@ -75,7 +74,7 @@ class Targetplatform extends DefaultPluginContainer {
 
         Collection<EclipsePlugin> eclipsePluginCollection = new ArrayList<EclipsePlugin>()
         for (BundlesInfoEntry nextEntry : bundlesInfoEntries) {
-            log.info("Found bundle info " + nextEntry.bundleID + ", " + nextEntry.version + ", " + nextEntry.bundleID)
+            project.logger.info("Found bundle info " + nextEntry.bundleID + ", " + nextEntry.version + ", " + nextEntry.bundleID)
             File jarFile = new File(nextEntry.ref).isAbsolute() ? new File(nextEntry.ref) : new File(idePath.absolutePath + File.separator + nextEntry.ref).canonicalFile
             if (!jarFile.exists())
                 throw new IllegalStateException("Referenced jarfile " + jarFile.getAbsolutePath() + " does not exist (ide path " + idePath.absolutePath + ")")
@@ -96,7 +95,7 @@ class Targetplatform extends DefaultPluginContainer {
         else if (next.name.endsWith(".jar"))
             eclipsePlugins.add(new EclipsePlugin(new JarFile(next), next))
         else
-            log.warn("File ${next.absolutePath} is neither a directory nor a jarfile")
+            project.logger.warn("File ${next.absolutePath} is neither a directory nor a jarfile")
     }
 
 
@@ -111,17 +110,17 @@ class Targetplatform extends DefaultPluginContainer {
 
         for (EclipsePlugin nextPlugin : containedPlugins) {
             if (nextPlugin.metainf == null) {
-                log.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has no metainf")
+                project.logger.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has no metainf")
                 continue
             }
 
             if (nextPlugin.bundleID == null) {
-                log.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has metainf, but no bundleID")
+                project.logger.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has metainf, but no bundleID")
                 continue
             }
 
             if (dependency.isResolvable(nextPlugin)) {
-                log.info(prefix + "- Resolved dependency " + dependency.bundleID + "(" + System.identityHashCode(dependency)
+                project.logger.info(prefix + "- Resolved dependency " + dependency.bundleID + "(" + System.identityHashCode(dependency)
                         + ") to " + nextPlugin.originPath.absolutePath + "(" + System.identityHashCode(dependency) + ")")
                 dependency.resolvedPlugin = nextPlugin
 

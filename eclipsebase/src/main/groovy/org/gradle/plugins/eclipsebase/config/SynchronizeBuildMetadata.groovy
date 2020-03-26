@@ -15,7 +15,6 @@ import org.gradle.plugins.eclipsebase.model.EclipsePlugin
  * Time: 15:44
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class SynchronizeBuildMetadata extends DefaultTask{
 
     public final static String TASKNAME_SYNC_BUILD_METADATA = "syncBuildMetadata"
@@ -25,7 +24,7 @@ class SynchronizeBuildMetadata extends DefaultTask{
 
     @TaskAction
     public void synchronize () {
-        log.info ("Synchronize build metadata in project " + project.name)
+        project.logger.info ("Synchronize build metadata in project " + project.name)
 
         Eclipse eclipseModel = project.rootProject.eclipsemodel
         EclipseFeature eclipseFeature = eclipseModel.workspace.findFeatureByPath(project.projectDir)

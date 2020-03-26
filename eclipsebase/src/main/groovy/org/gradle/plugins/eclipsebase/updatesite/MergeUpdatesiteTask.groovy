@@ -1,10 +1,11 @@
 package org.gradle.plugins.eclipsebase.updatesite
-import groovy.util.logging.Slf4j
+
+
 import org.gradle.api.tasks.Exec
-import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.TaskAction
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.Targetplatform
+
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -12,7 +13,6 @@ import org.gradle.plugins.eclipsebase.model.Targetplatform
  * Time: 13:43
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class MergeUpdatesiteTask extends Exec {
 
     @TaskAction
@@ -25,7 +25,7 @@ class MergeUpdatesiteTask extends Exec {
         //Download eclipse executable
         Targetplatform externalEclipse = eclipse.targetplatformModel
 
-        println ("Merge udpatesite content from " + updatesiteContentPath.absolutePath + " to updatesite " + updatesitePath.absolutePath)
+        project.logger.lifecycle("Merge udpatesite content from " + updatesiteContentPath.absolutePath + " to updatesite " + updatesitePath.absolutePath)
 
         workingDir updatesiteContentPath
         executable(externalEclipse.executableEclipse(project).absolutePath)
@@ -44,7 +44,7 @@ class MergeUpdatesiteTask extends Exec {
         //args '-consoleLog'
         args '-nosplash'
 
-        println String.join(" ", commandLine)
+        project.logger.info("Call " + String.join(" ", commandLine))
         super.exec()
     }
 }

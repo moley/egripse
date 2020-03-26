@@ -1,7 +1,4 @@
 package org.gradle.plugins.eclipsebase.model
-
-import groovy.util.logging.Slf4j
-
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -9,7 +6,6 @@ import groovy.util.logging.Slf4j
  * Time: 12:24
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 abstract class DefaultPluginContainer implements PluginContainer {
 
     /**

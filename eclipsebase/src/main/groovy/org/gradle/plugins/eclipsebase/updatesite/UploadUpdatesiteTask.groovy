@@ -1,6 +1,6 @@
 package org.gradle.plugins.eclipsebase.updatesite
 
-import groovy.util.logging.Slf4j
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.tasks.TaskAction
@@ -15,7 +15,6 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
  * Time: 13:44
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class UploadUpdatesiteTask extends DefaultTask {
 
 
@@ -26,23 +25,23 @@ class UploadUpdatesiteTask extends DefaultTask {
         UpdatesiteDsl updatesite = basedsl.updatesite
 
         if (updatesite == null) {
-            println "No updatesite defined. Skip uploading updatesite"
+            project.logger.lifecycle "No updatesite defined. Skip uploading updatesite"
             return
         }
 
         if (updatesite.host == null) {
-            println "No updatesite host defined. Skip uploading updatesite"
+            project.logger.lifecycle  "No updatesite host defined. Skip uploading updatesite"
             return
         }
 
         if (updatesite.path == null) {
-            println "No updatesite path defined. Skip uploading updatesite"
+            project.logger.lifecycle  "No updatesite path defined. Skip uploading updatesite"
             return
         }
 
         File localUpdatesite = eclipse.localUpdatesitePath
 
-        println ("Uploading updatesite from ${localUpdatesite.absolutePath} to ${updatesite.path} on host ${updatesite.host}")
+        project.logger.lifecycle  ("Uploading updatesite from ${localUpdatesite.absolutePath} to ${updatesite.path} on host ${updatesite.host}")
 
         ConfigurationContainer configurationContainer = project.configurations
         project.ant {

@@ -10,7 +10,6 @@ import org.gradle.api.Project
  * Time: 12:23
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class Workspace extends DefaultPluginContainer{
 
     Collection<EclipsePlugin> eclipsePlugins
@@ -18,35 +17,37 @@ class Workspace extends DefaultPluginContainer{
     Collection<EclipseFeature> eclipseFeatures
 
     File workspacePath
+    Project project
 
 
     public Workspace (final Project project,
                       final String pluginsPath,
                       final String featuresPath) {
 
+        this.project = project
         this.workspacePath = project.projectDir
 
-        log.info("Read components in " + project.projectDir)
+        project.logger.info("Read components in " + project.projectDir)
 
         File pluginDir = project.file(pluginsPath)
-        log.info("Configured plugindir " + pluginDir)
+        project.logger.info("Configured plugindir " + pluginDir)
 
         for (File next : pluginDir.listFiles()) {
             File nextMetainf = new File(next, "META-INF")
             File metainf = new File(nextMetainf, "MANIFEST.MF")
             if (metainf.exists()) {
-                log.info("Adding ${next.absolutePath} as plugin")
+                project.logger.info("Adding ${next.absolutePath} as plugin")
                 addEclipsePlugin(next)
             }
         }
 
         File featureDir = project.file(featuresPath)
-        log.info("Configured featuredir " + featureDir)
+        project.logger.info("Configured featuredir " + featureDir)
 
         for (File next : featureDir.listFiles()) {
             File nextFeatureXml = new File(next, "feature.xml")
             if (nextFeatureXml.exists()) {
-                log.info("Adding ${next.absolutePath} as feature")
+                project.logger.info("Adding ${next.absolutePath} as feature")
                 addEclipseFeature(next)
             }
         }
@@ -95,7 +96,7 @@ class Workspace extends DefaultPluginContainer{
     public void addEclipseFeature(File path) {
         if (eclipseFeatures == null)
             eclipseFeatures = new ArrayList<EclipseFeature>()
-        log.debug("Found eclipse feature in path " + path.absolutePath)
+        project.logger.debug("Found eclipse feature in path " + path.absolutePath)
         eclipseFeatures.add(new EclipseFeature(path))
 
     }
@@ -110,16 +111,16 @@ class Workspace extends DefaultPluginContainer{
     }
 
     public Collection<Dependency> getAllDirectDependencies (final boolean includeWorkspacePlugins) {
-        log.info("getAllDirectDependencies $includeWorkspacePlugins")
+        project.logger.info("getAllDirectDependencies $includeWorkspacePlugins")
         Set <Dependency> dependencies = new HashSet<Dependency>()
         for (EclipsePlugin next: getPlugins()) {
             for (Dependency nextDep: next.metainf.dependencies) {
 
                 boolean isWorkspacePlugin = (findPluginByBundleID(nextDep.bundleID) != null)
-                log.info("check $nextDep.bundleID as workspace plugin: $isWorkspacePlugin")
+                project.logger.info("check $nextDep.bundleID as workspace plugin: $isWorkspacePlugin")
                 if (includeWorkspacePlugins || ! isWorkspacePlugin) {
                     dependencies.add(nextDep)
-                    log.info("Add $nextDep.bundleID as direct dependency")
+                    project.logger.info("Add $nextDep.bundleID as direct dependency")
                 }
 
             }
@@ -127,7 +128,7 @@ class Workspace extends DefaultPluginContainer{
         }
 
         for (Dependency next: dependencies) {
-            log.info("Direct dependency " + next.toString() + "found")
+            project.logger.info("Direct dependency " + next.toString() + "found")
         }
 
         return dependencies

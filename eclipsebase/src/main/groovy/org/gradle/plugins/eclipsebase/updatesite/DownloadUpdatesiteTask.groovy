@@ -1,6 +1,5 @@
 package org.gradle.plugins.eclipsebase.updatesite
 
-import groovy.util.logging.Slf4j
 import org.gradle.api.DefaultTask
 import org.gradle.api.artifacts.ConfigurationContainer
 import org.gradle.api.tasks.TaskAction
@@ -15,7 +14,6 @@ import org.gradle.plugins.eclipsebase.model.Eclipse
  * Time: 13:43
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class DownloadUpdatesiteTask extends DefaultTask{
 
     @TaskAction

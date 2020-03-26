@@ -1,6 +1,7 @@
 package org.gradle.plugins.eclipsebase.model
 
 import groovy.util.logging.Slf4j
+import org.gradle.api.Project
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,7 +10,6 @@ import groovy.util.logging.Slf4j
  * Time: 12:29
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class PluginResolver {
 
 
@@ -19,6 +19,9 @@ class PluginResolver {
                                   final Set<String> resolvedDependencies,
                                   final Dependency dependency,
                                   final EclipsePlugin plugin) {
+
+        Project project = eclipse.project
+        
         if (resolvedDependencies.contains(dependency.identifier))
             return false
 
@@ -32,17 +35,17 @@ class PluginResolver {
         for (PluginContainer nextContainer : eclipse.pluginContainers) {
             for (EclipsePlugin nextPlugin : nextContainer.getPlugins()) {
                 if (nextPlugin.metainf == null) {
-                    log.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has no metainf")
+                    project.logger.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has no metainf")
                     continue
                 }
 
                 if (nextPlugin.bundleID == null) {
-                    log.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has metainf, but no bundleID")
+                    project.logger.info(prefix + "- Plugin " + nextPlugin.originPath.absolutePath + " has metainf, but no bundleID")
                     continue
                 }
 
                 if (dependency.isResolvable(nextPlugin)) {
-                    log.info(prefix + "- Resolved dependency <" + dependency.bundleID + "> (" + System.identityHashCode(dependency)
+                    project.logger.info(prefix + "- Resolved dependency <" + dependency.bundleID + "> (" + System.identityHashCode(dependency)
                             + ") to <" + nextPlugin.originPath.absolutePath + "> (" + System.identityHashCode(dependency) + ")")
                     dependency.resolvedPlugin = nextPlugin
 

@@ -13,7 +13,6 @@ import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
  * Time: 11:59
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class Eclipse {
 
 
@@ -116,7 +115,7 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
   public Targetplatform getTargetplatformModel() {
 
     if (this.targetplatformModel == null) {
-      log.info("create targetplatform model for project " + project.name + "in eclipse object " + System.identityHashCode(this))
+      project.logger.info("create targetplatform model for project " + project.name + "in eclipse object " + System.identityHashCode(this))
       OomphIdeExtension oomphIdeExtension = project.extensions.findByName('oomphIde')
       if (oomphIdeExtension == null)
         throw new IllegalStateException("Please use the ide extension to define your targetplatform with goomph in project " + project.name + ")")
@@ -135,7 +134,7 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
       }
     }
     else
-      log.info("use targetplatform model for project " + project.name + " in eclipse object " + System.identityHashCode(this))
+      project.logger.info("use targetplatform model for project " + project.name + " in eclipse object " + System.identityHashCode(this))
 
     return targetplatformModel
 
@@ -145,7 +144,7 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
     for (MetaInf nextMetaInf : dependenciesCache.keySet()) {
       Collection<Dependency> deps = dependenciesCache.get(nextMetaInf)
 
-      log.info("Cache of metainf " + nextMetaInf.bundleID + "(" + System.identityHashCode(nextMetaInf) + ":")
+      project.logger.info("Cache of metainf " + nextMetaInf.bundleID + "(" + System.identityHashCode(nextMetaInf) + ":")
       logDependencies("", deps)
     }
   }
@@ -153,11 +152,15 @@ org.eclipse.core.net/proxyData/HTTP/hasAuth=false
   public void logDependencies(final String pre, final Collection<Dependency> deps) {
     for (Dependency nextDep : deps) {
       String resolvedString = nextDep.resolved ? nextDep.resolvedPlugin.originPath.name : "not resolved"
-      log.info(pre + "  - " + nextDep.bundleID + ", " + resolvedString + ", " + System.identityHashCode(nextDep))
+      project.logger.info(pre + "  - " + nextDep.bundleID + ", " + resolvedString + ", " + System.identityHashCode(nextDep))
       EclipsePlugin depPlugin = nextDep.resolvedPlugin
       if (depPlugin != null)
         logDependencies(pre + "  ", depPlugin.dependencies)
     }
+  }
+
+  public Project getProject () {
+    return project
   }
 
 

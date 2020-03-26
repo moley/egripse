@@ -1,7 +1,4 @@
 package org.gradle.plugins.eclipsebase.model
-
-import groovy.util.logging.Slf4j
-
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -9,7 +6,6 @@ import groovy.util.logging.Slf4j
  * Time: 23:58
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 public class BuildProperties {
 
     Collection <String> binIncludes = new ArrayList<String>()
@@ -49,11 +45,7 @@ public class BuildProperties {
      * @param divider   divider to split chapter from content
      */
     private void readChapters (String fileContent, final String divider) {
-        log.info("Read content " + fileContent)
         Collection<String> lines = fileContent.split(System.lineSeparator())
-        for (String nextLine: lines) {
-            log.info("Reading line $nextLine from $file.absolutePath")
-        }
 
         String currentChapter = null
         for (String next: lines) {
@@ -63,21 +55,16 @@ public class BuildProperties {
 
             String content = next
             int indexSeparator = next.indexOf(divider)
-            log.info("Reading line " + next + " with divider on position " + indexSeparator)
             if (indexSeparator > 0 && ! new Character(next.charAt(0)).isWhitespace()) {
                 currentChapter = next.substring(0, indexSeparator).trim()
-                log.info("set current chapter to " + currentChapter)
                 chapters.put(currentChapter, new ArrayList<String>())
                 content = next.substring(indexSeparator + 1, next.length())
-                log.info("set content to " + content)
             }
 
             content = content.replace(",", "").replace("\\", "").trim()
-            log.info("set content to " + content)
 
             Collection <String> contentOfChapter = chapters.get(currentChapter)
             contentOfChapter.add(content)
-            log.info("add content " + content + " to chapter " + currentChapter)
         }
     }
 

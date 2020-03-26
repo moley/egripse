@@ -9,7 +9,6 @@ import groovy.util.logging.Slf4j
  * Time: 15:14
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class EclipseFeature extends EclipseProjectPart  {
 
     File featurepath
@@ -19,8 +18,6 @@ class EclipseFeature extends EclipseProjectPart  {
     EclipseFeature(File path) {
         super (path)
         this.featurepath = path
-        log.debug("Create feature for path " + path.absolutePath)
-
         File featureXmlFile = new File (path, "feature.xml")
         if (featureXmlFile.exists())
           featureXml = new FeatureXml(featureXmlFile)

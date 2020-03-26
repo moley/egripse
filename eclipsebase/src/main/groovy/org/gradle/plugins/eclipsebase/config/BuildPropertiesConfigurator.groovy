@@ -14,7 +14,6 @@ import org.gradle.plugins.eclipsebase.model.MetaInf
  * Time: 08:14
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class BuildPropertiesConfigurator {
 
     public void synchronizeResourcesFromBuildProperties(final Project project, final BuildProperties buildproperties,
@@ -36,7 +35,7 @@ class BuildPropertiesConfigurator {
         project.copy {
           into(mergedResourcesFolder)
           from(project.projectDir) {
-            log.info("Included " + allIncludes)
+            project.logger.info("Included " + allIncludes)
             include(allIncludes)
             exclude ("build")
           }
@@ -45,7 +44,7 @@ class BuildPropertiesConfigurator {
         File defaultMavenResources = project.file("src/main/resources")
 
         if (defaultMavenResources.exists()) {
-            log.info("Copy files from default maven resources path " + defaultMavenResources)
+            project.logger.info("Copy files from default maven resources path " + defaultMavenResources)
             project.copy {
                 into(mergedResourcesFolder)
                 from(defaultMavenResources)
@@ -60,15 +59,15 @@ class BuildPropertiesConfigurator {
             metainf.setVersion(project.version)
             metainf.save()
 
-            log.info("After saved: <" + manifestFile.text + ">")
+            project.logger.info("After saved: <" + manifestFile.text + ">")
             project.jar.manifest.from {manifestFile}
-            log.info("Set version of manifest ${manifestFile.absolutePath} to " + project.version)
+            project.logger.info("Set version of manifest ${manifestFile.absolutePath} to " + project.version)
         }
         else {
             if (forceManifest)
                 throw new IllegalStateException("Project has no MANIFEST.MF file distributed")
             else
-                log.info("Manifest file <" + manifestFile.absolutePath + "> not available")
+                project.logger.info("Manifest file <" + manifestFile.absolutePath + "> not available")
         }
 
         File featureXmlFile = new File (mergedResourcesFolder, "feature.xml")
@@ -76,13 +75,13 @@ class BuildPropertiesConfigurator {
             FeatureXml featureXml = new FeatureXml(featureXmlFile)
             featureXml.setVersion(project.version)
             featureXml.save()
-            log.info("Set version of featureXml ${featureXmlFile.absolutePath} to " + project.version)
+            project.logger.info("Set version of featureXml ${featureXmlFile.absolutePath} to " + project.version)
         }
         else {
             if (forceFeatureXml)
                 throw new IllegalStateException("Project has no feature.xml file distributed")
             else
-              log.info("Feature.xml file <" + featureXmlFile.absolutePath + "> not available")
+              project.logger.info("Feature.xml file <" + featureXmlFile.absolutePath + "> not available")
         }
 
 

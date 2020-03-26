@@ -1,9 +1,8 @@
 package org.gradle.plugins.eclipsebase.model
 
-import groovy.util.logging.Slf4j
+
 import org.gradle.api.Project
 import org.gradle.api.file.FileCollection
-import org.gradle.api.file.FileTree
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,7 +11,6 @@ import org.gradle.api.file.FileTree
  * Time: 14:00
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class EclipseBuildUtils {
 
     public static final String eclipsemodelName = "eclipsemodel"
@@ -39,24 +37,6 @@ class EclipseBuildUtils {
 
         if (foundJarFile == null)
             throw new IllegalStateException("No matching dependency found for identifier " + mavenizeItem + " (Found: " + found + ")")
-    }
-
-    public static FileCollection createClasspath (final Project project) {
-
-        FileCollection collection = project.sourceSets.main.compileClasspath
-        collection += project.files (project.sourceSets.main.java.srcDirs)
-        collection += project.buildscript.configurations.classpath
-
-        Eclipse eclipseDsl = project.extensions.findByName("eclipseplugin") as Eclipse
-        eclipseDsl.allPluginPaths.each {
-            collection += project.files(new File (it, "build/classes/main"))
-            collection += project.files(new File (it, "src"))
-            collection += project.files(new File (it, "src-gen"))
-            collection += project.files(it)
-        }
-
-
-        return collection
     }
 
     /**

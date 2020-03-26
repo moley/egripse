@@ -1,14 +1,12 @@
 package org.gradle.plugins.eclipsebase
 
-import groovy.util.logging.Slf4j
+
 import org.gradle.api.DefaultTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.plugins.JavaPlugin
-import org.gradle.api.publish.maven.MavenPublication
 import org.gradle.plugins.eclipsebase.config.ProjectVersionConfigurator
 import org.gradle.plugins.eclipsebase.dsl.EclipseBaseDsl
-import org.gradle.plugins.eclipsebase.dsl.MavenizeItem
 import org.gradle.plugins.eclipsebase.dsl.UpdatesiteDsl
 import org.gradle.plugins.eclipsebase.model.Eclipse
 import org.gradle.plugins.eclipsebase.model.EclipseBuildUtils
@@ -22,7 +20,6 @@ import org.gradle.plugins.eclipsebase.updatesite.*
  * Time: 15:57
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class EclipseBasePlugin implements Plugin<Project> {
 
   private EclipseDependencyResolver dependencyResolver = new EclipseDependencyResolver()
@@ -31,9 +28,9 @@ class EclipseBasePlugin implements Plugin<Project> {
 
   @Override
   void apply(Project project) {
-    log.info("Applying plugin " + getClass() + " in project " + project.name)
+    project.logger.info("Applying plugin " + getClass() + " in project " + project.name)
 
-    printMemory()
+    printMemory(project)
 
     EclipseBaseDsl eclipseBaseDsl = project.extensions.create("eclipsebase", EclipseBaseDsl, project)
     UpdatesiteDsl updatesite = project.extensions.create("updatesite", UpdatesiteDsl, eclipseBaseDsl)
@@ -55,7 +52,7 @@ class EclipseBasePlugin implements Plugin<Project> {
       }
 
       for (Project nextSubProject : project.rootProject.subprojects) {
-        log.info("Set version in project " + nextSubProject.name)
+        project.logger.info("Set version in project " + nextSubProject.name)
         nextSubProject.plugins.apply(JavaPlugin)
 
         EclipseProjectPart projectpart = eclipseModel.workspace.findProjectPart(nextSubProject.projectDir)
@@ -73,7 +70,7 @@ class EclipseBasePlugin implements Plugin<Project> {
 
 
   public void configureGoomph(final Project project) {
-    log.info("Configure goomph plugin in project $project.name")
+    project.logger.info("Configure goomph plugin in project $project.name")
     if (project.rootProject.equals(project)) {
       project.plugins.apply('com.diffplug.gradle.oomph.ide')
 
@@ -81,7 +78,7 @@ class EclipseBasePlugin implements Plugin<Project> {
   }
 
   public void configureUpdatesiteTasks(final Project project) {
-    log.info("Configure updatesite tasks for project " + project.name)
+    project.logger.info("Configure updatesite tasks for project " + project.name)
     project.configurations {
       ftpAntTask
     }
@@ -117,17 +114,17 @@ class EclipseBasePlugin implements Plugin<Project> {
     updatesiteTask.dependsOn uploadUpdatesiteTask
   }
 
-  public void printMemory() {
+  private void printMemory(Project project) {
     int mb = 1024 * 1024;
 
     //Getting the runtime reference from system
     Runtime runtime = Runtime.getRuntime();
 
-    log.info("##### Heap utilization statistics [MB] #####")
-    log.info("Used Memory:" + (runtime.totalMemory() - runtime.freeMemory()) / mb)
-    log.info("Free Memory:" + runtime.freeMemory() / mb)
-    log.info("Total Memory:" + runtime.totalMemory() / mb)
-    log.info("Max Memory:" + runtime.maxMemory() / mb)
+    project.logger.info("##### Heap utilization statistics [MB] #####")
+    project.logger.info("Used Memory:" + (runtime.totalMemory() - runtime.freeMemory()) / mb)
+    project.logger.info("Free Memory:" + runtime.freeMemory() / mb)
+    project.logger.info("Total Memory:" + runtime.totalMemory() / mb)
+    project.logger.info("Max Memory:" + runtime.maxMemory() / mb)
   }
 
 }

@@ -1,6 +1,5 @@
 package org.gradle.plugins.eclipsebase.model
 
-import groovy.util.logging.Slf4j
 
 import java.util.jar.Manifest
 
@@ -11,7 +10,6 @@ import java.util.jar.Manifest
  * Time: 14:29
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class MetaInf {
 
     Set<Dependency> dependencies = new HashSet<Dependency>()
@@ -34,17 +32,12 @@ class MetaInf {
 
         manifest = new Manifest(metainfFile)
 
-        if (log.isDebugEnabled())
-          log.debug("Content of manifest $manifest.entries.toString()")
-
         createRequireBundle()
         createBundleId()
         createBundleClasspath()
         createVersion()
         createFragmentHost()
 
-        if (log.isDebugEnabled())
-          log.debug("Read metainf $bundleID")
     }
 
     public Dependency findDependency (final String bundleID) {
@@ -58,7 +51,6 @@ class MetaInf {
 
     public void setVersion (final String version) {
         this.version = version
-        log.info ("set version $version in file $file.absolutePath")
         manifest.mainAttributes.putValue('Bundle-Version', version)
     }
 
@@ -68,7 +60,6 @@ class MetaInf {
 
     public void saveTo (File file) {
         if (file.name.equals('MANIFEST.MF')) {
-          log.info("Writing $file")
           FileOutputStream fos = new FileOutputStream(file)
 
           if (! manifest.getMainAttributes().getValue('Manifest-Version'))
@@ -78,7 +69,7 @@ class MetaInf {
             manifest.write(fos)
               fos.close()
           } catch (Exception e) {
-            log.error(e.toString(), e)
+            throw new IllegalStateException("Error writing MetaInf " + file.absolutePath)
           }
         }
         else

@@ -1,6 +1,6 @@
 package org.gradle.plugins.eclipsebase.model
 
-import groovy.util.logging.Slf4j
+
 import org.gradle.api.GradleException
 
 import java.util.jar.JarFile
@@ -13,7 +13,6 @@ import java.util.zip.ZipEntry
  * Time: 15:14
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class EclipsePlugin extends EclipseProjectPart {
 
   MetaInf metainf
@@ -32,8 +31,6 @@ class EclipsePlugin extends EclipseProjectPart {
     if (manifestEntry != null) {
       metainf = new MetaInf(originPath, jarfile.getInputStream(manifestEntry))
     }
-
-    log.debug("Reading plugin from jarfile " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
 
 
     jarfile.close()
@@ -65,14 +62,11 @@ class EclipsePlugin extends EclipseProjectPart {
 
         metainf = new MetaInf(metainfFile, new FileInputStream(metainfFile))
 
-        log.debug("Reading plugin from path " + originPath.absolutePath + "(MetaInf " + System.identityHashCode(metainf) + ")")
-
-
         //TODO make it globally available
         for (String next : metainf.bundleClasspath) {
           File nextEntry = new File(path, next)
           if (!nextEntry.exists()) {
-            log.warn("BundleclasspathEntry " + nextEntry.absolutePath + " in manifest " + manifest.absolutePath + " doesnt exist")
+            println "BundleclasspathEntry " + nextEntry.absolutePath + " in manifest " + manifest.absolutePath + " doesnt exist"
           } else
             bundleClasspath.add(nextEntry)
         }

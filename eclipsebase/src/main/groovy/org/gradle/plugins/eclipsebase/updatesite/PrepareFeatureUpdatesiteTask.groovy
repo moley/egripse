@@ -15,7 +15,7 @@ import org.gradle.plugins.eclipsebase.model.EclipsePlugin
  * Time: 11:16
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
+
 class PrepareFeatureUpdatesiteTask extends DefaultTask {
 
     private String getVersion (final File jarFile) {
@@ -59,7 +59,7 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
               latestVersion = getLatestVersion(featurePath)
 
             String fromString = featurePath.absolutePath
-            log.info("Copy from feature path " + fromString + " to " + updateSiteFeaturesPath.absolutePath)
+            project.logger.info("Copy from feature path " + fromString + " to " + updateSiteFeaturesPath.absolutePath)
             int numberOfCopiedElements = 0
             project.copy {
                 into updateSiteFeaturesPath.absolutePath
@@ -79,7 +79,7 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
             if (! plugin.isTestPlugin()) {
               File pluginPath = new File (plugin.originPath, "build/libs")
               String fromString = new File (plugin.originPath, "build/libs").absolutePath
-              log.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
+              project.logger.info("Copy from plugins path " + fromString + "to " + updateSitePluginsPath.absolutePath)
               int numberOfCopiedElements = 0
               project.copy {
                 into updateSitePluginsPath.absolutePath
@@ -99,7 +99,7 @@ class PrepareFeatureUpdatesiteTask extends DefaultTask {
 
         project.fileTree(updateSiteSource).each {
             File newFileName = new File (it.parentFile, it.name.replace("-","_"))
-            log.info ("Rename " + it.absolutePath + " to " + newFileName.absolutePath)
+            project.logger.info ("Rename " + it.absolutePath + " to " + newFileName.absolutePath)
             it.renameTo(newFileName)
         }
 

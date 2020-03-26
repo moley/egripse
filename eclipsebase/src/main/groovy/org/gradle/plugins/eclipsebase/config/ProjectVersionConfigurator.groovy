@@ -13,7 +13,6 @@ import java.text.SimpleDateFormat
  * Time: 08:46
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class ProjectVersionConfigurator {
 
     private String EXTENSIONKEY_QUALIFIER_TIMESTAMP = 'qualifierTimestamp'
@@ -32,6 +31,6 @@ class ProjectVersionConfigurator {
         //set version from metainf / feature.xml
 
         project.version = version.replace("qualifier", "v" + currentDateAsString)
-        log.info ("Set current version " + project.version + " in project " + project)
+        project.logger.info ("Set current version " + project.version + " in project " + project)
     }
 }

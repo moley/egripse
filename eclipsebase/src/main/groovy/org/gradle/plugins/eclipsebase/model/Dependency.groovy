@@ -1,7 +1,4 @@
 package org.gradle.plugins.eclipsebase.model
-
-import groovy.util.logging.Slf4j
-
 /**
  * Created with IntelliJ IDEA.
  * User: OleyMa
@@ -9,7 +6,6 @@ import groovy.util.logging.Slf4j
  * Time: 14:32
  * To change this template use File | Settings | File Templates.
  */
-@Slf4j
 class Dependency {
 
     String bundleID
@@ -21,7 +17,6 @@ class Dependency {
     EclipsePlugin resolvedPlugin
 
     public Dependency (final String fromString) {
-        log.info("Create new dependency " + System.identityHashCode(this) + ": " + fromString)
 
         List <String> items = fromString.split(";")
         if (items.contains("visibility:=reexport"))

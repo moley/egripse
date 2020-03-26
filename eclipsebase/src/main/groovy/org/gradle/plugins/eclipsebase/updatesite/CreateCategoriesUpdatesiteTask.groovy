@@ -12,7 +12,6 @@ import org.gradle.plugins.eclipsebase.model.Targetplatform
  * Create categories for the updatesite,
  * see details: https://help.eclipse.org/luna/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Fguide%2Fp2_publisher.html
  */
-@Slf4j
 class CreateCategoriesUpdatesiteTask extends Exec {
 
     /**
@@ -24,7 +23,7 @@ class CreateCategoriesUpdatesiteTask extends Exec {
         EclipseBaseDsl basedsl = project.eclipsebase
         UpdatesiteDsl updatesite = basedsl.updatesite
         if (updatesite.categoriesXml == null) {
-            log.warn("No category.xml file configured to be used. Skip creating categories")
+            project.logger.warn("No category.xml file configured to be used. Skip creating categories")
             return null
         }
 
@@ -53,7 +52,7 @@ class CreateCategoriesUpdatesiteTask extends Exec {
         println "Category definition          : " + categoryDefinition.absolutePath
         println "Updatesite                   : " + updatesitePath.absolutePath
 
-        log.info("Classpath " + getClass().getName())
+        project.logger.info("Classpath " + getClass().getName())
 
         workingDir 'build/newUpdatesiteContent'
 
