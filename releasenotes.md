@@ -1,3 +1,6 @@
+**0.83** 
+- improved logging
+
 **0.82**
 - gradle 6
 

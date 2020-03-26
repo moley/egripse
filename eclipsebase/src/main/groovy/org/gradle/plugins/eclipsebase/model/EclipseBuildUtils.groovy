@@ -28,13 +28,17 @@ class EclipseBuildUtils {
     public static File findDependency (final Project project, final String mavenizeItem) {
         File foundJarFile = null
 
+        Collection<String> found = new ArrayList<String>()
+
         for (File next : project.configurations.compile) {
             if (next.name.startsWith(mavenizeItem + "_"))
                 return next
+            else
+                found.add(next.name)
         }
 
         if (foundJarFile == null)
-            throw new IllegalStateException("No matching dependency found for identifier " + mavenizeItem)
+            throw new IllegalStateException("No matching dependency found for identifier " + mavenizeItem + " (Found: " + found + ")")
     }
 
     public static FileCollection createClasspath (final Project project) {
