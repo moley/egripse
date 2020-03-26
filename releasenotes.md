@@ -1,3 +1,6 @@
+**0.84**
+- logging with gradle
+
 **0.83**
 - improved logging
 
