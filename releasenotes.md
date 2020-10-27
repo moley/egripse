@@ -1,3 +1,6 @@
+**0.86**
+- gradle 6
+
 **0.85**
 - logging with gradle
 

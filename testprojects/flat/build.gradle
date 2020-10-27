@@ -4,13 +4,15 @@ buildscript {
     mavenCentral()
     maven {url 'http://www.fornax-platform.org/m2/repository'}
   }
+
+  def egripseVersion = 0.86
   dependencies {
-    classpath 'org.egripse:eclipseplugin:0.+'
-    classpath 'org.egripse:eclipsefeature:0.+'
-    classpath 'org.egripse:eclipsebase:0.+'
-    classpath 'org.egripse:eclipsemwe:0.+'
-    classpath 'org.egripse:eclipseheadless:0.+'
-    classpath 'org.egripse:eclipsesurefire:0.+'
+    classpath "org.egripse:eclipseplugin:${egripseVersion}"
+    classpath "org.egripse:eclipsefeature:${egripseVersion}"
+    classpath "org.egripse:eclipsebase:${egripseVersion}"
+    classpath "org.egripse:eclipsemwe:${egripseVersion}"
+    classpath "org.egripse:eclipseheadless:${egripseVersion}"
+    classpath "org.egripse:eclipsesurefire:${egripseVersion}"
   }
 }
 
